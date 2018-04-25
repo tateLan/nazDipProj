@@ -34,11 +34,18 @@
             this.btn_auth_enter = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tb_auth_pass = new System.Windows.Forms.TextBox();
+            this.lbl_auth_invalidData = new System.Windows.Forms.Label();
+            this.pnl_mainMenu = new System.Windows.Forms.Panel();
+            this.btn_mainMenu_registerIncome = new System.Windows.Forms.Button();
+            this.btn_mainMenu_registerSell = new System.Windows.Forms.Button();
+            this.btn_mainMenu_addChangeInfo = new System.Windows.Forms.Button();
             this.pnl_auth.SuspendLayout();
+            this.pnl_mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_auth
             // 
+            this.pnl_auth.Controls.Add(this.lbl_auth_invalidData);
             this.pnl_auth.Controls.Add(this.btn_auth_enter);
             this.pnl_auth.Controls.Add(this.tb_auth_pass);
             this.pnl_auth.Controls.Add(this.label2);
@@ -46,7 +53,7 @@
             this.pnl_auth.Controls.Add(this.label1);
             this.pnl_auth.Location = new System.Drawing.Point(12, 12);
             this.pnl_auth.Name = "pnl_auth";
-            this.pnl_auth.Size = new System.Drawing.Size(880, 527);
+            this.pnl_auth.Size = new System.Drawing.Size(29, 23);
             this.pnl_auth.TabIndex = 0;
             // 
             // label1
@@ -98,12 +105,62 @@
             this.tb_auth_pass.Size = new System.Drawing.Size(142, 26);
             this.tb_auth_pass.TabIndex = 1;
             // 
+            // lbl_auth_invalidData
+            // 
+            this.lbl_auth_invalidData.AutoSize = true;
+            this.lbl_auth_invalidData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_auth_invalidData.ForeColor = System.Drawing.Color.Red;
+            this.lbl_auth_invalidData.Location = new System.Drawing.Point(297, 335);
+            this.lbl_auth_invalidData.Name = "lbl_auth_invalidData";
+            this.lbl_auth_invalidData.Size = new System.Drawing.Size(253, 20);
+            this.lbl_auth_invalidData.TabIndex = 3;
+            this.lbl_auth_invalidData.Text = "Непраивльний логін або пароль";
+            this.lbl_auth_invalidData.Visible = false;
+            // 
+            // pnl_mainMenu
+            // 
+            this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_addChangeInfo);
+            this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_registerSell);
+            this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_registerIncome);
+            this.pnl_mainMenu.Location = new System.Drawing.Point(12, 12);
+            this.pnl_mainMenu.Name = "pnl_mainMenu";
+            this.pnl_mainMenu.Size = new System.Drawing.Size(880, 527);
+            this.pnl_mainMenu.TabIndex = 1;
+            // 
+            // btn_mainMenu_registerIncome
+            // 
+            this.btn_mainMenu_registerIncome.Location = new System.Drawing.Point(19, 18);
+            this.btn_mainMenu_registerIncome.Name = "btn_mainMenu_registerIncome";
+            this.btn_mainMenu_registerIncome.Size = new System.Drawing.Size(164, 61);
+            this.btn_mainMenu_registerIncome.TabIndex = 0;
+            this.btn_mainMenu_registerIncome.Text = "Зареєструвати нову поставку";
+            this.btn_mainMenu_registerIncome.UseVisualStyleBackColor = true;
+            // 
+            // btn_mainMenu_registerSell
+            // 
+            this.btn_mainMenu_registerSell.Location = new System.Drawing.Point(19, 136);
+            this.btn_mainMenu_registerSell.Name = "btn_mainMenu_registerSell";
+            this.btn_mainMenu_registerSell.Size = new System.Drawing.Size(164, 61);
+            this.btn_mainMenu_registerSell.TabIndex = 0;
+            this.btn_mainMenu_registerSell.Text = "Зареєструвати продажу товару";
+            this.btn_mainMenu_registerSell.UseVisualStyleBackColor = true;
+            // 
+            // btn_mainMenu_addChangeInfo
+            // 
+            this.btn_mainMenu_addChangeInfo.Location = new System.Drawing.Point(19, 255);
+            this.btn_mainMenu_addChangeInfo.Name = "btn_mainMenu_addChangeInfo";
+            this.btn_mainMenu_addChangeInfo.Size = new System.Drawing.Size(164, 61);
+            this.btn_mainMenu_addChangeInfo.TabIndex = 0;
+            this.btn_mainMenu_addChangeInfo.Text = "Додати/Змінити інформацію";
+            this.btn_mainMenu_addChangeInfo.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_auth_enter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
+            this.Controls.Add(this.pnl_mainMenu);
             this.Controls.Add(this.pnl_auth);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -112,6 +169,7 @@
             this.Text = "Еталон-Луцьк";
             this.pnl_auth.ResumeLayout(false);
             this.pnl_auth.PerformLayout();
+            this.pnl_mainMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -124,6 +182,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tb_auth_login;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_auth_invalidData;
+        private System.Windows.Forms.Panel pnl_mainMenu;
+        private System.Windows.Forms.Button btn_mainMenu_addChangeInfo;
+        private System.Windows.Forms.Button btn_mainMenu_registerSell;
+        private System.Windows.Forms.Button btn_mainMenu_registerIncome;
     }
 }
 
