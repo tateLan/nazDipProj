@@ -15,6 +15,28 @@ namespace diplomaProj
         public Form1()
         {
             InitializeComponent();
+
+            InitPanels();
+            HideAllPnls();
+
+            tb_auth_login.Select();
+
+            pnl_auth.Show();
+        }
+
+        private void InitPanels()
+        {
+            pnl_auth.Dock = DockStyle.Fill;
+        }
+
+        private void HideAllPnls()
+        {
+            pnl_auth.Hide();
+;        }
+
+        private void btn_auth_enter_Click(object sender, EventArgs e)
+        {
+            pnl_auth.Hide();
         }
     }
 }
