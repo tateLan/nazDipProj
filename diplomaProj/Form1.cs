@@ -20,16 +20,20 @@ namespace diplomaProj
         private string server = "176.98.27.33";
         private Dictionary<string, string> dict = new Dictionary<string, string>();
 
-        Label label4 = new Label();
-        Label label5 = new Label();
-        Label label6 = new Label();
-        Label label7 = new Label();
-        Label label8 = new Label();
-        TextBox textBox1 = new TextBox();
-        TextBox textBox2 = new TextBox();
-        TextBox textBox3 = new TextBox();
-        TextBox textBox4 = new TextBox();
-        TextBox textBox5 = new TextBox();
+
+        Label inflbl = new Label();
+        Label showIncLbl1 = new Label();
+        Label showIncLbl2 = new Label();
+        Label showIncLbl3 = new Label();
+        Label showIncLbl4 = new Label();
+        Label showIncLbl5 = new Label();
+        Label showIncLblType = new Label();
+        TextBox showIncType = new TextBox();
+        TextBox showIncTb1 = new TextBox();
+        TextBox showIncTb2 = new TextBox();
+        TextBox showIncTb3 = new TextBox();
+        TextBox showIncTb4 = new TextBox();
+        TextBox showIncTb5 = new TextBox();
 
         public Form1()
         {
@@ -339,7 +343,7 @@ namespace diplomaProj
 
                         reader.Close();
 
-
+                        HideAllAdditionControls();
                     }
                     break;
                 case "outcome":
@@ -382,6 +386,9 @@ namespace diplomaProj
 
         private void Dgw_show_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            HideAllAdditionControls();
+            if (e.RowIndex > dgw_show.RowCount || e.RowIndex < 0)
+                return;
             DataGridViewRow dgwr = dgw_show.Rows[e.RowIndex];
             MySqlDataReader reader = new MySqlCommand("call getType4showIncome(" + dgwr.Cells[3].Value + ")", connect).ExecuteReader();
 
@@ -391,30 +398,152 @@ namespace diplomaProj
 
             reader.Close();
 
-            switch(assortimInd)
+            switch (assortimInd)
             {
                 case 1:     //windows
                     {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
 
-                    }break;
+                        showIncType.Visible = true;
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Назва";
+
+                        reader = new MySqlCommand("select * from windows where windows.codeOfItem = " + dgwr.Cells[3].Value, connect).ExecuteReader();
+                        while(reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                        }
+
+                        showIncType.Text = "Вікна";
+
+                        reader.Close();
+                    }
+                    break;
                 case 2:     //doors
                     {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
+                        showIncLbl4.Visible = true;
+                        showIncLbl5.Visible = true;
 
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Тип";
+                        showIncLbl4.Text = "Матеріал";
+                        showIncLbl5.Text = "Колір";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+                        showIncTb4.Visible = true;
+                        showIncTb5.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("select * from doors where doors.codeOfItem = " + dgwr.Cells[3].Value, connect).ExecuteReader();
+                        while(reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                            showIncTb4.Text = reader[3].ToString();
+                            showIncTb5.Text = reader[4].ToString();
+                        }
+
+                        showIncType.Text = "Двері";
+
+                        reader.Close();
                     }
                     break;
                 case 3:     //windowsill
                     {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
+                        showIncLbl4.Visible = true;
 
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Матеріал";
+                        showIncLbl4.Text = "Колір";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+                        showIncTb4.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("select * from windowsill where windowsill.codeOfItem = " + dgwr.Cells[3].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                            showIncTb4.Text = reader[3].ToString();
+                        }
+
+                        showIncType.Text = "Підвіконня";
+                        reader.Close();
                     }
                     break;
                 case 4:     //mosquito
                     {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
 
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Назва";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("select * from mosquito_net where mosquito_net.codeOfItem = " + dgwr.Cells[3].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                        }
+
+                        showIncType.Text = "Сітки";
+                        reader.Close();
                     }
                     break;
                 case 5:     //reflux
                     {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
 
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Назва";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("select * from reflux where reflux.codeOfItem = " + dgwr.Cells[3].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                        }
+
+                        showIncType.Text = "Відливи";
+                        reader.Close();
                     }
                     break;
             }
@@ -428,17 +557,17 @@ namespace diplomaProj
 
             dgw_show.CellMouseClick -= Dgw_show_CellMouseClick;
 
-            pnl_show.Controls.Remove(label4);
-            pnl_show.Controls.Remove(label5);
-            pnl_show.Controls.Remove(label6);
-            pnl_show.Controls.Remove(label7);
-            pnl_show.Controls.Remove(label8);
-                              
-            pnl_show.Controls.Remove(textBox1);
-            pnl_show.Controls.Remove(textBox2);
-            pnl_show.Controls.Remove(textBox3);
-            pnl_show.Controls.Remove(textBox4);
-            pnl_show.Controls.Remove(textBox5);
+            pnl_show.Controls.Remove(showIncLbl1);
+            pnl_show.Controls.Remove(showIncLbl2);
+            pnl_show.Controls.Remove(showIncLbl3);
+            pnl_show.Controls.Remove(showIncLbl4);
+            pnl_show.Controls.Remove(showIncLbl5);
+
+            pnl_show.Controls.Remove(showIncTb1);
+            pnl_show.Controls.Remove(showIncTb2);
+            pnl_show.Controls.Remove(showIncTb3);
+            pnl_show.Controls.Remove(showIncTb4);
+            pnl_show.Controls.Remove(showIncTb5);
 
             this.Width = 920;
 
@@ -463,114 +592,146 @@ namespace diplomaProj
 
         private void getAdditControls()
         {
-            this.Width = 1220;
+            this.Width = 1230;
+            // 
+            // showIncLblType
+            // 
+            showIncLblType.AutoSize = true;
+            showIncLblType.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncLblType.Location = new Point(915, 78);
+            showIncLblType.Name = "showIncLbl1";
+            showIncLblType.Size = new Size(51, 20);
+            showIncLblType.TabIndex = 3;
+            showIncLblType.Text = "Вид продукту";
+            // 
+            // showIncType
+            // 
+            showIncType.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncType.Location = new Point(1069, 75);
+            showIncType.Name = "showIncTb1";
+            showIncType.Size = new Size(133, 26);
+            showIncType.TabIndex = 4;
+            // 
+            // showIncLbl1
+            // 
+            showIncLbl1.AutoSize = true;
+            showIncLbl1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncLbl1.Location = new Point(915, 118);
+            showIncLbl1.Name = "showIncLbl1";
+            showIncLbl1.Size = new Size(51, 20);
+            showIncLbl1.TabIndex = 3;
+            showIncLbl1.Text = "showIncLbl1";
+            // 
+            // showIncTb1
+            // 
+            showIncTb1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncTb1.Location = new Point(1002, 115);
+            showIncTb1.Name = "showIncTb1";
+            showIncTb1.Size = new Size(200, 26);
+            showIncTb1.TabIndex = 4;
+            // 
+            // showIncLbl2
+            // 
+            showIncLbl2.AutoSize = true;
+            showIncLbl2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncLbl2.Location = new Point(915, 158);
+            showIncLbl2.Name = "showIncLbl2";
+            showIncLbl2.Size = new Size(51, 20);
+            showIncLbl2.TabIndex = 3;
+            showIncLbl2.Text = "showIncLbl1";
+            // 
+            // showIncTb2
+            // 
+            showIncTb2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncTb2.Location = new Point(1002, 155);
+            showIncTb2.Name = "showIncTb2";
+            showIncTb2.Size = new Size(200, 26);
+            showIncTb2.TabIndex = 4;
+            // 
+            // showIncLbl3
+            // 
+            showIncLbl3.AutoSize = true;
+            showIncLbl3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncLbl3.Location = new Point(915, 198);
+            showIncLbl3.Name = "showIncLbl3";
+            showIncLbl3.Size = new Size(51, 20);
+            showIncLbl3.TabIndex = 3;
+            showIncLbl3.Text = "showIncLbl1";
+            // 
+            // showIncTb3
+            // 
+            showIncTb3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncTb3.Location = new Point(1002, 195);
+            showIncTb3.Name = "showIncTb3";
+            showIncTb3.Size = new Size(200, 26);
+            showIncTb3.TabIndex = 4;
+            // 
+            // showIncLbl4
+            // 
+            showIncLbl4.AutoSize = true;
+            showIncLbl4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncLbl4.Location = new Point(915, 238);
+            showIncLbl4.Name = "showIncLbl4";
+            showIncLbl4.Size = new Size(51, 20);
+            showIncLbl4.TabIndex = 3;
+            showIncLbl4.Text = "showIncLbl1";
+            // 
+            // showIncTb4
+            // 
+            showIncTb4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncTb4.Location = new Point(1002, 235);
+            showIncTb4.Name = "showIncTb4";
+            showIncTb4.Size = new Size(200, 26);
+            showIncTb4.TabIndex = 4;
+            // 
+            // showIncLbl5
+            // 
+            showIncLbl5.AutoSize = true;
+            showIncLbl5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncLbl5.Location = new Point(915, 278);
+            showIncLbl5.Name = "showIncLbl5";
+            showIncLbl5.Size = new Size(51, 20);
+            showIncLbl5.TabIndex = 3;
+            showIncLbl5.Text = "showIncLbl1";
+            // 
+            // showIncTb5
+            // 
+            showIncTb5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            showIncTb5.Location = new Point(1002, 275);
+            showIncTb5.Name = "showIncTb5";
+            showIncTb5.Size = new Size(200, 26);
+            showIncTb5.TabIndex = 4;
 
-            
+            pnl_show.Controls.Add(showIncLbl1);
+            pnl_show.Controls.Add(showIncLbl2);
+            pnl_show.Controls.Add(showIncLbl3);
+            pnl_show.Controls.Add(showIncLbl4);
+            pnl_show.Controls.Add(showIncLbl5);
+            pnl_show.Controls.Add(showIncLblType);
 
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            label4.Location = new System.Drawing.Point(915, 76);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(51, 20);
-            label4.TabIndex = 3;
-            label4.Text = "label4";
-            // 
-            // textBox1
-            // 
-            textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            textBox1.Location = new System.Drawing.Point(1002, 70);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(167, 26);
-            textBox1.TabIndex = 4;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            label5.Location = new System.Drawing.Point(915, 106);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(51, 20);
-            label5.TabIndex = 3;
-            label5.Text = "label4";
-            // 
-            // textBox2
-            // 
-            textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            textBox2.Location = new System.Drawing.Point(1002, 103);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new System.Drawing.Size(167, 26);
-            textBox2.TabIndex = 4;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            label6.Location = new System.Drawing.Point(915, 138);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(51, 20);
-            label6.TabIndex = 3;
-            label6.Text = "label4";
-            // 
-            // textBox3
-            // 
-            textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            textBox3.Location = new System.Drawing.Point(1002, 135);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new System.Drawing.Size(167, 26);
-            textBox3.TabIndex = 4;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            label7.Location = new System.Drawing.Point(915, 174);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(51, 20);
-            label7.TabIndex = 3;
-            label7.Text = "label4";
-            // 
-            // textBox4
-            // 
-            textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            textBox4.Location = new System.Drawing.Point(1002, 172);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new System.Drawing.Size(167, 26);
-            textBox4.TabIndex = 4;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            label8.Location = new System.Drawing.Point(915, 207);
-            label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(51, 20);
-            label8.TabIndex = 3;
-            label8.Text = "label4";
-            // 
-            // textBox5
-            // 
-            textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            textBox5.Location = new System.Drawing.Point(1002, 204);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new System.Drawing.Size(167, 26);
-            textBox5.TabIndex = 4;
+            pnl_show.Controls.Add(showIncType);
+            pnl_show.Controls.Add(showIncTb1);
+            pnl_show.Controls.Add(showIncTb2);
+            pnl_show.Controls.Add(showIncTb3);
+            pnl_show.Controls.Add(showIncTb4);
+            pnl_show.Controls.Add(showIncTb5);
+        }
 
-            pnl_show.Controls.Add(label4);
-            pnl_show.Controls.Add(label5);
-            pnl_show.Controls.Add(label6);
-            pnl_show.Controls.Add(label7);
-            pnl_show.Controls.Add(label8);
+        private void HideAllAdditionControls()
+        {
+            showIncLbl1.Visible = false;
+            showIncLbl2.Visible = false;
+            showIncLbl3.Visible = false;
+            showIncLbl4.Visible = false;
+            showIncLbl5.Visible = false;
+            showIncLblType.Visible = false;
 
-            pnl_show.Controls.Add(textBox1);
-            pnl_show.Controls.Add(textBox2);
-            pnl_show.Controls.Add(textBox3);
-            pnl_show.Controls.Add(textBox4);
-            pnl_show.Controls.Add(textBox5);
-
-            
+            showIncTb1.Visible = false;
+            showIncTb2.Visible = false;
+            showIncTb3.Visible = false;
+            showIncTb4.Visible = false;
+            showIncTb5.Visible = false;
+            showIncType.Visible = false;
         }
     }
 }
