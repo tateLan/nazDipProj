@@ -49,8 +49,16 @@
             this.btn_mainMenu_addChangeInfo = new System.Windows.Forms.Button();
             this.btn_mainMenu_registerSell = new System.Windows.Forms.Button();
             this.btn_mainMenu_registerIncome = new System.Windows.Forms.Button();
+            this.pnl_registerNew = new System.Windows.Forms.Panel();
+            this.btn_back = new System.Windows.Forms.Button();
+            this.pnl_show = new System.Windows.Forms.Panel();
+            this.dgw_show = new System.Windows.Forms.DataGridView();
+            this.btn_back2 = new System.Windows.Forms.Button();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
+            this.pnl_registerNew.SuspendLayout();
+            this.pnl_show.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgw_show)).BeginInit();
             this.SuspendLayout();
             // 
             // pnl_auth
@@ -142,9 +150,9 @@
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_addChangeInfo);
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_registerSell);
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_registerIncome);
-            this.pnl_mainMenu.Location = new System.Drawing.Point(12, 12);
+            this.pnl_mainMenu.Location = new System.Drawing.Point(337, 12);
             this.pnl_mainMenu.Name = "pnl_mainMenu";
-            this.pnl_mainMenu.Size = new System.Drawing.Size(880, 527);
+            this.pnl_mainMenu.Size = new System.Drawing.Size(107, 27);
             this.pnl_mainMenu.TabIndex = 1;
             // 
             // label3
@@ -281,12 +289,66 @@
             this.btn_mainMenu_registerIncome.UseVisualStyleBackColor = true;
             this.btn_mainMenu_registerIncome.Click += new System.EventHandler(this.btn_mainMenu_registerIncome_Click);
             // 
+            // pnl_registerNew
+            // 
+            this.pnl_registerNew.Controls.Add(this.btn_back);
+            this.pnl_registerNew.Location = new System.Drawing.Point(124, 12);
+            this.pnl_registerNew.Name = "pnl_registerNew";
+            this.pnl_registerNew.Size = new System.Drawing.Size(106, 27);
+            this.pnl_registerNew.TabIndex = 2;
+            // 
+            // btn_back
+            // 
+            this.btn_back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_back.Location = new System.Drawing.Point(18, 13);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(74, 31);
+            this.btn_back.TabIndex = 0;
+            this.btn_back.Text = "Назад";
+            this.btn_back.UseVisualStyleBackColor = true;
+            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
+            // 
+            // pnl_show
+            // 
+            this.pnl_show.Controls.Add(this.dgw_show);
+            this.pnl_show.Controls.Add(this.btn_back2);
+            this.pnl_show.Location = new System.Drawing.Point(5, 12);
+            this.pnl_show.Name = "pnl_show";
+            this.pnl_show.Size = new System.Drawing.Size(1187, 527);
+            this.pnl_show.TabIndex = 3;
+            // 
+            // dgw_show
+            // 
+            this.dgw_show.AllowUserToAddRows = false;
+            this.dgw_show.AllowUserToDeleteRows = false;
+            this.dgw_show.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgw_show.Location = new System.Drawing.Point(21, 50);
+            this.dgw_show.Name = "dgw_show";
+            this.dgw_show.ReadOnly = true;
+            this.dgw_show.Size = new System.Drawing.Size(856, 474);
+            this.dgw_show.TabIndex = 2;
+            // 
+            // btn_back2
+            // 
+            this.btn_back2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_back2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_back2.Location = new System.Drawing.Point(21, 13);
+            this.btn_back2.Name = "btn_back2";
+            this.btn_back2.Size = new System.Drawing.Size(74, 31);
+            this.btn_back2.TabIndex = 1;
+            this.btn_back2.Text = "Назад";
+            this.btn_back2.UseVisualStyleBackColor = true;
+            this.btn_back2.Click += new System.EventHandler(this.btn_back_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_auth_enter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
+            this.Controls.Add(this.pnl_show);
+            this.Controls.Add(this.pnl_registerNew);
             this.Controls.Add(this.pnl_mainMenu);
             this.Controls.Add(this.pnl_auth);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -298,6 +360,9 @@
             this.pnl_auth.PerformLayout();
             this.pnl_mainMenu.ResumeLayout(false);
             this.pnl_mainMenu.PerformLayout();
+            this.pnl_registerNew.ResumeLayout(false);
+            this.pnl_show.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgw_show)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -325,6 +390,11 @@
         private System.Windows.Forms.Button btn_mainMenu_slot7;
         private System.Windows.Forms.Button btn_mainMenu_slot2;
         private System.Windows.Forms.Button btn_mainMenu_slot1;
+        private System.Windows.Forms.Panel pnl_registerNew;
+        private System.Windows.Forms.Button btn_back;
+        private System.Windows.Forms.Panel pnl_show;
+        private System.Windows.Forms.Button btn_back2;
+        private System.Windows.Forms.DataGridView dgw_show;
     }
 }
 
