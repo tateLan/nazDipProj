@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql;
 using MySql.Data.MySqlClient;
 
 namespace diplomaProj
@@ -34,6 +33,21 @@ namespace diplomaProj
         TextBox showIncTb3 = new TextBox();
         TextBox showIncTb4 = new TextBox();
         TextBox showIncTb5 = new TextBox();
+
+        Label regNew_lbl1 = new Label();
+        Label regNew_lblcodeOfItem = new Label();
+        Label regNew_lblQuantity = new Label();
+        Label regNew_lblPaid = new Label();
+        Label regNew_lblDeliveryCost = new Label();
+        TextBox regNew_tb1 = new TextBox();
+        TextBox regNew_tbCodeOfItem = new TextBox();
+        TextBox regNew_tbQuantity = new TextBox();
+        TextBox regNew_tbPaid = new TextBox();
+        TextBox regNew_tbDelCost = new TextBox();
+        Button regNew_btnConfirm = new Button();
+        CheckBox regNew_cbDelivery = new CheckBox();
+
+        GetCodes2IncomeOutcome form2;
 
         public Form1()
         {
@@ -170,6 +184,177 @@ namespace diplomaProj
             HideAllBtns();
             pnl_mainMenu.Hide();
             pnl_registerNew.Show();
+
+            RegisterNewIncomeAddCtrls();
+
+            regNew_btnConfirm.Location = new Point(400, 242);
+            regNew_lbl1.Text = "Постачальник";
+            regNew_tb1.Click += regNew_tbProvider;
+
+            regNew_lbl1.Visible = true;
+            regNew_lblcodeOfItem.Visible = true;
+            regNew_lblQuantity.Visible = true;
+            regNew_lblPaid.Visible = true;
+            regNew_tb1.Visible = true;
+            regNew_tbCodeOfItem.Visible = true;
+            regNew_tbQuantity.Visible = true;
+            regNew_tbPaid.Visible = true;
+            regNew_btnConfirm.Visible = true;
+        }
+
+        private void regNew_tbProvider(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "str");
+            form2.ShowDialog();
+        }
+
+        private void RegisterNewIncomeAddCtrls()
+        {
+            // 
+            // regNew_lbl1
+            // 
+            this.regNew_lbl1.AutoSize = true;
+            this.regNew_lbl1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_lbl1.Location = new Point(280, 90);
+            this.regNew_lbl1.Name = "regNew_lbl1";
+            this.regNew_lbl1.Size = new Size(51, 20);
+            this.regNew_lbl1.TabIndex = 1;
+            this.regNew_lbl1.Text = "regNew_lbl1";
+            // 
+            // regNew_tb1
+            // 
+            this.regNew_tb1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_tb1.Location = new Point(399, 84);
+            this.regNew_tb1.Name = "regNew_tb1";
+            this.regNew_tb1.Size = new Size(174, 26);
+            this.regNew_tb1.TabIndex = 2;
+            // 
+            // regNew_lblcodeOfItem
+            // 
+            this.regNew_lblcodeOfItem.AutoSize = true;
+            this.regNew_lblcodeOfItem.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_lblcodeOfItem.Location = new Point(280, 131);
+            this.regNew_lblcodeOfItem.Name = "regNew_lblcodeOfItem";
+            this.regNew_lblcodeOfItem.Size = new Size(51, 20);
+            this.regNew_lblcodeOfItem.TabIndex = 1;
+            this.regNew_lblcodeOfItem.Text = "Код товару";
+            // 
+            // regNew_tbCodeOfItem
+            // 
+            this.regNew_tbCodeOfItem.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_tbCodeOfItem.Location = new Point(399, 123);
+            this.regNew_tbCodeOfItem.Name = "regNew_tbCodeOfItem";
+            this.regNew_tbCodeOfItem.Size = new Size(174, 26);
+            this.regNew_tbCodeOfItem.TabIndex = 2;
+            // 
+            // regNew_lblQuantity
+            // 
+            this.regNew_lblQuantity.AutoSize = true;
+            this.regNew_lblQuantity.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_lblQuantity.Location = new Point(280, 170);
+            this.regNew_lblQuantity.Name = "regNew_lblQuantity";
+            this.regNew_lblQuantity.Size = new Size(51, 20);
+            this.regNew_lblQuantity.TabIndex = 1;
+            this.regNew_lblQuantity.Text = "Кількість";
+            // 
+            // regNew_tbQuantity
+            // 
+            this.regNew_tbQuantity.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_tbQuantity.Location = new Point(399, 162);
+            this.regNew_tbQuantity.Name = "regNew_tbQuantity";
+            this.regNew_tbQuantity.Size = new Size(174, 26);
+            this.regNew_tbQuantity.TabIndex = 2;
+            // 
+            // regNew_lblPaid
+            // 
+            this.regNew_lblPaid.AutoSize = true;
+            this.regNew_lblPaid.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_lblPaid.Location = new Point(280, 208);
+            this.regNew_lblPaid.Name = "regNew_lblPaid";
+            this.regNew_lblPaid.Size = new Size(51, 20);
+            this.regNew_lblPaid.TabIndex = 1;
+            this.regNew_lblPaid.Text = "Заплачено";
+            // 
+            // regNew_tbPaid
+            // 
+            this.regNew_tbPaid.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_tbPaid.Location = new Point(399, 200);
+            this.regNew_tbPaid.Name = "regNew_tbPaid";
+            this.regNew_tbPaid.Size = new Size(174, 26);
+            this.regNew_tbPaid.TabIndex = 2;
+            // 
+            // regNew_cbDelivery
+            // 
+            this.regNew_cbDelivery.AutoSize = true;
+            this.regNew_cbDelivery.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_cbDelivery.Location = new Point(331, 242);
+            this.regNew_cbDelivery.Name = "regNew_cbDelivery";
+            this.regNew_cbDelivery.Size = new Size(106, 24);
+            this.regNew_cbDelivery.TabIndex = 3;
+            this.regNew_cbDelivery.Text = "Доставка та монтаж";
+            this.regNew_cbDelivery.UseVisualStyleBackColor = true;
+            // 
+            // regNew_lblDeliveryCost
+            // 
+            this.regNew_lblDeliveryCost.AutoSize = true;
+            this.regNew_lblDeliveryCost.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_lblDeliveryCost.Location = new Point(280, 285);
+            this.regNew_lblDeliveryCost.Name = "regNew_lblDeliveryCost";
+            this.regNew_lblDeliveryCost.Size = new Size(51, 20);
+            this.regNew_lblDeliveryCost.TabIndex = 1;
+            this.regNew_lblDeliveryCost.Text = "Ціна доставки";
+            // 
+            // regNew_tbDelCost
+            // 
+            this.regNew_tbDelCost.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_tbDelCost.Location = new Point(399, 282);
+            this.regNew_tbDelCost.Name = "regNew_tbDelCost";
+            this.regNew_tbDelCost.Size = new Size(174, 26);
+            this.regNew_tbDelCost.TabIndex = 2;
+            // 
+            // regNew_btnConfirm
+            // 
+            this.regNew_btnConfirm.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.regNew_btnConfirm.Location = new Point(400, 335);
+            this.regNew_btnConfirm.Name = "regNew_btnConfirm";
+            this.regNew_btnConfirm.Size = new Size(120, 41);
+            this.regNew_btnConfirm.TabIndex = 4;
+            this.regNew_btnConfirm.Text = "Підтвердити";
+            this.regNew_btnConfirm.UseVisualStyleBackColor = true;
+
+            pnl_registerNew.Controls.Add(regNew_lbl1);
+            pnl_registerNew.Controls.Add(regNew_lblcodeOfItem);
+            pnl_registerNew.Controls.Add(regNew_lblQuantity);
+            pnl_registerNew.Controls.Add(regNew_lblPaid);
+            pnl_registerNew.Controls.Add(regNew_lblDeliveryCost);
+            pnl_registerNew.Controls.Add(regNew_cbDelivery);
+            pnl_registerNew.Controls.Add(regNew_tb1);
+            pnl_registerNew.Controls.Add(regNew_tbCodeOfItem);
+            pnl_registerNew.Controls.Add(regNew_tbQuantity);
+            pnl_registerNew.Controls.Add(regNew_tbPaid);
+            pnl_registerNew.Controls.Add(regNew_tbDelCost);
+            pnl_registerNew.Controls.Add(regNew_btnConfirm);
+
+
+            regNew_lbl1.Visible = false;
+            regNew_lblcodeOfItem.Visible = false;
+            regNew_lblQuantity.Visible = false;
+            regNew_lblPaid.Visible = false;
+            regNew_lblDeliveryCost.Visible = false;
+            regNew_cbDelivery.Visible = false;
+            regNew_tb1.Visible = false;
+            regNew_tbCodeOfItem.Visible = false;
+            regNew_tbQuantity.Visible = false;
+            regNew_tbPaid.Visible = false;
+            regNew_tbDelCost.Visible = false;
+            regNew_btnConfirm.Visible = false;
+
+            regNew_tbCodeOfItem.Click += RegNew_tbCodeOfItem_Click;
+        }
+
+        private void RegNew_tbCodeOfItem_Click(object sender, EventArgs e)//not finished
+        {
+            throw new NotImplementedException();
         }
 
         private void btn_mainMenu_registerSell_Click(object sender, EventArgs e)
@@ -177,6 +362,40 @@ namespace diplomaProj
             HideAllBtns();
             pnl_mainMenu.Hide();
             pnl_registerNew.Show();
+
+            RegisterNewIncomeAddCtrls();
+            regNew_lbl1.Text = "Код клієнта";
+            regNew_lblDeliveryCost.Enabled = false;
+            regNew_tbDelCost.Enabled = false;
+            regNew_cbDelivery.CheckedChanged += RegNew_cbDelivery_CheckedChanged;
+
+
+            regNew_lbl1.Visible = true;
+            regNew_lblcodeOfItem.Visible = true;
+            regNew_lblQuantity.Visible = true;
+            regNew_lblPaid.Visible = true;
+            regNew_lblDeliveryCost.Visible = true;
+            regNew_cbDelivery.Visible = true;
+            regNew_tb1.Visible = true;
+            regNew_tbCodeOfItem.Visible = true;
+            regNew_tbQuantity.Visible = true;
+            regNew_tbPaid.Visible = true;
+            regNew_tbDelCost.Visible = true;
+            regNew_btnConfirm.Visible = true;
+        }
+
+        private void RegNew_cbDelivery_CheckedChanged(object sender, EventArgs e)
+        {
+            if(regNew_cbDelivery.Checked == false)
+            {
+                regNew_lblDeliveryCost.Enabled = false;
+                regNew_tbDelCost.Enabled = false;
+            }
+            else
+            {
+                regNew_lblDeliveryCost.Enabled = true;
+                regNew_tbDelCost.Enabled = true;
+            }
         }
 
         private void btn_mainMenu_checkInfo_Click(object sender, EventArgs e)
@@ -451,7 +670,7 @@ namespace diplomaProj
                         showIncTb5.Visible = true;
                         showIncType.Visible = true;
 
-                        reader = new MySqlCommand("select * from doors where doors.codeOfItem = " + dgwr.Cells[3].Value, connect).ExecuteReader();
+                        reader = new MySqlCommand("call getDoorsExt(" + dgwr.Cells[3].Value + ")", connect).ExecuteReader();
                         while(reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
@@ -485,7 +704,7 @@ namespace diplomaProj
                         showIncTb4.Visible = true;
                         showIncType.Visible = true;
 
-                        reader = new MySqlCommand("select * from windowsill where windowsill.codeOfItem = " + dgwr.Cells[3].Value, connect).ExecuteReader();
+                        reader = new MySqlCommand("call getWindowsillExt(" + dgwr.Cells[3].Value + ")", connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
@@ -573,6 +792,26 @@ namespace diplomaProj
 
             dgw_show.Rows.Clear();
             dgw_show.Columns.Clear();
+
+            regNew_lbl1.Visible = false;
+            regNew_lblcodeOfItem.Visible = false;
+            regNew_lblQuantity.Visible = false;
+            regNew_lblPaid.Visible = false;
+            regNew_lblDeliveryCost.Visible = false;
+            regNew_cbDelivery.Visible = false;
+            regNew_tb1.Visible = false;
+            regNew_tbCodeOfItem.Visible = false;
+            regNew_tbQuantity.Visible = false;
+            regNew_tbPaid.Visible = false;
+            regNew_tbDelCost.Visible = false;
+            regNew_btnConfirm.Visible = false;
+
+            regNew_cbDelivery.Checked = false;
+            regNew_tb1.Text = "";
+            regNew_tbCodeOfItem.Text = "";
+            regNew_tbQuantity.Text = "";
+            regNew_tbPaid.Text = "";
+            regNew_tbDelCost.Text = "";
         }
 
         private void InitDGW(MySqlDataReader reader, int count)

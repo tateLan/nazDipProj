@@ -50,10 +50,10 @@
             this.btn_mainMenu_registerSell = new System.Windows.Forms.Button();
             this.btn_mainMenu_registerIncome = new System.Windows.Forms.Button();
             this.pnl_registerNew = new System.Windows.Forms.Panel();
-            this.btn_back = new System.Windows.Forms.Button();
             this.pnl_show = new System.Windows.Forms.Panel();
             this.dgw_show = new System.Windows.Forms.DataGridView();
             this.btn_back2 = new System.Windows.Forms.Button();
+            this.btn_back = new System.Windows.Forms.Button();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
             this.pnl_registerNew.SuspendLayout();
@@ -150,9 +150,9 @@
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_addChangeInfo);
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_registerSell);
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_registerIncome);
-            this.pnl_mainMenu.Location = new System.Drawing.Point(337, 12);
+            this.pnl_mainMenu.Location = new System.Drawing.Point(61, 15);
             this.pnl_mainMenu.Name = "pnl_mainMenu";
-            this.pnl_mainMenu.Size = new System.Drawing.Size(107, 27);
+            this.pnl_mainMenu.Size = new System.Drawing.Size(57, 24);
             this.pnl_mainMenu.TabIndex = 1;
             // 
             // label3
@@ -292,30 +292,18 @@
             // pnl_registerNew
             // 
             this.pnl_registerNew.Controls.Add(this.btn_back);
-            this.pnl_registerNew.Location = new System.Drawing.Point(124, 12);
+            this.pnl_registerNew.Location = new System.Drawing.Point(12, 12);
             this.pnl_registerNew.Name = "pnl_registerNew";
-            this.pnl_registerNew.Size = new System.Drawing.Size(106, 27);
+            this.pnl_registerNew.Size = new System.Drawing.Size(880, 527);
             this.pnl_registerNew.TabIndex = 2;
-            // 
-            // btn_back
-            // 
-            this.btn_back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_back.Location = new System.Drawing.Point(18, 13);
-            this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(74, 31);
-            this.btn_back.TabIndex = 0;
-            this.btn_back.Text = "Назад";
-            this.btn_back.UseVisualStyleBackColor = true;
-            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
             // 
             // pnl_show
             // 
             this.pnl_show.Controls.Add(this.dgw_show);
             this.pnl_show.Controls.Add(this.btn_back2);
-            this.pnl_show.Location = new System.Drawing.Point(5, 12);
+            this.pnl_show.Location = new System.Drawing.Point(124, 12);
             this.pnl_show.Name = "pnl_show";
-            this.pnl_show.Size = new System.Drawing.Size(1187, 527);
+            this.pnl_show.Size = new System.Drawing.Size(95, 27);
             this.pnl_show.TabIndex = 3;
             // 
             // dgw_show
@@ -341,14 +329,26 @@
             this.btn_back2.UseVisualStyleBackColor = true;
             this.btn_back2.Click += new System.EventHandler(this.btn_back_Click);
             // 
+            // btn_back
+            // 
+            this.btn_back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_back.Location = new System.Drawing.Point(18, 13);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(74, 31);
+            this.btn_back.TabIndex = 0;
+            this.btn_back.Text = "Назад";
+            this.btn_back.UseVisualStyleBackColor = true;
+            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_auth_enter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
-            this.Controls.Add(this.pnl_show);
             this.Controls.Add(this.pnl_registerNew);
+            this.Controls.Add(this.pnl_show);
             this.Controls.Add(this.pnl_mainMenu);
             this.Controls.Add(this.pnl_auth);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -391,10 +391,10 @@
         private System.Windows.Forms.Button btn_mainMenu_slot2;
         private System.Windows.Forms.Button btn_mainMenu_slot1;
         private System.Windows.Forms.Panel pnl_registerNew;
-        private System.Windows.Forms.Button btn_back;
         private System.Windows.Forms.Panel pnl_show;
         private System.Windows.Forms.Button btn_back2;
         private System.Windows.Forms.DataGridView dgw_show;
+        private System.Windows.Forms.Button btn_back;
     }
 }
 
