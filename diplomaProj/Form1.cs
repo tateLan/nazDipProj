@@ -39,8 +39,8 @@ namespace diplomaProj
         Label regNew_lblQuantity = new Label();
         Label regNew_lblPaid = new Label();
         Label regNew_lblDeliveryCost = new Label();
-        TextBox regNew_tb1 = new TextBox();
-        TextBox regNew_tbCodeOfItem = new TextBox();
+        public TextBox regNew_tb1 = new TextBox();
+        public TextBox regNew_tbCodeOfItem = new TextBox();
         TextBox regNew_tbQuantity = new TextBox();
         TextBox regNew_tbPaid = new TextBox();
         TextBox regNew_tbDelCost = new TextBox();
@@ -200,12 +200,90 @@ namespace diplomaProj
             regNew_tbQuantity.Visible = true;
             regNew_tbPaid.Visible = true;
             regNew_btnConfirm.Visible = true;
+
+            regNew_tb1.ReadOnly = true;
+            regNew_tbCodeOfItem.ReadOnly = true;
+            regNew_btnConfirm.Click += RegNew_btnConfirm_Income_Click;
         }
 
-        private void regNew_tbProvider(object sender, EventArgs e)
+        private void RegNew_btnConfirm_Income_Click(object sender, EventArgs e)
         {
-            form2 = new GetCodes2IncomeOutcome(connect, "str");
+            if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "")
+            {
+                int num1;
+                bool fl1 = int.TryParse(regNew_tbQuantity.Text, out num1);
+                int num2;
+                bool fl2 = int.TryParse(regNew_tbQuantity.Text, out num2);
+                if (fl1 && fl2)
+                {
+                    bool flag = false;
+                    string month;
+                    string day;
+
+                    if (Convert.ToInt16(DateTime.Now.Month.ToString()) < 10)
+                        month = $"0{DateTime.Now.Month}";
+                    else
+                        month = DateTime.Now.Month.ToString();
+
+                    if (Convert.ToInt16(DateTime.Now.Day.ToString()) < 10)
+                        day = $"0{DateTime.Now.Day}";
+                    else
+                        day = DateTime.Now.Day.ToString();
+
+
+                    string today = $"{DateTime.Now.Year}-{month}-{day}";
+                    new MySqlCommand("insert into activity (activity.dateOfReg) values ('" + today + "')", connect).ExecuteNonQuery();
+
+                    MySqlDataReader reader = new MySqlCommand("select id from activity order by id desc limit 1", connect).ExecuteReader();
+                    reader.Read();
+
+                    string id = reader[0].ToString();
+
+                    reader.Close();
+
+                    string q = $"insert into income values ({id}, {regNew_tb1.Text}, { regNew_tbCodeOfItem.Text}, {regNew_tbQuantity.Text}, {regNew_tbPaid.Text})";
+                    new MySqlCommand(q, connect).ExecuteNonQuery();
+
+                    reader = new MySqlCommand("select * from warehouse", connect).ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        if (reader[1].ToString() == regNew_tbCodeOfItem.Text)
+                        {
+                            int quant = Convert.ToInt32(reader[2]);
+                            string whitCode = reader[0].ToString();
+                            reader.Close();
+                            new MySqlCommand($"update warehouse set quantity=" +
+                                $"'{quant + Convert.ToInt32(regNew_tbQuantity.Text)}' where codeOfWHitem='{whitCode}'",connect).ExecuteNonQuery();
+
+                            flag = true;
+
+                            break;
+                        }
+                    }
+
+                    if (!flag)
+                    {
+                        reader.Close();
+                        new MySqlCommand($"insert into warehouse(codeOfItem, quantity) values ('{id}', '{regNew_tbQuantity.Text}')", connect).ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Дані внесено успішно!");
+
+                    regNew_tb1.Text = "";
+                    regNew_tbCodeOfItem.Text = "";
+                    regNew_tbQuantity.Text = "";
+                    regNew_tbPaid.Text = "";
+                }
+            }
+
+        }
+
+        public void regNew_tbProvider(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "provider", this);
             form2.ShowDialog();
+
         }
 
         private void RegisterNewIncomeAddCtrls()
@@ -352,9 +430,10 @@ namespace diplomaProj
             regNew_tbCodeOfItem.Click += RegNew_tbCodeOfItem_Click;
         }
 
-        private void RegNew_tbCodeOfItem_Click(object sender, EventArgs e)//not finished
+        public void RegNew_tbCodeOfItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            form2 = new GetCodes2IncomeOutcome(connect, "items", this);
+            form2.ShowDialog();
         }
 
         private void btn_mainMenu_registerSell_Click(object sender, EventArgs e)
@@ -382,11 +461,19 @@ namespace diplomaProj
             regNew_tbPaid.Visible = true;
             regNew_tbDelCost.Visible = true;
             regNew_btnConfirm.Visible = true;
+
+            regNew_tb1.Click += RegNew_Sell_tb1_Click;
+        }
+
+        private void RegNew_Sell_tb1_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "clients", this);
+            form2.ShowDialog();
         }
 
         private void RegNew_cbDelivery_CheckedChanged(object sender, EventArgs e)
         {
-            if(regNew_cbDelivery.Checked == false)
+            if (regNew_cbDelivery.Checked == false)
             {
                 regNew_lblDeliveryCost.Enabled = false;
                 regNew_tbDelCost.Enabled = false;
@@ -636,7 +723,7 @@ namespace diplomaProj
                         showIncLbl3.Text = "Назва";
 
                         reader = new MySqlCommand("select * from windows where windows.codeOfItem = " + dgwr.Cells[3].Value, connect).ExecuteReader();
-                        while(reader.Read())
+                        while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
                             showIncTb2.Text = reader[1].ToString();
@@ -671,7 +758,7 @@ namespace diplomaProj
                         showIncType.Visible = true;
 
                         reader = new MySqlCommand("call getDoorsExt(" + dgwr.Cells[3].Value + ")", connect).ExecuteReader();
-                        while(reader.Read())
+                        while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
                             showIncTb2.Text = reader[1].ToString();
@@ -812,6 +899,8 @@ namespace diplomaProj
             regNew_tbQuantity.Text = "";
             regNew_tbPaid.Text = "";
             regNew_tbDelCost.Text = "";
+
+            regNew_btnConfirm.Click -= RegNew_btnConfirm_Income_Click;
         }
 
         private void InitDGW(MySqlDataReader reader, int count)
