@@ -28,6 +28,8 @@ namespace diplomaProj
         TextBox showIncTb4 = new TextBox();
         TextBox showIncTb5 = new TextBox();
 
+        Label whLessThanAll_lbl = new Label();
+
         Form1 form1;
         MySqlConnection connect;
         string table;
@@ -119,6 +121,9 @@ namespace diplomaProj
                     break;
                 case "items":
                     {
+                        int availCount = 0;
+                        int allCount = 0;
+
                         label1.Visible = true;
                         label2.Visible = true;
                         textBox1.Visible = true;
@@ -131,14 +136,39 @@ namespace diplomaProj
                         dgw_info.Columns.Add("code", "Код");
                         dgw_info.Columns.Add("type", "Тип");
 
-                        reader = new MySqlCommand("select items.id, assortment.nameOfItem from items left join assortment" +
-                            " on items.typeOfProduct = assortment.codeOfItem ", connect).ExecuteReader();
+                        reader = new MySqlCommand("select items.id, assortment.nameOfItem from warehouse left join (items left join assortment" +
+                            " on items.typeOfProduct = assortment.codeOfItem) on items.id = warehouse.codeOfItem where quantity > 0 ", connect).ExecuteReader();
 
                         while (reader.Read())
                         {
                             dgw_info.Rows.Add(reader[0], reader[1]);
                         }
                         reader.Close();
+
+                        reader = new MySqlCommand("select count(warehouse.codeOfItem) from warehouse left join (items left join assortment" +
+                            " on items.typeOfProduct = assortment.codeOfItem) on items.id = warehouse.codeOfItem where quantity > 0", connect).ExecuteReader();
+                        reader.Read();
+                        availCount = Convert.ToInt32(reader[0]);
+                        reader.Close();
+
+                        reader = new MySqlCommand("select count(items.id) from items", connect).ExecuteReader();
+                        reader.Read();
+                        allCount = Convert.ToInt32(reader[0]);
+                        reader.Close();
+
+                        if(availCount < allCount)
+                        {
+                            whLessThanAll_lbl.AutoSize = true;
+                            whLessThanAll_lbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+                            whLessThanAll_lbl.Location = new Point(750, 28);
+                            whLessThanAll_lbl.Name = "whLessThanAll_lbl";
+                            whLessThanAll_lbl.Size = new Size(51, 20);
+                            whLessThanAll_lbl.TabIndex = 3;
+                            whLessThanAll_lbl.Text = "На складі доступний не повний перелік товарів";
+                            whLessThanAll_lbl.ForeColor = Color.Red;
+
+                            this.Controls.Add(whLessThanAll_lbl);
+                        }
 
                         this.Width = 1160;
                         ItemsAdditionCtrlsAdd();
@@ -476,8 +506,8 @@ namespace diplomaProj
                     break;
                 case "items":
                     {
-                        q = "select items.id, assortment.nameOfItem from items left join assortment" +
-                            " on items.typeOfProduct = assortment.codeOfItem where items.id like '" + textBox1.Text.ToLower() + "%' " +
+                        q = "select items.id, assortment.nameOfItem from warehouse left join(items left join assortment" +
+                            " on items.typeOfProduct = assortment.codeOfItem) on items.id = warehouse.codeOfItem where quantity > 0 and items.id like '" + textBox1.Text.ToLower() + "%' " +
                             "and assortment.nameOfItem like '" + textBox2.Text.ToLower() + "%'";
                     }
                     break;
@@ -541,7 +571,6 @@ namespace diplomaProj
                 case "provider":
                     {
                         form1.regNew_tb1.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        form1.regNew_tb1.Click -= form1.regNew_tbProvider;
                         this.Close();
                     }
                     break;
@@ -554,7 +583,6 @@ namespace diplomaProj
                 case "items":
                     {
                         form1.regNew_tbCodeOfItem.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        form1.regNew_tbCodeOfItem.Click -= form1.RegNew_tbCodeOfItem_Click;
                         this.Close();
                     }
                     break;

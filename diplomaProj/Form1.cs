@@ -18,6 +18,9 @@ namespace diplomaProj
         private MySqlConnection connect;
         private string server = "176.98.27.33";
         private Dictionary<string, string> dict = new Dictionary<string, string>();
+        private int managerID;
+
+        int[] mngrArr;
 
 
         Label inflbl = new Label();
@@ -80,6 +83,7 @@ namespace diplomaProj
             pnl_mainMenu.Dock = DockStyle.Fill;
             pnl_registerNew.Dock = DockStyle.Fill;
             pnl_show.Dock = DockStyle.Fill;
+            pnl_choose_mngr.Dock = DockStyle.Fill;
         }
 
         private void HideAllPnls()
@@ -88,6 +92,31 @@ namespace diplomaProj
             pnl_mainMenu.Hide();
             pnl_registerNew.Hide();
             pnl_show.Hide();
+            pnl_choose_mngr.Hide();
+        }
+
+        private void InitManagersCB()
+        {
+            MySqlDataReader reader = new MySqlCommand("select managers.codeOfManager, managers.nameOfManager, managers.lastNameOfManager from managers", connect).ExecuteReader();
+
+            int i = 0;
+            while (reader.Read())
+            {
+                cb_managersList.Items.Add(reader[1] + " " + reader[2]);
+                i++;
+            }
+            reader.Close();
+
+            mngrArr = new int[i];
+
+            reader = new MySqlCommand("select managers.codeOfManager, managers.nameOfManager, managers.lastNameOfManager from managers", connect).ExecuteReader();
+
+            for (int j = 0; j < i; j++)
+            {
+                reader.Read();
+                mngrArr[j] = Convert.ToInt32(reader[0]);
+            }
+            reader.Close();
         }
 
         private void btn_auth_enter_Click(object sender, EventArgs e)
@@ -98,7 +127,8 @@ namespace diplomaProj
             //{
             pnl_auth.Hide();
             GetConnect(login, password);
-            pnl_mainMenu.Show();
+            pnl_choose_mngr.Show();
+            InitManagersCB();
             HideAllBtns();
             //}
             //else
@@ -254,7 +284,7 @@ namespace diplomaProj
                             string whitCode = reader[0].ToString();
                             reader.Close();
                             new MySqlCommand($"update warehouse set quantity=" +
-                                $"'{quant + Convert.ToInt32(regNew_tbQuantity.Text)}' where codeOfWHitem='{whitCode}'",connect).ExecuteNonQuery();
+                                $"'{quant + Convert.ToInt32(regNew_tbQuantity.Text)}' where codeOfWHitem='{whitCode}'", connect).ExecuteNonQuery();
 
                             flag = true;
 
@@ -275,6 +305,14 @@ namespace diplomaProj
                     regNew_tbQuantity.Text = "";
                     regNew_tbPaid.Text = "";
                 }
+                else
+                {
+                    MessageBox.Show("Не може бути текстових даних");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не може бути пустих полів!");
             }
 
         }
@@ -461,8 +499,166 @@ namespace diplomaProj
             regNew_tbPaid.Visible = true;
             regNew_tbDelCost.Visible = true;
             regNew_btnConfirm.Visible = true;
+            regNew_btnConfirm.Enabled = false;
 
             regNew_tb1.Click += RegNew_Sell_tb1_Click;
+            regNew_tbCodeOfItem.TextChanged += RegNew_CheckIsWHAvailabe;
+            regNew_tbQuantity.TextChanged += RegNew_CheckIsWHAvailabe;
+
+            regNew_tb1.ReadOnly = true;
+            regNew_tbCodeOfItem.ReadOnly = true;
+
+            regNew_btnConfirm.Click += RegNew_Sell_btnConfirm_Click;
+        }
+
+        private void RegNew_Sell_btnConfirm_Click(object sender, EventArgs e)
+        {
+            int quantity = 0;
+            int paid = 0;
+            int cost = 0;
+
+            bool fl1;
+            bool fl2;
+            bool fl3;
+
+            if (regNew_cbDelivery.Checked == true)
+            {
+                if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "" && regNew_tbDelCost.Text != "")
+                {
+                    fl1 = int.TryParse(regNew_tbQuantity.Text, out quantity);
+                    fl2 = int.TryParse(regNew_tbPaid.Text, out paid);
+                    fl3 = int.TryParse(regNew_tbDelCost.Text, out cost);
+
+                    if(fl1 && fl2 && fl3)
+                    {
+                        InsertIncome(true, cost);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Допустимі лише числові значення!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Не допустимі пусті поля!");
+                }
+            }
+            else
+            {
+                if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "" )
+                {
+                    fl1 = int.TryParse(regNew_tbQuantity.Text, out quantity);
+                    fl2 = int.TryParse(regNew_tbPaid.Text, out paid);
+
+                    if (fl1 && fl2)
+                    {
+                        InsertIncome(false, 0);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Допустимі лише числові значення!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Не допустимі пусті поля!");
+                }
+            }        
+        }
+
+        private void InsertIncome(bool delFl, int delCost)
+        {
+            bool flag = false;
+            string month;
+            string day;
+
+            if (Convert.ToInt16(DateTime.Now.Month.ToString()) < 10)
+                month = $"0{DateTime.Now.Month}";
+            else
+                month = DateTime.Now.Month.ToString();
+
+            if (Convert.ToInt16(DateTime.Now.Day.ToString()) < 10)
+                day = $"0{DateTime.Now.Day}";
+            else
+                day = DateTime.Now.Day.ToString();
+
+
+            string today = $"{DateTime.Now.Year}-{month}-{day}";
+            new MySqlCommand("insert into activity (activity.dateOfReg) values ('" + today + "')", connect).ExecuteNonQuery();
+
+            MySqlDataReader reader = new MySqlCommand("select id from activity order by id desc limit 1", connect).ExecuteReader();
+            reader.Read();
+
+            string id = reader[0].ToString();
+
+            reader.Close();
+
+            string q = $"insert into outcome values ({id}, '{today}', {regNew_tb1.Text}, {regNew_tbCodeOfItem.Text}, {regNew_tbQuantity.Text}, {regNew_tbPaid.Text}, {delFl}, {delCost}, {managerID})";
+            new MySqlCommand(q, connect).ExecuteNonQuery();
+
+            reader = new MySqlCommand("select * from warehouse", connect).ExecuteReader();
+
+            while (reader.Read())
+            {
+                if (reader[1].ToString() == regNew_tbCodeOfItem.Text)
+                {
+                    int quant = Convert.ToInt32(reader[2]);
+                    string whitCode = reader[0].ToString();
+                    reader.Close();
+                    new MySqlCommand($"update warehouse set quantity=" +
+                        $"'{quant - Convert.ToInt32(regNew_tbQuantity.Text)}' where codeOfWHitem='{whitCode}'", connect).ExecuteNonQuery();
+
+                    flag = true;
+
+                    break;
+                }
+            }
+
+            if (!flag)
+            {
+                reader.Close();
+                new MySqlCommand($"insert into warehouse(codeOfItem, quantity) values ('{id}', '{regNew_tbQuantity.Text}')", connect).ExecuteNonQuery();
+            }
+
+            reader = new MySqlCommand("select * from clients where codeOfClient = " + regNew_tb1.Text, connect).ExecuteReader();
+            reader.Read();
+            int spent = Convert.ToInt32(reader[5]) + Convert.ToInt32(regNew_tbPaid.Text);
+            int codeofcl = Convert.ToInt32(reader[0]);
+            reader.Close();
+
+            new MySqlCommand("update clients set spent=" + spent + " where codeOfClient=" + codeofcl + "", connect).ExecuteNonQuery();
+
+            MessageBox.Show("Дані внесено успішно!");
+
+            regNew_tb1.Text = "";
+            regNew_tbCodeOfItem.Text = "";
+            regNew_tbQuantity.Text = "";
+            regNew_tbPaid.Text = "";
+            regNew_tbDelCost.Text = "";
+        }
+
+        private void RegNew_CheckIsWHAvailabe(object sender, EventArgs e)
+        {
+            int codeItem;
+            int quant;
+            bool fl1 = int.TryParse(regNew_tbQuantity.Text, out quant);
+            bool fl2 = int.TryParse(regNew_tbCodeOfItem.Text, out codeItem);
+
+            if (fl1 && fl2)
+            {
+                MySqlDataReader reader = new MySqlCommand("select warehouse.quantity from warehouse where warehouse.codeOfItem = " + codeItem, connect).ExecuteReader();
+                reader.Read();
+                if (Convert.ToInt32(reader[0]) < quant)
+                {
+                    regNew_btnConfirm.Enabled = false;
+                    MessageBox.Show($"Вибраного товару на складі доступно лише {reader[0]} одиниць");
+                }
+                else
+                {
+                    regNew_btnConfirm.Enabled = true;
+                }
+                reader.Close();
+            }
         }
 
         private void RegNew_Sell_tb1_Click(object sender, EventArgs e)
@@ -477,6 +673,7 @@ namespace diplomaProj
             {
                 regNew_lblDeliveryCost.Enabled = false;
                 regNew_tbDelCost.Enabled = false;
+                regNew_tbDelCost.Text = "";
             }
             else
             {
@@ -676,13 +873,12 @@ namespace diplomaProj
                     {
                         dgw_show.Columns.Add("code", "код_складу");
                         dgw_show.Columns.Add("codeOfItem", "код_товару");
-                        dgw_show.Columns.Add("dateOfIncome", "дата_прибуття");
                         dgw_show.Columns.Add("quantify", "кількість");
 
                         q = "select * from " + subj;
                         reader = new MySqlCommand(q, connect).ExecuteReader();
 
-                        InitDGW(reader, 4);
+                        InitDGW(reader, 3);
 
                         reader.Close();
                     }
@@ -901,6 +1097,14 @@ namespace diplomaProj
             regNew_tbDelCost.Text = "";
 
             regNew_btnConfirm.Click -= RegNew_btnConfirm_Income_Click;
+            regNew_btnConfirm.Click -= RegNew_Sell_btnConfirm_Click;
+
+            regNew_tb1.Click -= regNew_tbProvider;
+            regNew_tb1.Click -= RegNew_Sell_tb1_Click;
+            regNew_tbCodeOfItem.Click -= RegNew_tbCodeOfItem_Click;
+
+            regNew_tbCodeOfItem.TextChanged -= RegNew_CheckIsWHAvailabe;
+            regNew_tbQuantity.TextChanged -= RegNew_CheckIsWHAvailabe;
         }
 
         private void InitDGW(MySqlDataReader reader, int count)
@@ -1060,6 +1264,17 @@ namespace diplomaProj
             showIncTb4.Visible = false;
             showIncTb5.Visible = false;
             showIncType.Visible = false;
+        }
+
+        private void btn_manager_chose_accept_Click(object sender, EventArgs e)
+        {
+            if(cb_managersList.SelectedIndex != -1 )
+            {
+                managerID = mngrArr[cb_managersList.SelectedIndex];
+                MessageBox.Show("Вітаю, " + cb_managersList.Text);
+                pnl_choose_mngr.Hide();
+                pnl_mainMenu.Show();
+            }
         }
     }
 }

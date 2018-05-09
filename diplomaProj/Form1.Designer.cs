@@ -50,15 +50,21 @@
             this.btn_mainMenu_registerSell = new System.Windows.Forms.Button();
             this.btn_mainMenu_registerIncome = new System.Windows.Forms.Button();
             this.pnl_registerNew = new System.Windows.Forms.Panel();
+            this.btn_back = new System.Windows.Forms.Button();
             this.pnl_show = new System.Windows.Forms.Panel();
             this.dgw_show = new System.Windows.Forms.DataGridView();
             this.btn_back2 = new System.Windows.Forms.Button();
-            this.btn_back = new System.Windows.Forms.Button();
+            this.pnl_choose_mngr = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cb_managersList = new System.Windows.Forms.ComboBox();
+            this.btn_manager_chose_accept = new System.Windows.Forms.Button();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
             this.pnl_registerNew.SuspendLayout();
             this.pnl_show.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgw_show)).BeginInit();
+            this.pnl_choose_mngr.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_auth
@@ -292,10 +298,22 @@
             // pnl_registerNew
             // 
             this.pnl_registerNew.Controls.Add(this.btn_back);
-            this.pnl_registerNew.Location = new System.Drawing.Point(12, 12);
+            this.pnl_registerNew.Location = new System.Drawing.Point(251, 12);
             this.pnl_registerNew.Name = "pnl_registerNew";
-            this.pnl_registerNew.Size = new System.Drawing.Size(880, 527);
+            this.pnl_registerNew.Size = new System.Drawing.Size(116, 27);
             this.pnl_registerNew.TabIndex = 2;
+            // 
+            // btn_back
+            // 
+            this.btn_back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_back.Location = new System.Drawing.Point(18, 13);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(74, 31);
+            this.btn_back.TabIndex = 0;
+            this.btn_back.Text = "Назад";
+            this.btn_back.UseVisualStyleBackColor = true;
+            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
             // 
             // pnl_show
             // 
@@ -329,17 +347,57 @@
             this.btn_back2.UseVisualStyleBackColor = true;
             this.btn_back2.Click += new System.EventHandler(this.btn_back_Click);
             // 
-            // btn_back
+            // pnl_choose_mngr
             // 
-            this.btn_back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_back.Location = new System.Drawing.Point(18, 13);
-            this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(74, 31);
-            this.btn_back.TabIndex = 0;
-            this.btn_back.Text = "Назад";
-            this.btn_back.UseVisualStyleBackColor = true;
-            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
+            this.pnl_choose_mngr.Controls.Add(this.btn_manager_chose_accept);
+            this.pnl_choose_mngr.Controls.Add(this.cb_managersList);
+            this.pnl_choose_mngr.Controls.Add(this.label6);
+            this.pnl_choose_mngr.Controls.Add(this.label5);
+            this.pnl_choose_mngr.Location = new System.Drawing.Point(420, 15);
+            this.pnl_choose_mngr.Name = "pnl_choose_mngr";
+            this.pnl_choose_mngr.Size = new System.Drawing.Size(475, 402);
+            this.pnl_choose_mngr.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(274, 192);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(120, 20);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Виберіть себе:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(339, 76);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(218, 29);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Вибір менеджера";
+            // 
+            // cb_managersList
+            // 
+            this.cb_managersList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_managersList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cb_managersList.FormattingEnabled = true;
+            this.cb_managersList.Location = new System.Drawing.Point(405, 189);
+            this.cb_managersList.Name = "cb_managersList";
+            this.cb_managersList.Size = new System.Drawing.Size(165, 28);
+            this.cb_managersList.TabIndex = 1;
+            // 
+            // btn_manager_chose_accept
+            // 
+            this.btn_manager_chose_accept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_manager_chose_accept.Location = new System.Drawing.Point(405, 259);
+            this.btn_manager_chose_accept.Name = "btn_manager_chose_accept";
+            this.btn_manager_chose_accept.Size = new System.Drawing.Size(119, 32);
+            this.btn_manager_chose_accept.TabIndex = 2;
+            this.btn_manager_chose_accept.Text = "Підтвердити";
+            this.btn_manager_chose_accept.UseVisualStyleBackColor = true;
+            this.btn_manager_chose_accept.Click += new System.EventHandler(this.btn_manager_chose_accept_Click);
             // 
             // Form1
             // 
@@ -347,6 +405,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
+            this.Controls.Add(this.pnl_choose_mngr);
             this.Controls.Add(this.pnl_registerNew);
             this.Controls.Add(this.pnl_show);
             this.Controls.Add(this.pnl_mainMenu);
@@ -363,6 +422,8 @@
             this.pnl_registerNew.ResumeLayout(false);
             this.pnl_show.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgw_show)).EndInit();
+            this.pnl_choose_mngr.ResumeLayout(false);
+            this.pnl_choose_mngr.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -395,6 +456,11 @@
         private System.Windows.Forms.Button btn_back2;
         private System.Windows.Forms.DataGridView dgw_show;
         private System.Windows.Forms.Button btn_back;
+        private System.Windows.Forms.Panel pnl_choose_mngr;
+        private System.Windows.Forms.Button btn_manager_chose_accept;
+        private System.Windows.Forms.ComboBox cb_managersList;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
     }
 }
 
