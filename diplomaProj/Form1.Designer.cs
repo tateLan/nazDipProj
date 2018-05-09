@@ -353,9 +353,9 @@
             this.pnl_choose_mngr.Controls.Add(this.cb_managersList);
             this.pnl_choose_mngr.Controls.Add(this.label6);
             this.pnl_choose_mngr.Controls.Add(this.label5);
-            this.pnl_choose_mngr.Location = new System.Drawing.Point(420, 15);
+            this.pnl_choose_mngr.Location = new System.Drawing.Point(388, 15);
             this.pnl_choose_mngr.Name = "pnl_choose_mngr";
-            this.pnl_choose_mngr.Size = new System.Drawing.Size(475, 402);
+            this.pnl_choose_mngr.Size = new System.Drawing.Size(35, 24);
             this.pnl_choose_mngr.TabIndex = 4;
             // 
             // label5

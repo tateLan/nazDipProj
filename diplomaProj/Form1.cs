@@ -51,7 +51,9 @@ namespace diplomaProj
         CheckBox regNew_cbDelivery = new CheckBox();
 
         GetCodes2IncomeOutcome form2;
-
+        //
+        //start inits and stuff
+        //
         public Form1()
         {
             InitializeComponent();
@@ -119,25 +121,6 @@ namespace diplomaProj
             reader.Close();
         }
 
-        private void btn_auth_enter_Click(object sender, EventArgs e)
-        {
-            string login = "etalon-manager";
-            string password = "12345Password";
-            //if (login == tb_auth_login.Text && password == tb_auth_pass.Text)
-            //{
-            pnl_auth.Hide();
-            GetConnect(login, password);
-            pnl_choose_mngr.Show();
-            InitManagersCB();
-            HideAllBtns();
-            //}
-            //else
-            //{
-            //    lbl_auth_invalidData.Visible = true;
-            //    tb_auth_pass.Text = "";
-            //}
-        }
-
         private void GetConnect(string log, string pass)
         {
             try
@@ -189,6 +172,103 @@ namespace diplomaProj
             btn_mainMenu_slot6.Click -= ChangeClient;
         }
 
+        private void btn_back_Click(object sender, EventArgs e)
+        {
+            HideAllPnls();
+            HideAllBtns();
+            pnl_mainMenu.Show();
+
+            dgw_show.CellMouseClick -= Dgw_show_CellMouseClick;
+
+            pnl_show.Controls.Remove(showIncLbl1);
+            pnl_show.Controls.Remove(showIncLbl2);
+            pnl_show.Controls.Remove(showIncLbl3);
+            pnl_show.Controls.Remove(showIncLbl4);
+            pnl_show.Controls.Remove(showIncLbl5);
+
+            pnl_show.Controls.Remove(showIncTb1);
+            pnl_show.Controls.Remove(showIncTb2);
+            pnl_show.Controls.Remove(showIncTb3);
+            pnl_show.Controls.Remove(showIncTb4);
+            pnl_show.Controls.Remove(showIncTb5);
+
+            this.Width = 920;
+
+            dgw_show.Rows.Clear();
+            dgw_show.Columns.Clear();
+
+            regNew_lbl1.Visible = false;
+            regNew_lblcodeOfItem.Visible = false;
+            regNew_lblQuantity.Visible = false;
+            regNew_lblPaid.Visible = false;
+            regNew_lblDeliveryCost.Visible = false;
+            regNew_cbDelivery.Visible = false;
+            regNew_tb1.Visible = false;
+            regNew_tbCodeOfItem.Visible = false;
+            regNew_tbQuantity.Visible = false;
+            regNew_tbPaid.Visible = false;
+            regNew_tbDelCost.Visible = false;
+            regNew_btnConfirm.Visible = false;
+
+            regNew_cbDelivery.Checked = false;
+            regNew_tb1.Text = "";
+            regNew_tbCodeOfItem.Text = "";
+            regNew_tbQuantity.Text = "";
+            regNew_tbPaid.Text = "";
+            regNew_tbDelCost.Text = "";
+
+            regNew_btnConfirm.Click -= RegNew_btnConfirm_Income_Click;
+            regNew_btnConfirm.Click -= RegNew_Sell_btnConfirm_Click;
+
+            regNew_tb1.Click -= regNew_tbProvider;
+            regNew_tb1.Click -= RegNew_Sell_tb1_Click;
+            regNew_tbCodeOfItem.Click -= RegNew_tbCodeOfItem_Click;
+
+            regNew_tbCodeOfItem.TextChanged -= RegNew_CheckIsWHAvailabe;
+            regNew_tbQuantity.TextChanged -= RegNew_CheckIsWHAvailabe;
+
+            dgw_show.CellMouseClick -= Dgw_show_CellMouseClick;
+            dgw_show.CellClick -= Dgw_show_CellClick_Outcome;
+            dgw_show.CellClick -= Dgw_show_CellClick_Warehouse;
+        }
+
+        private void InitDGW(MySqlDataReader reader, int count)
+        {
+            object[] arr = new object[count];
+
+            while (reader.Read())
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    arr[i] = reader[i];
+                }
+                dgw_show.Rows.Add(arr);
+            }
+
+        }
+
+        private void btn_auth_enter_Click(object sender, EventArgs e)
+        {
+            string login = "etalon-manager";
+            string password = "12345Password";
+            //if (login == tb_auth_login.Text && password == tb_auth_pass.Text)
+            //{
+            pnl_auth.Hide();
+            GetConnect(login, password);
+            pnl_choose_mngr.Show();
+            InitManagersCB();
+            HideAllBtns();
+            //}
+            //else
+            //{
+            //    lbl_auth_invalidData.Visible = true;
+            //    tb_auth_pass.Text = "";
+            //}
+        }
+
+        //
+        //main menu
+        //
         private void btn_mainMenu_addChangeInfo_Click(object sender, EventArgs e)
         {
             HideAllBtns();
@@ -236,94 +316,79 @@ namespace diplomaProj
             regNew_btnConfirm.Click += RegNew_btnConfirm_Income_Click;
         }
 
-        private void RegNew_btnConfirm_Income_Click(object sender, EventArgs e)
+        private void btn_mainMenu_checkInfo_Click(object sender, EventArgs e)
         {
-            if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "")
-            {
-                int num1;
-                bool fl1 = int.TryParse(regNew_tbQuantity.Text, out num1);
-                int num2;
-                bool fl2 = int.TryParse(regNew_tbQuantity.Text, out num2);
-                if (fl1 && fl2)
-                {
-                    bool flag = false;
-                    string month;
-                    string day;
+            HideAllBtns();
 
-                    if (Convert.ToInt16(DateTime.Now.Month.ToString()) < 10)
-                        month = $"0{DateTime.Now.Month}";
-                    else
-                        month = DateTime.Now.Month.ToString();
+            btn_mainMenu_slot1.Show();
+            btn_mainMenu_slot2.Show();
+            btn_mainMenu_slot3.Show();
+            btn_mainMenu_slot4.Show();
+            btn_mainMenu_slot5.Show();
+            btn_mainMenu_slot6.Show();
+            btn_mainMenu_slot7.Show();
+            btn_mainMenu_slot8.Show();
 
-                    if (Convert.ToInt16(DateTime.Now.Day.ToString()) < 10)
-                        day = $"0{DateTime.Now.Day}";
-                    else
-                        day = DateTime.Now.Day.ToString();
+            btn_mainMenu_slot1.Click += ShowInfo;
+            btn_mainMenu_slot2.Click += ShowInfo;
+            btn_mainMenu_slot3.Click += ShowInfo;
+            btn_mainMenu_slot4.Click += ShowInfo;
+            btn_mainMenu_slot5.Click += ShowInfo;
+            btn_mainMenu_slot6.Click += ShowInfo;
+            btn_mainMenu_slot7.Click += ShowInfo;
+            btn_mainMenu_slot8.Click += ShowInfo;
 
-
-                    string today = $"{DateTime.Now.Year}-{month}-{day}";
-                    new MySqlCommand("insert into activity (activity.dateOfReg) values ('" + today + "')", connect).ExecuteNonQuery();
-
-                    MySqlDataReader reader = new MySqlCommand("select id from activity order by id desc limit 1", connect).ExecuteReader();
-                    reader.Read();
-
-                    string id = reader[0].ToString();
-
-                    reader.Close();
-
-                    string q = $"insert into income values ({id}, {regNew_tb1.Text}, { regNew_tbCodeOfItem.Text}, {regNew_tbQuantity.Text}, {regNew_tbPaid.Text})";
-                    new MySqlCommand(q, connect).ExecuteNonQuery();
-
-                    reader = new MySqlCommand("select * from warehouse", connect).ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        if (reader[1].ToString() == regNew_tbCodeOfItem.Text)
-                        {
-                            int quant = Convert.ToInt32(reader[2]);
-                            string whitCode = reader[0].ToString();
-                            reader.Close();
-                            new MySqlCommand($"update warehouse set quantity=" +
-                                $"'{quant + Convert.ToInt32(regNew_tbQuantity.Text)}' where codeOfWHitem='{whitCode}'", connect).ExecuteNonQuery();
-
-                            flag = true;
-
-                            break;
-                        }
-                    }
-
-                    if (!flag)
-                    {
-                        reader.Close();
-                        new MySqlCommand($"insert into warehouse(codeOfItem, quantity) values ('{id}', '{regNew_tbQuantity.Text}')", connect).ExecuteNonQuery();
-                    }
-
-                    MessageBox.Show("Дані внесено успішно!");
-
-                    regNew_tb1.Text = "";
-                    regNew_tbCodeOfItem.Text = "";
-                    regNew_tbQuantity.Text = "";
-                    regNew_tbPaid.Text = "";
-                }
-                else
-                {
-                    MessageBox.Show("Не може бути текстових даних");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Не може бути пустих полів!");
-            }
-
+            btn_mainMenu_slot1.Text = "Переглянути вікна";
+            btn_mainMenu_slot2.Text = "Переглянути двері";
+            btn_mainMenu_slot3.Text = "Переглянути підвіконня";
+            btn_mainMenu_slot4.Text = "Переглянути відливи";
+            btn_mainMenu_slot5.Text = "Переглянути москітні сітки";
+            btn_mainMenu_slot6.Text = "Переглянути поставки";
+            btn_mainMenu_slot7.Text = "Переглянути продажі";
+            btn_mainMenu_slot8.Text = "Переглянути склад";
         }
 
-        public void regNew_tbProvider(object sender, EventArgs e)
+        private void btn_mainMenu_registerSell_Click(object sender, EventArgs e)
         {
-            form2 = new GetCodes2IncomeOutcome(connect, "provider", this);
-            form2.ShowDialog();
+            HideAllBtns();
+            pnl_mainMenu.Hide();
+            pnl_registerNew.Show();
 
+            RegisterNewIncomeAddCtrls();
+            regNew_lbl1.Text = "Код клієнта";
+            regNew_lblDeliveryCost.Enabled = false;
+            regNew_tbDelCost.Enabled = false;
+            regNew_cbDelivery.CheckedChanged += RegNew_cbDelivery_CheckedChanged;
+
+
+            regNew_lbl1.Visible = true;
+            regNew_lblcodeOfItem.Visible = true;
+            regNew_lblQuantity.Visible = true;
+            regNew_lblPaid.Visible = true;
+            regNew_lblDeliveryCost.Visible = true;
+            regNew_cbDelivery.Visible = true;
+            regNew_tb1.Visible = true;
+            regNew_tbCodeOfItem.Visible = true;
+            regNew_tbQuantity.Visible = true;
+            regNew_tbPaid.Visible = true;
+            regNew_tbDelCost.Visible = true;
+            regNew_btnConfirm.Visible = true;
+            regNew_btnConfirm.Enabled = false;
+
+            regNew_tb1.Click += RegNew_Sell_tb1_Click;
+            regNew_tbCodeOfItem.TextChanged += RegNew_CheckIsWHAvailabe;
+            regNew_tbQuantity.TextChanged += RegNew_CheckIsWHAvailabe;
+
+            regNew_tb1.ReadOnly = true;
+            regNew_tbCodeOfItem.ReadOnly = true;
+
+            regNew_btnConfirm.Click += RegNew_Sell_btnConfirm_Click;
         }
 
+
+        //
+        //register income
+        //
         private void RegisterNewIncomeAddCtrls()
         {
             // 
@@ -468,105 +533,108 @@ namespace diplomaProj
             regNew_tbCodeOfItem.Click += RegNew_tbCodeOfItem_Click;
         }
 
-        public void RegNew_tbCodeOfItem_Click(object sender, EventArgs e)
+        private void RegNew_btnConfirm_Income_Click(object sender, EventArgs e)
         {
-            form2 = new GetCodes2IncomeOutcome(connect, "items", this);
-            form2.ShowDialog();
-        }
-
-        private void btn_mainMenu_registerSell_Click(object sender, EventArgs e)
-        {
-            HideAllBtns();
-            pnl_mainMenu.Hide();
-            pnl_registerNew.Show();
-
-            RegisterNewIncomeAddCtrls();
-            regNew_lbl1.Text = "Код клієнта";
-            regNew_lblDeliveryCost.Enabled = false;
-            regNew_tbDelCost.Enabled = false;
-            regNew_cbDelivery.CheckedChanged += RegNew_cbDelivery_CheckedChanged;
-
-
-            regNew_lbl1.Visible = true;
-            regNew_lblcodeOfItem.Visible = true;
-            regNew_lblQuantity.Visible = true;
-            regNew_lblPaid.Visible = true;
-            regNew_lblDeliveryCost.Visible = true;
-            regNew_cbDelivery.Visible = true;
-            regNew_tb1.Visible = true;
-            regNew_tbCodeOfItem.Visible = true;
-            regNew_tbQuantity.Visible = true;
-            regNew_tbPaid.Visible = true;
-            regNew_tbDelCost.Visible = true;
-            regNew_btnConfirm.Visible = true;
-            regNew_btnConfirm.Enabled = false;
-
-            regNew_tb1.Click += RegNew_Sell_tb1_Click;
-            regNew_tbCodeOfItem.TextChanged += RegNew_CheckIsWHAvailabe;
-            regNew_tbQuantity.TextChanged += RegNew_CheckIsWHAvailabe;
-
-            regNew_tb1.ReadOnly = true;
-            regNew_tbCodeOfItem.ReadOnly = true;
-
-            regNew_btnConfirm.Click += RegNew_Sell_btnConfirm_Click;
-        }
-
-        private void RegNew_Sell_btnConfirm_Click(object sender, EventArgs e)
-        {
-            int quantity = 0;
-            int paid = 0;
-            int cost = 0;
-
-            bool fl1;
-            bool fl2;
-            bool fl3;
-
-            if (regNew_cbDelivery.Checked == true)
+            if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "")
             {
-                if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "" && regNew_tbDelCost.Text != "")
+                int num1;
+                bool fl1 = int.TryParse(regNew_tbQuantity.Text, out num1);
+                int num2;
+                bool fl2 = int.TryParse(regNew_tbQuantity.Text, out num2);
+                if (fl1 && fl2)
                 {
-                    fl1 = int.TryParse(regNew_tbQuantity.Text, out quantity);
-                    fl2 = int.TryParse(regNew_tbPaid.Text, out paid);
-                    fl3 = int.TryParse(regNew_tbDelCost.Text, out cost);
+                    bool flag = false;
+                    string month;
+                    string day;
 
-                    if(fl1 && fl2 && fl3)
-                    {
-                        InsertIncome(true, cost);
-                    }
+                    if (Convert.ToInt16(DateTime.Now.Month.ToString()) < 10)
+                        month = $"0{DateTime.Now.Month}";
                     else
+                        month = DateTime.Now.Month.ToString();
+
+                    if (Convert.ToInt16(DateTime.Now.Day.ToString()) < 10)
+                        day = $"0{DateTime.Now.Day}";
+                    else
+                        day = DateTime.Now.Day.ToString();
+
+
+                    string today = $"{DateTime.Now.Year}-{month}-{day}";
+                    new MySqlCommand("insert into activity (activity.dateOfReg) values ('" + today + "')", connect).ExecuteNonQuery();
+
+                    MySqlDataReader reader = new MySqlCommand("select id from activity order by id desc limit 1", connect).ExecuteReader();
+                    reader.Read();
+
+                    string id = reader[0].ToString();
+
+                    reader.Close();
+
+                    string q = $"insert into income values ({id}, {regNew_tb1.Text}, { regNew_tbCodeOfItem.Text}, {regNew_tbQuantity.Text}, {regNew_tbPaid.Text})";
+                    new MySqlCommand(q, connect).ExecuteNonQuery();
+
+                    reader = new MySqlCommand("select * from warehouse", connect).ExecuteReader();
+
+                    while (reader.Read())
                     {
-                        MessageBox.Show("Допустимі лише числові значення!");
+                        if (reader[1].ToString() == regNew_tbCodeOfItem.Text)
+                        {
+                            int quant = Convert.ToInt32(reader[2]);
+                            string whitCode = reader[0].ToString();
+                            reader.Close();
+                            new MySqlCommand($"update warehouse set quantity=" +
+                                $"'{quant + Convert.ToInt32(regNew_tbQuantity.Text)}' where codeOfWHitem='{whitCode}'", connect).ExecuteNonQuery();
+
+                            flag = true;
+
+                            break;
+                        }
                     }
+
+                    if (!flag)
+                    {
+                        reader.Close();
+                        new MySqlCommand($"insert into warehouse(codeOfItem, quantity) values ('{id}', '{regNew_tbQuantity.Text}')", connect).ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Дані внесено успішно!");
+
+                    regNew_tb1.Text = "";
+                    regNew_tbCodeOfItem.Text = "";
+                    regNew_tbQuantity.Text = "";
+                    regNew_tbPaid.Text = "";
                 }
                 else
                 {
-                    MessageBox.Show("Не допустимі пусті поля!");
+                    MessageBox.Show("Не може бути текстових даних");
                 }
             }
             else
             {
-                if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "" )
-                {
-                    fl1 = int.TryParse(regNew_tbQuantity.Text, out quantity);
-                    fl2 = int.TryParse(regNew_tbPaid.Text, out paid);
+                MessageBox.Show("Не може бути пустих полів!");
+            }
 
-                    if (fl1 && fl2)
-                    {
-                        InsertIncome(false, 0);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Допустимі лише числові значення!");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Не допустимі пусті поля!");
-                }
-            }        
         }
 
-        private void InsertIncome(bool delFl, int delCost)
+        //
+        //register outcome
+        //
+
+        private void RegNew_cbDelivery_CheckedChanged(object sender, EventArgs e)
+        {
+            if (regNew_cbDelivery.Checked == false)
+            {
+                regNew_lblDeliveryCost.Enabled = false;
+                regNew_tbDelCost.Enabled = false;
+                regNew_tbDelCost.Text = "";
+            }
+            else
+            {
+                regNew_lblDeliveryCost.Enabled = true;
+                regNew_tbDelCost.Enabled = true;
+            }
+        }
+
+
+        private void InsertOutcome(bool delFl, int delCost)
         {
             bool flag = false;
             string month;
@@ -637,6 +705,62 @@ namespace diplomaProj
             regNew_tbDelCost.Text = "";
         }
 
+
+        private void RegNew_Sell_btnConfirm_Click(object sender, EventArgs e)
+        {
+            int quantity = 0;
+            int paid = 0;
+            int cost = 0;
+
+            bool fl1;
+            bool fl2;
+            bool fl3;
+
+            if (regNew_cbDelivery.Checked == true)
+            {
+                if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "" && regNew_tbDelCost.Text != "")
+                {
+                    fl1 = int.TryParse(regNew_tbQuantity.Text, out quantity);
+                    fl2 = int.TryParse(regNew_tbPaid.Text, out paid);
+                    fl3 = int.TryParse(regNew_tbDelCost.Text, out cost);
+
+                    if (fl1 && fl2 && fl3)
+                    {
+                        InsertOutcome(true, cost);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Допустимі лише числові значення!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Не допустимі пусті поля!");
+                }
+            }
+            else
+            {
+                if (regNew_tb1.Text != "" && regNew_tbCodeOfItem.Text != "" && regNew_tbQuantity.Text != "" && regNew_tbPaid.Text != "")
+                {
+                    fl1 = int.TryParse(regNew_tbQuantity.Text, out quantity);
+                    fl2 = int.TryParse(regNew_tbPaid.Text, out paid);
+
+                    if (fl1 && fl2)
+                    {
+                        InsertOutcome(false, 0);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Допустимі лише числові значення!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Не допустимі пусті поля!");
+                }
+            }
+        }
+
         private void RegNew_CheckIsWHAvailabe(object sender, EventArgs e)
         {
             int codeItem;
@@ -667,53 +791,23 @@ namespace diplomaProj
             form2.ShowDialog();
         }
 
-        private void RegNew_cbDelivery_CheckedChanged(object sender, EventArgs e)
+        //
+        //else
+        //
+
+        public void regNew_tbProvider(object sender, EventArgs e)
         {
-            if (regNew_cbDelivery.Checked == false)
-            {
-                regNew_lblDeliveryCost.Enabled = false;
-                regNew_tbDelCost.Enabled = false;
-                regNew_tbDelCost.Text = "";
-            }
-            else
-            {
-                regNew_lblDeliveryCost.Enabled = true;
-                regNew_tbDelCost.Enabled = true;
-            }
-        }
+            form2 = new GetCodes2IncomeOutcome(connect, "provider", this);
+            form2.ShowDialog();
 
-        private void btn_mainMenu_checkInfo_Click(object sender, EventArgs e)
+        }
+        
+        public void RegNew_tbCodeOfItem_Click(object sender, EventArgs e)
         {
-            HideAllBtns();
-
-            btn_mainMenu_slot1.Show();
-            btn_mainMenu_slot2.Show();
-            btn_mainMenu_slot3.Show();
-            btn_mainMenu_slot4.Show();
-            btn_mainMenu_slot5.Show();
-            btn_mainMenu_slot6.Show();
-            btn_mainMenu_slot7.Show();
-            btn_mainMenu_slot8.Show();
-
-            btn_mainMenu_slot1.Click += ShowInfo;
-            btn_mainMenu_slot2.Click += ShowInfo;
-            btn_mainMenu_slot3.Click += ShowInfo;
-            btn_mainMenu_slot4.Click += ShowInfo;
-            btn_mainMenu_slot5.Click += ShowInfo;
-            btn_mainMenu_slot6.Click += ShowInfo;
-            btn_mainMenu_slot7.Click += ShowInfo;
-            btn_mainMenu_slot8.Click += ShowInfo;
-
-            btn_mainMenu_slot1.Text = "Переглянути вікна";
-            btn_mainMenu_slot2.Text = "Переглянути двері";
-            btn_mainMenu_slot3.Text = "Переглянути підвіконня";
-            btn_mainMenu_slot4.Text = "Переглянути відливи";
-            btn_mainMenu_slot5.Text = "Переглянути москітні сітки";
-            btn_mainMenu_slot6.Text = "Переглянути поставки";
-            btn_mainMenu_slot7.Text = "Переглянути продажі";
-            btn_mainMenu_slot8.Text = "Переглянути склад";
+            form2 = new GetCodes2IncomeOutcome(connect, "items", this);
+            form2.ShowDialog();
         }
-
+        
         private void AddItem(object sender, EventArgs e) //empty
         {
         }
@@ -817,6 +911,9 @@ namespace diplomaProj
                 case "income":
                     {
                         getAdditControls();
+
+                        dgw_show.CellMouseClick += Dgw_show_CellMouseClick;
+
                         dgw_show.Columns.Add("code", "код");
                         dgw_show.Columns.Add("dateOfIncome", "дата_поставки");
                         dgw_show.Columns.Add("provider", "постачальник");
@@ -851,26 +948,53 @@ namespace diplomaProj
                     break;
                 case "outcome":
                     {
+                        getAdditControls();
+
+                        dgw_show.CellClick += Dgw_show_CellClick_Outcome;
+
                         dgw_show.Columns.Add("code", "код");
                         dgw_show.Columns.Add("dateOfOutcome", "дата_продажі");
-                        dgw_show.Columns.Add("codeOfClient", "код_клієнта");
+                        dgw_show.Columns.Add("nameClient", "ім'я_клієнта");
+                        dgw_show.Columns.Add("lastNameClient", "прізвище_клієнта");
                         dgw_show.Columns.Add("codeOfItem", "код_товару");
                         dgw_show.Columns.Add("quantity", "кількість");
                         dgw_show.Columns.Add("paid", "заплачено");
                         dgw_show.Columns.Add("montageDelivery", "монтаж/доставка");
                         dgw_show.Columns.Add("montageDeliveryCost", "вартість_монтажу/доставки");
-                        dgw_show.Columns.Add("Manager", "менеджер");
-                        q = "select * from " + subj;
+                        dgw_show.Columns.Add("nameManager", "ім'я_менеджера");
+                        dgw_show.Columns.Add("lastNameManager", "прізвище_менеджера");
+                        q = "call showOutcome";
                         reader = new MySqlCommand(q, connect).ExecuteReader();
 
-                        InitDGW(reader, 9);
+                        InitDGW(reader, 11);
+
+                        object[] arr = new object[6];
+
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < 6; i++)
+                            {
+                                if (i == 1)
+                                {
+                                    arr[i] = Convert.ToDateTime(reader[i]).Date.ToShortDateString().Split(' ')[0];
+                                }
+                                else
+                                    arr[i] = reader[i];
+                            }
+                            dgw_show.Rows.Add(arr);
+                        }
 
                         reader.Close();
 
+                        HideAllAdditionControls();
                     }
                     break;
                 case "warehouse":
                     {
+                        getAdditControls();
+
+                        dgw_show.CellClick += Dgw_show_CellClick_Warehouse;
+
                         dgw_show.Columns.Add("code", "код_складу");
                         dgw_show.Columns.Add("codeOfItem", "код_товару");
                         dgw_show.Columns.Add("quantify", "кількість");
@@ -880,6 +1004,338 @@ namespace diplomaProj
 
                         InitDGW(reader, 3);
 
+                        reader.Close();
+
+                        HideAllAdditionControls();
+                    }
+                    break;
+            }
+        }
+
+        private void Dgw_show_CellClick_Warehouse(object sender, DataGridViewCellEventArgs e)
+        {
+            HideAllAdditionControls();
+            if (e.RowIndex > dgw_show.RowCount || e.RowIndex < 0)
+                return;
+            DataGridViewRow dgwr = dgw_show.Rows[e.RowIndex];
+            MySqlDataReader reader = new MySqlCommand("call getType4showIncome(" + dgwr.Cells[1].Value + ")", connect).ExecuteReader();
+
+            reader.Read();
+
+            int assortimInd = Convert.ToInt16(reader[0]);
+
+            reader.Close();
+
+            switch (assortimInd)
+            {
+                case 1:     //windows
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
+
+                        showIncType.Visible = true;
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Назва";
+
+                        reader = new MySqlCommand("select * from windows where windows.codeOfItem = " + dgwr.Cells[1].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                        }
+
+                        showIncType.Text = "Вікна";
+
+                        reader.Close();
+                    }
+                    break;
+                case 2:     //doors
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
+                        showIncLbl4.Visible = true;
+                        showIncLbl5.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Тип";
+                        showIncLbl4.Text = "Матеріал";
+                        showIncLbl5.Text = "Колір";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+                        showIncTb4.Visible = true;
+                        showIncTb5.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("call getDoorsExt(" + dgwr.Cells[1].Value + ")", connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                            showIncTb4.Text = reader[3].ToString();
+                            showIncTb5.Text = reader[4].ToString();
+                        }
+
+                        showIncType.Text = "Двері";
+
+                        reader.Close();
+                    }
+                    break;
+                case 3:     //windowsill
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
+                        showIncLbl4.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Матеріал";
+                        showIncLbl4.Text = "Колір";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+                        showIncTb4.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("call getWindowsillExt(" + dgwr.Cells[1].Value + ")", connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                            showIncTb4.Text = reader[3].ToString();
+                        }
+
+                        showIncType.Text = "Підвіконня";
+                        reader.Close();
+                    }
+                    break;
+                case 4:     //mosquito
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Назва";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("select * from mosquito_net where mosquito_net.codeOfItem = " + dgwr.Cells[1].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                        }
+
+                        showIncType.Text = "Сітки";
+                        reader.Close();
+                    }
+                    break;
+                case 5:     //reflux
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Назва";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("select * from reflux where reflux.codeOfItem = " + dgwr.Cells[1].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                        }
+
+                        showIncType.Text = "Відливи";
+                        reader.Close();
+                    }
+                    break;
+            }
+        }
+
+        private void Dgw_show_CellClick_Outcome(object sender, DataGridViewCellEventArgs e)
+        {
+            HideAllAdditionControls();
+            if (e.RowIndex > dgw_show.RowCount || e.RowIndex < 0)
+                return;
+            DataGridViewRow dgwr = dgw_show.Rows[e.RowIndex];
+            MySqlDataReader reader = new MySqlCommand("call getType4showIncome(" + dgwr.Cells[4].Value + ")", connect).ExecuteReader();
+
+            reader.Read();
+
+            int assortimInd = Convert.ToInt16(reader[0]);
+
+            reader.Close();
+
+            switch (assortimInd)
+            {
+                case 1:     //windows
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
+
+                        showIncType.Visible = true;
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Назва";
+
+                        reader = new MySqlCommand("select * from windows where windows.codeOfItem = " + dgwr.Cells[4].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                        }
+
+                        showIncType.Text = "Вікна";
+
+                        reader.Close();
+                    }
+                    break;
+                case 2:     //doors
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
+                        showIncLbl4.Visible = true;
+                        showIncLbl5.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Тип";
+                        showIncLbl4.Text = "Матеріал";
+                        showIncLbl5.Text = "Колір";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+                        showIncTb4.Visible = true;
+                        showIncTb5.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("call getDoorsExt(" + dgwr.Cells[4].Value + ")", connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                            showIncTb4.Text = reader[3].ToString();
+                            showIncTb5.Text = reader[4].ToString();
+                        }
+
+                        showIncType.Text = "Двері";
+
+                        reader.Close();
+                    }
+                    break;
+                case 3:     //windowsill
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+                        showIncLbl3.Visible = true;
+                        showIncLbl4.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Виробник";
+                        showIncLbl3.Text = "Матеріал";
+                        showIncLbl4.Text = "Колір";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncTb3.Visible = true;
+                        showIncTb4.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("call getWindowsillExt(" + dgwr.Cells[4].Value + ")", connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                            showIncTb3.Text = reader[2].ToString();
+                            showIncTb4.Text = reader[3].ToString();
+                        }
+
+                        showIncType.Text = "Підвіконня";
+                        reader.Close();
+                    }
+                    break;
+                case 4:     //mosquito
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Назва";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("select * from mosquito_net where mosquito_net.codeOfItem = " + dgwr.Cells[4].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                        }
+
+                        showIncType.Text = "Сітки";
+                        reader.Close();
+                    }
+                    break;
+                case 5:     //reflux
+                    {
+                        showIncLblType.Visible = true;
+                        showIncLbl1.Visible = true;
+                        showIncLbl2.Visible = true;
+
+                        showIncLbl1.Text = "Код";
+                        showIncLbl2.Text = "Назва";
+
+                        showIncTb1.Visible = true;
+                        showIncTb2.Visible = true;
+                        showIncType.Visible = true;
+
+                        reader = new MySqlCommand("select * from reflux where reflux.codeOfItem = " + dgwr.Cells[4].Value, connect).ExecuteReader();
+                        while (reader.Read())
+                        {
+                            showIncTb1.Text = reader[0].ToString();
+                            showIncTb2.Text = reader[1].ToString();
+                        }
+
+                        showIncType.Text = "Відливи";
                         reader.Close();
                     }
                     break;
@@ -1049,77 +1505,6 @@ namespace diplomaProj
                     }
                     break;
             }
-        }
-
-        private void btn_back_Click(object sender, EventArgs e)
-        {
-            HideAllPnls();
-            HideAllBtns();
-            pnl_mainMenu.Show();
-
-            dgw_show.CellMouseClick -= Dgw_show_CellMouseClick;
-
-            pnl_show.Controls.Remove(showIncLbl1);
-            pnl_show.Controls.Remove(showIncLbl2);
-            pnl_show.Controls.Remove(showIncLbl3);
-            pnl_show.Controls.Remove(showIncLbl4);
-            pnl_show.Controls.Remove(showIncLbl5);
-
-            pnl_show.Controls.Remove(showIncTb1);
-            pnl_show.Controls.Remove(showIncTb2);
-            pnl_show.Controls.Remove(showIncTb3);
-            pnl_show.Controls.Remove(showIncTb4);
-            pnl_show.Controls.Remove(showIncTb5);
-
-            this.Width = 920;
-
-            dgw_show.Rows.Clear();
-            dgw_show.Columns.Clear();
-
-            regNew_lbl1.Visible = false;
-            regNew_lblcodeOfItem.Visible = false;
-            regNew_lblQuantity.Visible = false;
-            regNew_lblPaid.Visible = false;
-            regNew_lblDeliveryCost.Visible = false;
-            regNew_cbDelivery.Visible = false;
-            regNew_tb1.Visible = false;
-            regNew_tbCodeOfItem.Visible = false;
-            regNew_tbQuantity.Visible = false;
-            regNew_tbPaid.Visible = false;
-            regNew_tbDelCost.Visible = false;
-            regNew_btnConfirm.Visible = false;
-
-            regNew_cbDelivery.Checked = false;
-            regNew_tb1.Text = "";
-            regNew_tbCodeOfItem.Text = "";
-            regNew_tbQuantity.Text = "";
-            regNew_tbPaid.Text = "";
-            regNew_tbDelCost.Text = "";
-
-            regNew_btnConfirm.Click -= RegNew_btnConfirm_Income_Click;
-            regNew_btnConfirm.Click -= RegNew_Sell_btnConfirm_Click;
-
-            regNew_tb1.Click -= regNew_tbProvider;
-            regNew_tb1.Click -= RegNew_Sell_tb1_Click;
-            regNew_tbCodeOfItem.Click -= RegNew_tbCodeOfItem_Click;
-
-            regNew_tbCodeOfItem.TextChanged -= RegNew_CheckIsWHAvailabe;
-            regNew_tbQuantity.TextChanged -= RegNew_CheckIsWHAvailabe;
-        }
-
-        private void InitDGW(MySqlDataReader reader, int count)
-        {
-            object[] arr = new object[count];
-
-            while (reader.Read())
-            {
-                for (int i = 0; i < count; i++)
-                {
-                    arr[i] = reader[i];
-                }
-                dgw_show.Rows.Add(arr);
-            }
-
         }
 
         private void getAdditControls()
