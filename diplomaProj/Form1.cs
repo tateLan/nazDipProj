@@ -21,7 +21,7 @@ namespace diplomaProj
         private int managerID;
 
         int[] mngrArr;
-
+        string chItem_type;
 
         Label inflbl = new Label();
         Label showIncLbl1 = new Label();
@@ -49,6 +49,22 @@ namespace diplomaProj
         TextBox regNew_tbDelCost = new TextBox();
         Button regNew_btnConfirm = new Button();
         CheckBox regNew_cbDelivery = new CheckBox();
+
+        Label label6 = new Label();
+        Label label5 = new Label();
+        Label lbl_addch_cblbl = new Label();
+        ComboBox cb_addch_itemType = new ComboBox();
+        Button btn_addch_confirm = new Button();
+        public TextBox tb_adch_slot5tb = new TextBox();
+        Label lbl_adch_slot5lbl = new Label();
+        public TextBox tb_adch_slot4tb = new TextBox();
+        Label lbl_adch_slot4lbl = new Label();
+        public TextBox tb_adch_slot3tb = new TextBox();
+        Label lbl_adch_slot3lbl = new Label();
+        public TextBox tb_adch_slot2tb = new TextBox();
+        Label lbl_adch_slot2lbl = new Label();
+        public TextBox tb_adch_slot1tb = new TextBox();
+        Label lbl_adch_slot1lbl = new Label();
 
         GetCodes2IncomeOutcome form2;
         //
@@ -86,6 +102,7 @@ namespace diplomaProj
             pnl_registerNew.Dock = DockStyle.Fill;
             pnl_show.Dock = DockStyle.Fill;
             pnl_choose_mngr.Dock = DockStyle.Fill;
+            pnl_add_change.Dock = DockStyle.Fill;
         }
 
         private void HideAllPnls()
@@ -95,6 +112,7 @@ namespace diplomaProj
             pnl_registerNew.Hide();
             pnl_show.Hide();
             pnl_choose_mngr.Hide();
+            pnl_add_change.Hide();
         }
 
         private void InitManagersCB()
@@ -230,6 +248,36 @@ namespace diplomaProj
             dgw_show.CellMouseClick -= Dgw_show_CellMouseClick;
             dgw_show.CellClick -= Dgw_show_CellClick_Outcome;
             dgw_show.CellClick -= Dgw_show_CellClick_Warehouse;
+
+            pnl_add_change.Controls.Remove(lbl_adch_slot1lbl);
+            pnl_add_change.Controls.Remove(tb_adch_slot1tb);
+            pnl_add_change.Controls.Remove(lbl_adch_slot2lbl);
+            pnl_add_change.Controls.Remove(tb_adch_slot2tb);
+            pnl_add_change.Controls.Remove(lbl_adch_slot3lbl);
+            pnl_add_change.Controls.Remove(tb_adch_slot3tb);
+            pnl_add_change.Controls.Remove(lbl_adch_slot4lbl);
+            pnl_add_change.Controls.Remove(tb_adch_slot4tb);
+            pnl_add_change.Controls.Remove(lbl_adch_slot5lbl);
+            pnl_add_change.Controls.Remove(tb_adch_slot5tb);
+            pnl_add_change.Controls.Remove(btn_addch_confirm);
+            pnl_add_change.Controls.Remove(cb_addch_itemType);
+            pnl_add_change.Controls.Remove(lbl_addch_cblbl);
+
+            btn_addch_confirm.Click -= Btn_addch_confirm_AddUSer_Click;
+            tb_adch_slot1tb.Click -= Tb_adch_slot1tb_ChangeClient_Click;
+
+            tb_adch_slot1tb.ReadOnly = false;
+            tb_adch_slot3tb.ReadOnly = false;
+            tb_adch_slot5tb.ReadOnly = false;
+
+            btn_addch_confirm.Click -= Btn_addch_confirm_ChangeClient_Click;
+            cb_addch_itemType.SelectedIndexChanged -= Cb_addch_itemType_SelectedIndexChanged;
+
+            cb_addch_itemType.Items.Clear();
+
+            tb_adch_slot1tb.Click -= Tb_adch_slot1tb_DoorsChange_Click;
+            tb_adch_slot3tb.Click -= Tb_adch_slot3tb_DoorsChange_TypePick_Click;
+            tb_adch_slot5tb.Click -= Tb_adch_slot5tb_DoorsChange_ColorPick_Click;
         }
 
         private void InitDGW(MySqlDataReader reader, int count)
@@ -265,7 +313,6 @@ namespace diplomaProj
             //    tb_auth_pass.Text = "";
             //}
         }
-
         //
         //main menu
         //
@@ -384,8 +431,6 @@ namespace diplomaProj
 
             regNew_btnConfirm.Click += RegNew_Sell_btnConfirm_Click;
         }
-
-
         //
         //register income
         //
@@ -613,7 +658,6 @@ namespace diplomaProj
             }
 
         }
-
         //
         //register outcome
         //
@@ -632,7 +676,6 @@ namespace diplomaProj
                 regNew_tbDelCost.Enabled = true;
             }
         }
-
 
         private void InsertOutcome(bool delFl, int delCost)
         {
@@ -801,30 +844,249 @@ namespace diplomaProj
             form2.ShowDialog();
 
         }
-        
+
         public void RegNew_tbCodeOfItem_Click(object sender, EventArgs e)
         {
             form2 = new GetCodes2IncomeOutcome(connect, "items", this);
             form2.ShowDialog();
         }
-        
-        private void AddItem(object sender, EventArgs e) //empty
-        {
-        }
 
-        private void ChangeItem(object sender, EventArgs e)//empty
+        private void AddItem(object sender, EventArgs e)
         {
-
-        }
-
-        private void AddClient(object sender, EventArgs e)//empty
-        {
+            pnl_mainMenu.Hide();
+            pnl_add_change.Show();
 
         }
 
-        private void ChangeClient(object sender, EventArgs e)//empty
+        private void ChangeItem(object sender, EventArgs e)
         {
+            pnl_mainMenu.Hide();
+            pnl_add_change.Show();
 
+            AddChange_addctrls();
+
+            lbl_addch_cblbl.Text = "Виберіть тип товару:";
+            cb_addch_itemType.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            MySqlDataReader reader = new MySqlCommand("select nameOfItem from assortment", connect).ExecuteReader();
+
+            while (reader.Read())
+            {
+                cb_addch_itemType.Items.Add(reader[0]);
+            }
+
+            reader.Close();
+
+            lbl_addch_cblbl.Visible = true;
+            cb_addch_itemType.Visible = true;
+            cb_addch_itemType.SelectedIndexChanged += Cb_addch_itemType_SelectedIndexChanged;
+        }
+
+        private void Cb_addch_itemType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lbl_adch_slot1lbl.Visible = false;
+            tb_adch_slot1tb.Visible = false;
+            lbl_adch_slot2lbl.Visible = false;
+            tb_adch_slot2tb.Visible = false;
+            lbl_adch_slot3lbl.Visible = false;
+            tb_adch_slot3tb.Visible = false;
+            lbl_adch_slot4lbl.Visible = false;
+            tb_adch_slot4tb.Visible = false;
+            lbl_adch_slot5lbl.Visible = false;
+            tb_adch_slot5tb.Visible = false;
+            btn_addch_confirm.Visible = false;
+
+            tb_adch_slot1tb.ReadOnly = true;
+
+
+            switch (cb_addch_itemType.Text)
+            {
+                case "Відлив":
+                    {
+                        chItem_type = "reflux";
+                    }
+                    break;
+                case "Двері":
+                    {
+                        chItem_type = "doors";
+
+                        lbl_adch_slot1lbl.Visible = true;
+                        tb_adch_slot1tb.Visible = true;
+                        lbl_adch_slot2lbl.Visible = true;
+                        tb_adch_slot2tb.Visible = true;
+                        lbl_adch_slot3lbl.Visible = true;
+                        tb_adch_slot3tb.Visible = true;
+                        lbl_adch_slot4lbl.Visible = true;
+                        tb_adch_slot4tb.Visible = true;
+                        lbl_adch_slot5lbl.Visible = true;
+                        tb_adch_slot5tb.Visible = true;
+                        btn_addch_confirm.Visible = true;
+
+                        lbl_adch_slot1lbl.Text = "Код";
+                        lbl_adch_slot2lbl.Text = "Виробник";
+                        lbl_adch_slot3lbl.Text = "Тип дверей";
+                        lbl_adch_slot4lbl.Text = "Матеріал";
+                        lbl_adch_slot5lbl.Text = "Колір";
+                        btn_addch_confirm.Text = "Змінити";
+
+                        tb_adch_slot3tb.ReadOnly = true;
+                        tb_adch_slot5tb.ReadOnly = true;
+
+                        tb_adch_slot1tb.Click += Tb_adch_slot1tb_DoorsChange_Click;
+                        tb_adch_slot3tb.Click += Tb_adch_slot3tb_DoorsChange_TypePick_Click;
+                        tb_adch_slot5tb.Click += Tb_adch_slot5tb_DoorsChange_ColorPick_Click;
+                    }
+                    break;
+                case "Вікна":
+                    {
+                        chItem_type = "windows";
+                    }
+                    break;
+                case "Підвіконня":
+                    {
+                        chItem_type = "windowsill";
+                    }
+                    break;
+                case "Москітна сітка":
+                    {
+                        chItem_type = "mosquito_net";
+                    }
+                    break;
+            }
+        }
+
+        private void Tb_adch_slot5tb_DoorsChange_ColorPick_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "colors", this);
+            form2.ShowDialog();
+        }
+
+        private void Tb_adch_slot3tb_DoorsChange_TypePick_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "types", this);
+            form2.ShowDialog();
+        }
+
+        private void Tb_adch_slot1tb_DoorsChange_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "ch-doors", this);
+            form2.ShowDialog();
+        }
+
+        private void AddClient(object sender, EventArgs e)
+        {
+            pnl_mainMenu.Hide();
+            pnl_add_change.Show();
+
+
+            AddChange_addctrls();
+
+            lbl_adch_slot1lbl.Visible = true;
+            tb_adch_slot1tb.Visible = true;
+            lbl_adch_slot2lbl.Visible = true;
+            tb_adch_slot2tb.Visible = true;
+            lbl_adch_slot3lbl.Visible = true;
+            tb_adch_slot3tb.Visible = true;
+            lbl_adch_slot4lbl.Visible = true;
+            tb_adch_slot4tb.Visible = true;
+            btn_addch_confirm.Visible = true;
+
+            lbl_adch_slot1lbl.Text = "Ім'я";
+            lbl_adch_slot2lbl.Text = "Прізвище";
+            lbl_adch_slot3lbl.Text = "Номер";
+            lbl_adch_slot4lbl.Text = "Адреса";
+            btn_addch_confirm.Text = "Підтвердити";
+
+            btn_addch_confirm.Click += Btn_addch_confirm_AddUSer_Click;
+        }
+
+        private void ChangeClient(object sender, EventArgs e)
+        {
+            pnl_mainMenu.Hide();
+            pnl_add_change.Show();
+
+            AddChange_addctrls();
+
+            lbl_adch_slot1lbl.Text = "Код";
+            lbl_adch_slot2lbl.Text = "Ім'я";
+            lbl_adch_slot3lbl.Text = "Прізвище";
+            lbl_adch_slot4lbl.Text = "Номер";
+            lbl_adch_slot5lbl.Text = "Адреса";
+            btn_addch_confirm.Text = "Змінити";
+
+            tb_adch_slot1tb.ReadOnly = true;
+            tb_adch_slot1tb.Click += Tb_adch_slot1tb_ChangeClient_Click;
+            btn_addch_confirm.Click += Btn_addch_confirm_ChangeClient_Click;
+
+            lbl_adch_slot1lbl.Visible = true;
+            tb_adch_slot1tb.Visible = true;
+            lbl_adch_slot2lbl.Visible = true;
+            tb_adch_slot2tb.Visible = true;
+            lbl_adch_slot3lbl.Visible = true;
+            tb_adch_slot3tb.Visible = true;
+            lbl_adch_slot4lbl.Visible = true;
+            tb_adch_slot4tb.Visible = true;
+            lbl_adch_slot5lbl.Visible = true;
+            tb_adch_slot5tb.Visible = true;
+            btn_addch_confirm.Visible = true;
+        }
+
+        private void Btn_addch_confirm_ChangeClient_Click(object sender, EventArgs e)
+        {
+            if (tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "" && tb_adch_slot4tb.Text != "" && tb_adch_slot5tb.Text != "")
+            {
+                int ph;
+                bool fl1 = int.TryParse(tb_adch_slot4tb.Text, out ph);
+
+                if (fl1)
+                {
+                    new MySqlCommand($"update clients set firstName='{tb_adch_slot2tb.Text}', " +
+                        $"lastName='{tb_adch_slot3tb.Text}', phoneNumber='{tb_adch_slot4tb.Text}', " +
+                        $"adress='{tb_adch_slot5tb.Text}' where codeOfClient='{tb_adch_slot1tb.Text}'", connect).ExecuteNonQuery();
+                    MessageBox.Show("Дані змінено успішно!");
+
+                    tb_adch_slot1tb.Text = "";
+                    tb_adch_slot2tb.Text = "";
+                    tb_adch_slot3tb.Text = "";
+                    tb_adch_slot4tb.Text = "";
+                    tb_adch_slot5tb.Text = "";
+                }
+                else
+                    MessageBox.Show("Введено неправильний номер телефону!");
+            }
+            else
+                MessageBox.Show("Пусті поля не допускаються!");
+        }
+
+        private void Tb_adch_slot1tb_ChangeClient_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "ch-clients", this);
+            form2.ShowDialog();
+        }
+
+        private void Btn_addch_confirm_AddUSer_Click(object sender, EventArgs e)
+        {
+            if (tb_adch_slot1tb.Text != "" && tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "" && tb_adch_slot4tb.Text != "")
+            {
+                int ph;
+                bool fl1 = int.TryParse(tb_adch_slot3tb.Text, out ph);
+
+                if (fl1)
+                {
+                    new MySqlCommand($"insert into clients(firstName, lastName, phoneNumber, adress, spent) " +
+                        $"values ('{tb_adch_slot1tb.Text}', '{tb_adch_slot2tb.Text}', '{tb_adch_slot3tb.Text}', '{tb_adch_slot4tb.Text}', '0')", connect).ExecuteNonQuery();
+                    MessageBox.Show("Клієнт зареєстрований успішно!");
+
+                    tb_adch_slot1tb.Text = "";
+                    tb_adch_slot2tb.Text = "";
+                    tb_adch_slot3tb.Text = "";
+                    tb_adch_slot4tb.Text = "";
+                }
+                else
+                    MessageBox.Show("Введено неправильний номер телефону!");
+            }
+            else
+                MessageBox.Show("Пусті поля не допускаються!");
         }
 
         private void ShowInfo(object sender, EventArgs e)
@@ -995,14 +1257,13 @@ namespace diplomaProj
 
                         dgw_show.CellClick += Dgw_show_CellClick_Warehouse;
 
-                        dgw_show.Columns.Add("code", "код_складу");
                         dgw_show.Columns.Add("codeOfItem", "код_товару");
                         dgw_show.Columns.Add("quantify", "кількість");
 
-                        q = "select * from " + subj;
+                        q = "select warehouse.codeOfItem, warehouse.quantity from " + subj;
                         reader = new MySqlCommand(q, connect).ExecuteReader();
 
-                        InitDGW(reader, 3);
+                        InitDGW(reader, 2);
 
                         reader.Close();
 
@@ -1653,13 +1914,165 @@ namespace diplomaProj
 
         private void btn_manager_chose_accept_Click(object sender, EventArgs e)
         {
-            if(cb_managersList.SelectedIndex != -1 )
+            if (cb_managersList.SelectedIndex != -1)
             {
                 managerID = mngrArr[cb_managersList.SelectedIndex];
                 MessageBox.Show("Вітаю, " + cb_managersList.Text);
                 pnl_choose_mngr.Hide();
                 pnl_mainMenu.Show();
             }
+        }
+
+        private void AddChange_addctrls()
+        {
+
+            // 
+            // lbl_adch_slot1lbl
+            // 
+            this.lbl_adch_slot1lbl.AutoSize = true;
+            this.lbl_adch_slot1lbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_adch_slot1lbl.Location = new Point(310, 180);
+            this.lbl_adch_slot1lbl.Name = "lbl_adch_slot1lbl";
+            this.lbl_adch_slot1lbl.Size = new Size(51, 20);
+            this.lbl_adch_slot1lbl.TabIndex = 2;
+            this.lbl_adch_slot1lbl.Text = "lbl_adch_slot1lbl";
+            // 
+            // tb_adch_slot1tb
+            // 
+            this.tb_adch_slot1tb.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.tb_adch_slot1tb.Location = new Point(408, 173);
+            this.tb_adch_slot1tb.Name = "tb_adch_slot1tb";
+            this.tb_adch_slot1tb.Size = new Size(171, 26);
+            this.tb_adch_slot1tb.TabIndex = 3;
+            // 
+            // lbl_adch_slot2lbl
+            // 
+            this.lbl_adch_slot2lbl.AutoSize = true;
+            this.lbl_adch_slot2lbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_adch_slot2lbl.Location = new Point(310, 210);
+            this.lbl_adch_slot2lbl.Name = "lbl_adch_slot2lbl";
+            this.lbl_adch_slot2lbl.Size = new Size(51, 20);
+            this.lbl_adch_slot2lbl.TabIndex = 2;
+            this.lbl_adch_slot2lbl.Text = "lbl_adch_slot1lbl";
+            // 
+            // tb_adch_slot2tb
+            // 
+            this.tb_adch_slot2tb.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.tb_adch_slot2tb.Location = new Point(408, 203);
+            this.tb_adch_slot2tb.Name = "tb_adch_slot2tb";
+            this.tb_adch_slot2tb.Size = new Size(171, 26);
+            this.tb_adch_slot2tb.TabIndex = 3;
+            // 
+            // lbl_adch_slot3lbl
+            // 
+            this.lbl_adch_slot3lbl.AutoSize = true;
+            this.lbl_adch_slot3lbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_adch_slot3lbl.Location = new Point(310, 241);
+            this.lbl_adch_slot3lbl.Name = "lbl_adch_slot3lbl";
+            this.lbl_adch_slot3lbl.Size = new Size(51, 20);
+            this.lbl_adch_slot3lbl.TabIndex = 2;
+            this.lbl_adch_slot3lbl.Text = "lbl_adch_slot1lbl";
+            // 
+            // tb_adch_slot3tb
+            // 
+            this.tb_adch_slot3tb.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.tb_adch_slot3tb.Location = new Point(408, 234);
+            this.tb_adch_slot3tb.Name = "tb_adch_slot3tb";
+            this.tb_adch_slot3tb.Size = new Size(171, 26);
+            this.tb_adch_slot3tb.TabIndex = 3;
+            // 
+            // lbl_adch_slot4lbl
+            // 
+            this.lbl_adch_slot4lbl.AutoSize = true;
+            this.lbl_adch_slot4lbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_adch_slot4lbl.Location = new Point(310, 275);
+            this.lbl_adch_slot4lbl.Name = "lbl_adch_slot4lbl";
+            this.lbl_adch_slot4lbl.Size = new Size(51, 20);
+            this.lbl_adch_slot4lbl.TabIndex = 2;
+            this.lbl_adch_slot4lbl.Text = "lbl_adch_slot1lbl";
+            // 
+            // tb_adch_slot4tb
+            // 
+            this.tb_adch_slot4tb.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.tb_adch_slot4tb.Location = new Point(408, 268);
+            this.tb_adch_slot4tb.Name = "tb_adch_slot4tb";
+            this.tb_adch_slot4tb.Size = new Size(171, 26);
+            this.tb_adch_slot4tb.TabIndex = 3;
+            // 
+            // lbl_adch_slot5lbl
+            // 
+            this.lbl_adch_slot5lbl.AutoSize = true;
+            this.lbl_adch_slot5lbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_adch_slot5lbl.Location = new Point(310, 309);
+            this.lbl_adch_slot5lbl.Name = "lbl_adch_slot4lbl";
+            this.lbl_adch_slot5lbl.Size = new Size(51, 20);
+            this.lbl_adch_slot5lbl.TabIndex = 2;
+            this.lbl_adch_slot5lbl.Text = "lbl_adch_slot1lbl";
+            // 
+            // tb_adch_slot5tb
+            // 
+            this.tb_adch_slot5tb.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.tb_adch_slot5tb.Location = new Point(408, 302);
+            this.tb_adch_slot5tb.Name = "tb_adch_slot4tb";
+            this.tb_adch_slot5tb.Size = new Size(171, 26);
+            this.tb_adch_slot5tb.TabIndex = 3;
+            // 
+            // btn_addch_confirm
+            // 
+            this.btn_addch_confirm.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.btn_addch_confirm.Location = new Point(376, 339);
+            this.btn_addch_confirm.Name = "btn_addch_confirm";
+            this.btn_addch_confirm.Size = new Size(126, 32);
+            this.btn_addch_confirm.TabIndex = 4;
+            this.btn_addch_confirm.Text = "btn_addch_confirm";
+            this.btn_addch_confirm.UseVisualStyleBackColor = true;
+            // 
+            // cb_addch_itemType
+            // 
+            this.cb_addch_itemType.FormattingEnabled = true;
+            this.cb_addch_itemType.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.cb_addch_itemType.Location = new Point(429, 79);
+            this.cb_addch_itemType.Name = "cb_addch_itemType";
+            this.cb_addch_itemType.Size = new Size(135, 21);
+            this.cb_addch_itemType.TabIndex = 5;
+            // 
+            // lbl_addch_cblbl
+            // 
+            this.lbl_addch_cblbl.AutoSize = true;
+            this.lbl_addch_cblbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_addch_cblbl.Location = new Point(260, 80);
+            this.lbl_addch_cblbl.Name = "lbl_addch_cblbl";
+            this.lbl_addch_cblbl.Size = new Size(60, 20);
+            this.lbl_addch_cblbl.TabIndex = 6;
+            this.lbl_addch_cblbl.Text = "lbl_addch_cblbl";
+
+            pnl_add_change.Controls.Add(lbl_adch_slot1lbl);
+            pnl_add_change.Controls.Add(tb_adch_slot1tb);
+            pnl_add_change.Controls.Add(lbl_adch_slot2lbl);
+            pnl_add_change.Controls.Add(tb_adch_slot2tb);
+            pnl_add_change.Controls.Add(lbl_adch_slot3lbl);
+            pnl_add_change.Controls.Add(tb_adch_slot3tb);
+            pnl_add_change.Controls.Add(lbl_adch_slot4lbl);
+            pnl_add_change.Controls.Add(tb_adch_slot4tb);
+            pnl_add_change.Controls.Add(lbl_adch_slot5lbl);
+            pnl_add_change.Controls.Add(tb_adch_slot5tb);
+            pnl_add_change.Controls.Add(btn_addch_confirm);
+            pnl_add_change.Controls.Add(cb_addch_itemType);
+            pnl_add_change.Controls.Add(lbl_addch_cblbl);
+
+            lbl_adch_slot1lbl.Visible = false;
+            tb_adch_slot1tb.Visible = false;
+            lbl_adch_slot2lbl.Visible = false;
+            tb_adch_slot2tb.Visible = false;
+            lbl_adch_slot3lbl.Visible = false;
+            tb_adch_slot3tb.Visible = false;
+            lbl_adch_slot4lbl.Visible = false;
+            tb_adch_slot4tb.Visible = false;
+            lbl_adch_slot5lbl.Visible = false;
+            tb_adch_slot5tb.Visible = false;
+            btn_addch_confirm.Visible = false;
+            cb_addch_itemType.Visible = false;
+            lbl_addch_cblbl.Visible = false;
         }
     }
 }

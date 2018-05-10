@@ -59,12 +59,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cb_managersList = new System.Windows.Forms.ComboBox();
             this.btn_manager_chose_accept = new System.Windows.Forms.Button();
+            this.pnl_add_change = new System.Windows.Forms.Panel();
+            this.btn_backAddCh = new System.Windows.Forms.Button();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
             this.pnl_registerNew.SuspendLayout();
             this.pnl_show.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgw_show)).BeginInit();
             this.pnl_choose_mngr.SuspendLayout();
+            this.pnl_add_change.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_auth
@@ -399,12 +402,33 @@
             this.btn_manager_chose_accept.UseVisualStyleBackColor = true;
             this.btn_manager_chose_accept.Click += new System.EventHandler(this.btn_manager_chose_accept_Click);
             // 
+            // pnl_add_change
+            // 
+            this.pnl_add_change.Controls.Add(this.btn_backAddCh);
+            this.pnl_add_change.Location = new System.Drawing.Point(12, 12);
+            this.pnl_add_change.Name = "pnl_add_change";
+            this.pnl_add_change.Size = new System.Drawing.Size(880, 524);
+            this.pnl_add_change.TabIndex = 5;
+            // 
+            // btn_backAddCh
+            // 
+            this.btn_backAddCh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_backAddCh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_backAddCh.Location = new System.Drawing.Point(17, 13);
+            this.btn_backAddCh.Name = "btn_backAddCh";
+            this.btn_backAddCh.Size = new System.Drawing.Size(74, 31);
+            this.btn_backAddCh.TabIndex = 1;
+            this.btn_backAddCh.Text = "Назад";
+            this.btn_backAddCh.UseVisualStyleBackColor = true;
+            this.btn_backAddCh.Click += new System.EventHandler(this.btn_back_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_auth_enter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
+            this.Controls.Add(this.pnl_add_change);
             this.Controls.Add(this.pnl_choose_mngr);
             this.Controls.Add(this.pnl_registerNew);
             this.Controls.Add(this.pnl_show);
@@ -424,6 +448,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgw_show)).EndInit();
             this.pnl_choose_mngr.ResumeLayout(false);
             this.pnl_choose_mngr.PerformLayout();
+            this.pnl_add_change.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -459,8 +484,8 @@
         private System.Windows.Forms.Panel pnl_choose_mngr;
         private System.Windows.Forms.Button btn_manager_chose_accept;
         private System.Windows.Forms.ComboBox cb_managersList;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel pnl_add_change;
+        private System.Windows.Forms.Button btn_backAddCh;
     }
 }
 

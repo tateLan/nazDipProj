@@ -88,6 +88,7 @@ namespace diplomaProj
 
                     }
                     break;
+                case "ch-clients":
                 case "clients":
                     {
                         label1.Text = "Код";
@@ -108,7 +109,7 @@ namespace diplomaProj
                         dgw_info.Columns.Add("adress", "Адреса");
                         dgw_info.Columns.Add("spent", "Витрачено");
 
-                        reader = new MySqlCommand("select * from " + table, connect).ExecuteReader();
+                        reader = new MySqlCommand("select * from clients", connect).ExecuteReader();
 
                         while (reader.Read())
                         {
@@ -118,6 +119,7 @@ namespace diplomaProj
 
 
                     }
+
                     break;
                 case "items":
                     {
@@ -156,7 +158,7 @@ namespace diplomaProj
                         allCount = Convert.ToInt32(reader[0]);
                         reader.Close();
 
-                        if(availCount < allCount)
+                        if (availCount < allCount)
                         {
                             whLessThanAll_lbl.AutoSize = true;
                             whLessThanAll_lbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
@@ -175,6 +177,53 @@ namespace diplomaProj
                         HideAdditionalCtrls();
 
                         dgw_info.CellClick += Dgw_info_CellClick;
+                    }
+                    break;
+                case "ch-doors":
+                    {
+                        dgw_info.Columns.Add("code", "Код");
+                        dgw_info.Columns.Add("manuf", "Виробник");
+                        dgw_info.Columns.Add("type", "Тип");
+                        dgw_info.Columns.Add("mater", "Матеріал");
+                        dgw_info.Columns.Add("color", "Колір");
+
+                        reader = new MySqlCommand("select doors.codeOfItem, doors.manufacturer, typeOfProducts.typeOfProducts, doors.material, colors.color " +
+                            "from (doors left join typeOfProducts on doors.typeOfDoors = typeOfProducts.codeOfItem) left join colors " +
+                            "on doors.colour = colors.codeOfColor", connect).ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1], reader[2], reader[3], reader[4]);
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case "types":
+                    {
+                        dgw_info.Columns.Add("code", "Код");
+                        dgw_info.Columns.Add("matytypenuf", "Тип");
+
+                        reader = new MySqlCommand("select * from typeOfProducts", connect).ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1]);
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case "colors":
+                    {
+                        dgw_info.Columns.Add("code", "Код");
+                        dgw_info.Columns.Add("color", "Колір");
+
+                        reader = new MySqlCommand("select * from colors", connect).ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1]);
+                        }
+                        reader.Close();
                     }
                     break;
             }
@@ -566,6 +615,8 @@ namespace diplomaProj
 
         private void dgw_info_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            MySqlDataReader reader;
+
             switch (table)
             {
                 case "provider":
@@ -580,9 +631,49 @@ namespace diplomaProj
                         this.Close();
                     }
                     break;
+                case "ch-clients":
+                    {
+                        form1.tb_adch_slot1tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                        form1.tb_adch_slot2tb.Text = dgw_info.Rows[e.RowIndex].Cells[1].Value.ToString();
+                        form1.tb_adch_slot3tb.Text = dgw_info.Rows[e.RowIndex].Cells[2].Value.ToString();
+                        form1.tb_adch_slot4tb.Text = dgw_info.Rows[e.RowIndex].Cells[3].Value.ToString();
+                        form1.tb_adch_slot5tb.Text = dgw_info.Rows[e.RowIndex].Cells[4].Value.ToString();
+                        this.Close();
+                    }
+                    break;
                 case "items":
                     {
                         form1.regNew_tbCodeOfItem.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                        this.Close();
+                    }
+                    break;
+                case "ch-doors":
+                    {
+                        reader = new MySqlCommand("select * from doors where codeOfItem = " + dgw_info.Rows[e.RowIndex].Cells[0].Value, connect).ExecuteReader();
+                        reader.Read();
+
+                        form1.tb_adch_slot1tb.Text = reader[0].ToString();
+                        form1.tb_adch_slot2tb.Text = reader[1].ToString();
+                        form1.tb_adch_slot3tb.Text = reader[2].ToString();
+                        form1.tb_adch_slot4tb.Text = reader[3].ToString();
+                        form1.tb_adch_slot5tb.Text = reader[4].ToString();
+
+                        reader.Close();
+
+                        this.Close();
+                    }
+                    break;
+                case "types":
+                    {
+                        form1.tb_adch_slot3tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                        
+                        this.Close();
+                    }
+                    break;
+                case "colors":
+                    {
+                        form1.tb_adch_slot5tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+
                         this.Close();
                     }
                     break;
