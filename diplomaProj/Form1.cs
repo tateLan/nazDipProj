@@ -78,6 +78,8 @@ namespace diplomaProj
             InitPanels();
             HideAllPnls();
 
+            GetConnect();
+
             tb_auth_login.Select();
 
             pnl_auth.Show();
@@ -103,6 +105,7 @@ namespace diplomaProj
             pnl_show.Dock = DockStyle.Fill;
             pnl_choose_mngr.Dock = DockStyle.Fill;
             pnl_add_change.Dock = DockStyle.Fill;
+            pnl_root.Dock = DockStyle.Fill;
         }
 
         private void HideAllPnls()
@@ -113,6 +116,7 @@ namespace diplomaProj
             pnl_show.Hide();
             pnl_choose_mngr.Hide();
             pnl_add_change.Hide();
+            pnl_root.Hide();
         }
 
         private void InitManagersCB()
@@ -139,7 +143,7 @@ namespace diplomaProj
             reader.Close();
         }
 
-        private void GetConnect(string log, string pass)
+        private void GetConnect()
         {
             try
             {
@@ -149,8 +153,8 @@ namespace diplomaProj
                 builder.ConnectionProtocol = MySqlConnectionProtocol.Tcp;
                 builder.SslMode = MySqlSslMode.None;
                 builder.Database = "windowsSellerCompany";
-                builder.UserID = log;
-                builder.Password = pass;
+                builder.UserID = "etalon-manager";
+                builder.Password = "12345Password";
 
                 connect = new MySqlConnection(builder.ConnectionString);
                 connect.Open();
@@ -281,7 +285,7 @@ namespace diplomaProj
             tb_adch_slot5tb.ReadOnly = false;
 
             btn_addch_confirm.Click -= Btn_addch_confirm_ChangeClient_Click;
-            
+
             tb_adch_slot1tb.Click -= Tb_adch_slot1tb_DoorsChange_Click;
             tb_adch_slot3tb.Click -= Tb_adch_slot3tb_DoorsChange_TypePick_Click;
             tb_adch_slot5tb.Click -= Tb_adch_slot5tb_DoorsChange_ColorPick_Click;
@@ -326,20 +330,47 @@ namespace diplomaProj
 
         private void btn_auth_enter_Click(object sender, EventArgs e)
         {
-            string login = "etalon-manager";
-            string password = "12345Password";
-            if (login == tb_auth_login.Text && password == tb_auth_pass.Text)
+            MySqlDataReader reader = new MySqlCommand("select login, pass from loginData where id = 1", connect).ExecuteReader();
+            reader.Read();
+
+            string login = reader[0].ToString();
+            string password = reader[1].ToString();
+
+            reader.Close();
+            if (tb_auth_login.Text == "root")
             {
-                pnl_auth.Hide();
-                GetConnect(login, password);
-                pnl_choose_mngr.Show();
-                InitManagersCB();
-                HideAllBtns();
+                reader = new MySqlCommand("select login, pass from loginData where id = 2", connect).ExecuteReader();
+                reader.Read();
+
+                string root_password = reader[1].ToString();
+                if (root_password == tb_auth_pass.Text)
+                {
+                    pnl_auth.Hide();
+                    pnl_root.Show();
+
+                    HideRootCTRLS();
+                }
+                else
+                {
+                    lbl_auth_invalidData.Visible = true;
+                    tb_auth_pass.Text = "";
+                }
+                reader.Close();
             }
             else
             {
-                lbl_auth_invalidData.Visible = true;
-                tb_auth_pass.Text = "";
+                if (login == tb_auth_login.Text && password == tb_auth_pass.Text)
+                {
+                    pnl_auth.Hide();
+                    pnl_choose_mngr.Show();
+                    InitManagersCB();
+                    HideAllBtns();
+                }
+                else
+                {
+                    lbl_auth_invalidData.Visible = true;
+                    tb_auth_pass.Text = "";
+                }
             }
         }
         //
@@ -973,14 +1004,14 @@ namespace diplomaProj
                     {
                         chItem_type = "windows";
 
-                        
+
                         lbl_adch_slot2lbl.Visible = true;
                         tb_adch_slot2tb.Visible = true;
                         lbl_adch_slot3lbl.Visible = true;
                         tb_adch_slot3tb.Visible = true;
                         btn_addch_confirm.Visible = true;
 
-                        
+
                         lbl_adch_slot2lbl.Text = "Виробник";
                         lbl_adch_slot3lbl.Text = "Назва";
                         btn_addch_confirm.Text = "Додати";
@@ -994,7 +1025,7 @@ namespace diplomaProj
                     {
                         chItem_type = "windowsill";
 
-                        
+
                         lbl_adch_slot2lbl.Visible = true;
                         tb_adch_slot2tb.Visible = true;
                         lbl_adch_slot3lbl.Visible = true;
@@ -1035,7 +1066,7 @@ namespace diplomaProj
 
         private void Btn_addch_confirm_AddMosquito_Click(object sender, EventArgs e)
         {
-            if (tb_adch_slot2tb.Text != "" )
+            if (tb_adch_slot2tb.Text != "")
             {
                 int id = AddItem2Items();
 
@@ -1074,7 +1105,7 @@ namespace diplomaProj
 
         private void Btn_addch_confirm_AddWindows_Click(object sender, EventArgs e)
         {
-            if (tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "" )
+            if (tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "")
             {
                 int id = AddItem2Items();
 
@@ -1093,7 +1124,7 @@ namespace diplomaProj
 
         private void Btn_addch_confirm_AddDoors_Click(object sender, EventArgs e)
         {
-            if (tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "" && tb_adch_slot4tb.Text != "" && tb_adch_slot5tb.Text != "" )
+            if (tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "" && tb_adch_slot4tb.Text != "" && tb_adch_slot5tb.Text != "")
             {
                 int id = AddItem2Items();
 
@@ -1115,7 +1146,7 @@ namespace diplomaProj
 
         private void Btn_addch_confirm_AddReflux_Click(object sender, EventArgs e)
         {
-            if(tb_adch_slot2tb.Text != "")
+            if (tb_adch_slot2tb.Text != "")
             {
                 int id = AddItem2Items();
 
@@ -1136,9 +1167,9 @@ namespace diplomaProj
             MySqlDataReader reader = new MySqlCommand("select * from assortment", connect).ExecuteReader();
             int code = 0;
 
-            while(reader.Read())
+            while (reader.Read())
             {
-                if(reader[1].ToString() == cb_addch_itemType.Text)
+                if (reader[1].ToString() == cb_addch_itemType.Text)
                 {
                     code = Convert.ToInt32(reader[0]);
                     break;
@@ -1391,7 +1422,7 @@ namespace diplomaProj
 
         private void Btn_addch_confirm_WindowsChange_Click(object sender, EventArgs e)
         {
-            if(tb_adch_slot1tb.Text != "" && tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "")
+            if (tb_adch_slot1tb.Text != "" && tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "")
             {
                 new MySqlCommand($"update windows set manufacturer='{tb_adch_slot2tb.Text}', nameOfItem='{tb_adch_slot3tb.Text}' where codeOfItem='{tb_adch_slot1tb.Text}'", connect).ExecuteNonQuery();
 
@@ -1415,7 +1446,7 @@ namespace diplomaProj
 
         private void Btn_addch_confirm_ChangeReflux_Click(object sender, EventArgs e)
         {
-            if(tb_adch_slot1tb.Text != "" && tb_adch_slot2tb.Text != "")
+            if (tb_adch_slot1tb.Text != "" && tb_adch_slot2tb.Text != "")
             {
                 new MySqlCommand($"update reflux set nameOfItem='{tb_adch_slot2tb.Text}' where codeOfItem='{tb_adch_slot1tb.Text}'", connect).ExecuteNonQuery();
 
@@ -2575,6 +2606,189 @@ namespace diplomaProj
             btn_addch_confirm.Visible = false;
             cb_addch_itemType.Visible = false;
             lbl_addch_cblbl.Visible = false;
+        }
+
+        //
+        //root
+        //
+
+        private void HideRootCTRLS()
+        {
+            lbl_root1.Hide();
+            lbl_root2.Hide();
+            lbl_root3.Hide();
+            lbl_root4.Hide();
+
+            tb_root1.Hide();
+            tb_root2.Hide();
+            tb_root3.Hide();
+            tb_root4.Hide();
+
+            btn_root_accept.Hide();
+
+            tb_root1.PasswordChar = '\0';
+            tb_root2.PasswordChar = '\0';
+
+            tb_root1.Text = "";
+            tb_root2.Text = "";
+            tb_root3.Text = "";
+            tb_root4.Text = "";
+
+            btn_root_accept.Click -= Btn_root_accept_user_Click;
+            btn_root_accept.Click -= Btn_root_accept_root_Click;
+            btn_root_accept.Click -= Btn_root_accept_AddManager_Click;
+        }
+
+        private void btn_root_changerootpass_Click(object sender, EventArgs e)
+        {
+            HideRootCTRLS();
+
+            lbl_root1.Text = "Новий пароль:";
+            lbl_root2.Text = "Повторіть новий\n       пароль";
+            lbl_root3.Text = "Старий пароль";
+            btn_root_accept.Text = "Змінити";
+
+            tb_root1.PasswordChar = '•';
+            tb_root2.PasswordChar = '•';
+
+            lbl_root1.Show();
+            lbl_root2.Show();
+            lbl_root3.Show();
+            tb_root1.Show();
+            tb_root2.Show();
+            tb_root3.Show();
+            btn_root_accept.Show();
+            btn_root_accept.Click += Btn_root_accept_root_Click;
+        }
+
+        private void btn_root_changeusrpass_Click(object sender, EventArgs e)
+        {
+            HideRootCTRLS();
+
+            lbl_root1.Text = "Новий пароль:";
+            lbl_root2.Text = "Повторіть новий\n       пароль";
+            lbl_root3.Text = "Старий пароль";
+            btn_root_accept.Text = "Змінити";
+
+            tb_root1.PasswordChar = '•';
+            tb_root2.PasswordChar = '•';
+
+            lbl_root1.Show();
+            lbl_root2.Show();
+            lbl_root3.Show();
+            tb_root1.Show();
+            tb_root2.Show();
+            tb_root3.Show();
+            btn_root_accept.Show();
+            btn_root_accept.Click += Btn_root_accept_user_Click;
+        }
+
+        private void Btn_root_accept_user_Click(object sender, EventArgs e)
+        {
+            if (tb_root1.Text != "" && tb_root2.Text != "" && tb_root3.Text != "")
+            {
+                MySqlDataReader reader = new MySqlCommand("select login, pass from loginData where id = 1", connect).ExecuteReader();
+                reader.Read();
+                string oldPass = reader[1].ToString();
+                reader.Close();
+
+                if (tb_root1.Text == tb_root2.Text && tb_root3.Text == oldPass)
+                {
+                    new MySqlCommand($"update loginData set pass='{tb_root1.Text}' where id='1'", connect).ExecuteNonQuery();
+
+                    MessageBox.Show("Пароль змінено!");
+
+                    tb_root1.Text = "";
+                    tb_root2.Text = "";
+                    tb_root3.Text = "";
+                }
+
+
+            }
+
+        }
+
+        private void Btn_root_accept_root_Click(object sender, EventArgs e)
+        {
+            if (tb_root1.Text != "" && tb_root2.Text != "" && tb_root3.Text != "")
+            {
+                MySqlDataReader reader = new MySqlCommand("select login, pass from loginData where id = 2", connect).ExecuteReader();
+                reader.Read();
+                string oldPass = reader[1].ToString();
+                reader.Close();
+
+                if (tb_root1.Text == tb_root2.Text && tb_root3.Text == oldPass)
+                {
+                    new MySqlCommand($"update loginData set pass='{tb_root1.Text}' where id='2'", connect).ExecuteNonQuery();
+
+                    MessageBox.Show("Пароль змінено!");
+
+                    tb_root1.Text = "";
+                    tb_root2.Text = "";
+                    tb_root3.Text = "";
+                }
+
+
+            }
+        }
+
+        private void btn_root_addmngr_Click(object sender, EventArgs e)
+        {
+            HideRootCTRLS();
+
+            lbl_root1.Text = "Ім'я";
+            lbl_root2.Text = "Прізвище";
+            lbl_root3.Text = "Дата народження\n      рррр-мм-дд";
+            lbl_root4.Text = "Телефон";
+            btn_root_accept.Text = "Додати";
+
+            lbl_root1.Show();
+            lbl_root2.Show();
+            lbl_root3.Show();
+            lbl_root4.Show();
+
+            tb_root1.Show();
+            tb_root2.Show();
+            tb_root3.Show();
+            tb_root4.Show();
+
+            btn_root_accept.Show();
+            btn_root_accept.Click += Btn_root_accept_AddManager_Click;
+        }
+
+        private void Btn_root_accept_AddManager_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tb_root1.Text != "" && tb_root2.Text != "" && tb_root3.Text != "" && tb_root4.Text != "")
+                {
+                    string[] date = tb_root3.Text.Split('.', '-', '/');
+                    int ph = 0;
+                    DateTime dt = new DateTime(Convert.ToInt32(date[0]), Convert.ToInt32(date[1]), Convert.ToInt32(date[2]));
+                    bool fl1 = int.TryParse(tb_root4.Text, out ph);
+
+                    if(fl1)
+                    {
+                        string datemysql = $"{dt.Year}-{dt.Month}-{dt.Day}"; 
+                        new MySqlCommand($"insert into managers(nameOfManager, lastNameOfManager, dateOfBirth, phoneNumber) " +
+                            $"values ('{tb_root1.Text}', '{tb_root2.Text}', '{datemysql}', '{tb_root4.Text}')", connect).ExecuteNonQuery();
+
+                        MessageBox.Show("Дані внесено успішно!");
+
+                        tb_root1.Text = "";
+                        tb_root2.Text = "";
+                        tb_root3.Text = "";
+                        tb_root4.Text = "";
+                    }
+
+                }
+            }
+            catch(FormatException)
+            {
+                MessageBox.Show("Не праивльний формат дати!");
+            }
+
+
         }
     }
 }

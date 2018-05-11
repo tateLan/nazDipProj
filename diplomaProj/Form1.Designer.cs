@@ -55,12 +55,25 @@
             this.dgw_show = new System.Windows.Forms.DataGridView();
             this.btn_back2 = new System.Windows.Forms.Button();
             this.pnl_choose_mngr = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cb_managersList = new System.Windows.Forms.ComboBox();
             this.btn_manager_chose_accept = new System.Windows.Forms.Button();
+            this.cb_managersList = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.pnl_add_change = new System.Windows.Forms.Panel();
             this.btn_backAddCh = new System.Windows.Forms.Button();
+            this.pnl_root = new System.Windows.Forms.Panel();
+            this.btn_root_changerootpass = new System.Windows.Forms.Button();
+            this.btn_root_changeusrpass = new System.Windows.Forms.Button();
+            this.btn_root_addmngr = new System.Windows.Forms.Button();
+            this.btn_root_accept = new System.Windows.Forms.Button();
+            this.tb_root1 = new System.Windows.Forms.TextBox();
+            this.lbl_root1 = new System.Windows.Forms.Label();
+            this.tb_root2 = new System.Windows.Forms.TextBox();
+            this.lbl_root2 = new System.Windows.Forms.Label();
+            this.tb_root3 = new System.Windows.Forms.TextBox();
+            this.lbl_root3 = new System.Windows.Forms.Label();
+            this.tb_root4 = new System.Windows.Forms.TextBox();
+            this.lbl_root4 = new System.Windows.Forms.Label();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
             this.pnl_registerNew.SuspendLayout();
@@ -68,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgw_show)).BeginInit();
             this.pnl_choose_mngr.SuspendLayout();
             this.pnl_add_change.SuspendLayout();
+            this.pnl_root.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_auth
@@ -361,36 +375,6 @@
             this.pnl_choose_mngr.Size = new System.Drawing.Size(35, 24);
             this.pnl_choose_mngr.TabIndex = 4;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(274, 192);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 20);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Виберіть себе:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(339, 76);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(218, 29);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Вибір менеджера";
-            // 
-            // cb_managersList
-            // 
-            this.cb_managersList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_managersList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cb_managersList.FormattingEnabled = true;
-            this.cb_managersList.Location = new System.Drawing.Point(405, 189);
-            this.cb_managersList.Name = "cb_managersList";
-            this.cb_managersList.Size = new System.Drawing.Size(165, 28);
-            this.cb_managersList.TabIndex = 1;
-            // 
             // btn_manager_chose_accept
             // 
             this.btn_manager_chose_accept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -402,12 +386,42 @@
             this.btn_manager_chose_accept.UseVisualStyleBackColor = true;
             this.btn_manager_chose_accept.Click += new System.EventHandler(this.btn_manager_chose_accept_Click);
             // 
+            // cb_managersList
+            // 
+            this.cb_managersList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_managersList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cb_managersList.FormattingEnabled = true;
+            this.cb_managersList.Location = new System.Drawing.Point(405, 189);
+            this.cb_managersList.Name = "cb_managersList";
+            this.cb_managersList.Size = new System.Drawing.Size(165, 28);
+            this.cb_managersList.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(339, 76);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(218, 29);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Вибір менеджера";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(274, 192);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(120, 20);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Виберіть себе:";
+            // 
             // pnl_add_change
             // 
             this.pnl_add_change.Controls.Add(this.btn_backAddCh);
-            this.pnl_add_change.Location = new System.Drawing.Point(12, 12);
+            this.pnl_add_change.Location = new System.Drawing.Point(443, 12);
             this.pnl_add_change.Name = "pnl_add_change";
-            this.pnl_add_change.Size = new System.Drawing.Size(880, 524);
+            this.pnl_add_change.Size = new System.Drawing.Size(119, 27);
             this.pnl_add_change.TabIndex = 5;
             // 
             // btn_backAddCh
@@ -422,12 +436,147 @@
             this.btn_backAddCh.UseVisualStyleBackColor = true;
             this.btn_backAddCh.Click += new System.EventHandler(this.btn_back_Click);
             // 
+            // pnl_root
+            // 
+            this.pnl_root.Controls.Add(this.lbl_root4);
+            this.pnl_root.Controls.Add(this.lbl_root3);
+            this.pnl_root.Controls.Add(this.lbl_root2);
+            this.pnl_root.Controls.Add(this.lbl_root1);
+            this.pnl_root.Controls.Add(this.tb_root4);
+            this.pnl_root.Controls.Add(this.tb_root3);
+            this.pnl_root.Controls.Add(this.tb_root2);
+            this.pnl_root.Controls.Add(this.tb_root1);
+            this.pnl_root.Controls.Add(this.btn_root_accept);
+            this.pnl_root.Controls.Add(this.btn_root_addmngr);
+            this.pnl_root.Controls.Add(this.btn_root_changeusrpass);
+            this.pnl_root.Controls.Add(this.btn_root_changerootpass);
+            this.pnl_root.Location = new System.Drawing.Point(12, 12);
+            this.pnl_root.Name = "pnl_root";
+            this.pnl_root.Size = new System.Drawing.Size(880, 527);
+            this.pnl_root.TabIndex = 6;
+            // 
+            // btn_root_changerootpass
+            // 
+            this.btn_root_changerootpass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_root_changerootpass.Location = new System.Drawing.Point(33, 175);
+            this.btn_root_changerootpass.Name = "btn_root_changerootpass";
+            this.btn_root_changerootpass.Size = new System.Drawing.Size(143, 51);
+            this.btn_root_changerootpass.TabIndex = 0;
+            this.btn_root_changerootpass.Text = "Змінити пароль root";
+            this.btn_root_changerootpass.UseVisualStyleBackColor = true;
+            this.btn_root_changerootpass.Click += new System.EventHandler(this.btn_root_changerootpass_Click);
+            // 
+            // btn_root_changeusrpass
+            // 
+            this.btn_root_changeusrpass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_root_changeusrpass.Location = new System.Drawing.Point(33, 248);
+            this.btn_root_changeusrpass.Name = "btn_root_changeusrpass";
+            this.btn_root_changeusrpass.Size = new System.Drawing.Size(143, 51);
+            this.btn_root_changeusrpass.TabIndex = 0;
+            this.btn_root_changeusrpass.Text = "Змінити пароль входу";
+            this.btn_root_changeusrpass.UseVisualStyleBackColor = true;
+            this.btn_root_changeusrpass.Click += new System.EventHandler(this.btn_root_changeusrpass_Click);
+            // 
+            // btn_root_addmngr
+            // 
+            this.btn_root_addmngr.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_root_addmngr.Location = new System.Drawing.Point(33, 323);
+            this.btn_root_addmngr.Name = "btn_root_addmngr";
+            this.btn_root_addmngr.Size = new System.Drawing.Size(143, 51);
+            this.btn_root_addmngr.TabIndex = 0;
+            this.btn_root_addmngr.Text = "Додати менеджера";
+            this.btn_root_addmngr.UseVisualStyleBackColor = true;
+            this.btn_root_addmngr.Click += new System.EventHandler(this.btn_root_addmngr_Click);
+            // 
+            // btn_root_accept
+            // 
+            this.btn_root_accept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_root_accept.Location = new System.Drawing.Point(472, 364);
+            this.btn_root_accept.Name = "btn_root_accept";
+            this.btn_root_accept.Size = new System.Drawing.Size(110, 30);
+            this.btn_root_accept.TabIndex = 1;
+            this.btn_root_accept.Text = "button1";
+            this.btn_root_accept.UseVisualStyleBackColor = true;
+            // 
+            // tb_root1
+            // 
+            this.tb_root1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_root1.Location = new System.Drawing.Point(546, 139);
+            this.tb_root1.Name = "tb_root1";
+            this.tb_root1.Size = new System.Drawing.Size(186, 26);
+            this.tb_root1.TabIndex = 2;
+            // 
+            // lbl_root1
+            // 
+            this.lbl_root1.AutoSize = true;
+            this.lbl_root1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_root1.Location = new System.Drawing.Point(390, 142);
+            this.lbl_root1.Name = "lbl_root1";
+            this.lbl_root1.Size = new System.Drawing.Size(51, 20);
+            this.lbl_root1.TabIndex = 3;
+            this.lbl_root1.Text = "label4";
+            // 
+            // tb_root2
+            // 
+            this.tb_root2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_root2.Location = new System.Drawing.Point(546, 192);
+            this.tb_root2.Name = "tb_root2";
+            this.tb_root2.Size = new System.Drawing.Size(186, 26);
+            this.tb_root2.TabIndex = 2;
+            // 
+            // lbl_root2
+            // 
+            this.lbl_root2.AutoSize = true;
+            this.lbl_root2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_root2.Location = new System.Drawing.Point(390, 194);
+            this.lbl_root2.Name = "lbl_root2";
+            this.lbl_root2.Size = new System.Drawing.Size(51, 20);
+            this.lbl_root2.TabIndex = 3;
+            this.lbl_root2.Text = "label4";
+            // 
+            // tb_root3
+            // 
+            this.tb_root3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_root3.Location = new System.Drawing.Point(546, 245);
+            this.tb_root3.Name = "tb_root3";
+            this.tb_root3.Size = new System.Drawing.Size(186, 26);
+            this.tb_root3.TabIndex = 2;
+            // 
+            // lbl_root3
+            // 
+            this.lbl_root3.AutoSize = true;
+            this.lbl_root3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_root3.Location = new System.Drawing.Point(390, 245);
+            this.lbl_root3.Name = "lbl_root3";
+            this.lbl_root3.Size = new System.Drawing.Size(51, 20);
+            this.lbl_root3.TabIndex = 3;
+            this.lbl_root3.Text = "label4";
+            // 
+            // tb_root4
+            // 
+            this.tb_root4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_root4.Location = new System.Drawing.Point(546, 299);
+            this.tb_root4.Name = "tb_root4";
+            this.tb_root4.Size = new System.Drawing.Size(186, 26);
+            this.tb_root4.TabIndex = 2;
+            // 
+            // lbl_root4
+            // 
+            this.lbl_root4.AutoSize = true;
+            this.lbl_root4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_root4.Location = new System.Drawing.Point(390, 302);
+            this.lbl_root4.Name = "lbl_root4";
+            this.lbl_root4.Size = new System.Drawing.Size(51, 20);
+            this.lbl_root4.TabIndex = 3;
+            this.lbl_root4.Text = "label4";
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_auth_enter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
+            this.Controls.Add(this.pnl_root);
             this.Controls.Add(this.pnl_add_change);
             this.Controls.Add(this.pnl_choose_mngr);
             this.Controls.Add(this.pnl_registerNew);
@@ -449,6 +598,8 @@
             this.pnl_choose_mngr.ResumeLayout(false);
             this.pnl_choose_mngr.PerformLayout();
             this.pnl_add_change.ResumeLayout(false);
+            this.pnl_root.ResumeLayout(false);
+            this.pnl_root.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -486,6 +637,19 @@
         private System.Windows.Forms.ComboBox cb_managersList;
         private System.Windows.Forms.Panel pnl_add_change;
         private System.Windows.Forms.Button btn_backAddCh;
+        private System.Windows.Forms.Panel pnl_root;
+        private System.Windows.Forms.Label lbl_root4;
+        private System.Windows.Forms.Label lbl_root3;
+        private System.Windows.Forms.Label lbl_root2;
+        private System.Windows.Forms.Label lbl_root1;
+        private System.Windows.Forms.TextBox tb_root4;
+        private System.Windows.Forms.TextBox tb_root3;
+        private System.Windows.Forms.TextBox tb_root2;
+        private System.Windows.Forms.TextBox tb_root1;
+        private System.Windows.Forms.Button btn_root_accept;
+        private System.Windows.Forms.Button btn_root_addmngr;
+        private System.Windows.Forms.Button btn_root_changeusrpass;
+        private System.Windows.Forms.Button btn_root_changerootpass;
     }
 }
 
