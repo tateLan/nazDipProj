@@ -300,6 +300,13 @@ namespace diplomaProj
 
             tb_adch_slot1tb.Click -= Tb_adch_slot1tb_MosquitoChange_Click;
             btn_addch_confirm.Click -= Btn_addch_confirm_MosquitoChange_Click;
+
+            btn_addch_confirm.Click -= Btn_addch_confirm_AddReflux_Click;
+
+            btn_addch_confirm.Click -= Btn_addch_confirm_AddDoors_Click;
+            btn_addch_confirm.Click -= Btn_addch_confirm_AddWindows_Click;
+            btn_addch_confirm.Click -= Btn_addch_confirm_AddWindowsill_Click;
+            btn_addch_confirm.Click -= Btn_addch_confirm_AddMosquito_Click;
         }
 
         private void InitDGW(MySqlDataReader reader, int count)
@@ -321,19 +328,19 @@ namespace diplomaProj
         {
             string login = "etalon-manager";
             string password = "12345Password";
-            //if (login == tb_auth_login.Text && password == tb_auth_pass.Text)
-            //{
-            pnl_auth.Hide();
-            GetConnect(login, password);
-            pnl_choose_mngr.Show();
-            InitManagersCB();
-            HideAllBtns();
-            //}
-            //else
-            //{
-            //    lbl_auth_invalidData.Visible = true;
-            //    tb_auth_pass.Text = "";
-            //}
+            if (login == tb_auth_login.Text && password == tb_auth_pass.Text)
+            {
+                pnl_auth.Hide();
+                GetConnect(login, password);
+                pnl_choose_mngr.Show();
+                InitManagersCB();
+                HideAllBtns();
+            }
+            else
+            {
+                lbl_auth_invalidData.Visible = true;
+                tb_auth_pass.Text = "";
+            }
         }
         //
         //main menu
@@ -770,7 +777,6 @@ namespace diplomaProj
             regNew_tbDelCost.Text = "";
         }
 
-
         private void RegNew_Sell_btnConfirm_Click(object sender, EventArgs e)
         {
             int quantity = 0;
@@ -878,8 +884,279 @@ namespace diplomaProj
             pnl_mainMenu.Hide();
             pnl_add_change.Show();
 
+            AddChange_addctrls();
+
+            lbl_addch_cblbl.Text = "Виберіть тип товару:";
+            cb_addch_itemType.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            MySqlDataReader reader = new MySqlCommand("select nameOfItem from assortment", connect).ExecuteReader();
+
+            while (reader.Read())
+            {
+                cb_addch_itemType.Items.Add(reader[0]);
+            }
+
+            reader.Close();
+
+            lbl_addch_cblbl.Visible = true;
+            cb_addch_itemType.Visible = true;
+            cb_addch_itemType.SelectedIndexChanged += Cb_addch_itemType_AddItem_SelectedIndexChanged; ;
+
+        }
+
+        private void Cb_addch_itemType_AddItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnbindHandlersCHADD();
+
+            lbl_adch_slot1lbl.Visible = false;
+            tb_adch_slot1tb.Visible = false;
+            lbl_adch_slot2lbl.Visible = false;
+            tb_adch_slot2tb.Visible = false;
+            lbl_adch_slot3lbl.Visible = false;
+            tb_adch_slot3tb.Visible = false;
+            lbl_adch_slot4lbl.Visible = false;
+            tb_adch_slot4tb.Visible = false;
+            lbl_adch_slot5lbl.Visible = false;
+            tb_adch_slot5tb.Visible = false;
+            btn_addch_confirm.Visible = false;
 
 
+            switch (cb_addch_itemType.Text)
+            {
+                case "Відлив":
+                    {
+                        chItem_type = "reflux";
+
+                        lbl_adch_slot2lbl.Visible = true;
+                        tb_adch_slot2tb.Visible = true;
+                        btn_addch_confirm.Visible = true;
+
+                        lbl_adch_slot2lbl.Text = "Назва";
+
+                        tb_adch_slot1tb.ReadOnly = true;
+
+                        btn_addch_confirm.Text = "Додати";
+
+                        btn_addch_confirm.Click += Btn_addch_confirm_AddReflux_Click;
+                    }
+                    break;
+                case "Двері":
+                    {
+                        chItem_type = "doors";
+
+                        lbl_adch_slot2lbl.Visible = true;
+                        tb_adch_slot2tb.Visible = true;
+                        lbl_adch_slot3lbl.Visible = true;
+                        tb_adch_slot3tb.Visible = true;
+                        lbl_adch_slot4lbl.Visible = true;
+                        tb_adch_slot4tb.Visible = true;
+                        lbl_adch_slot5lbl.Visible = true;
+                        tb_adch_slot5tb.Visible = true;
+                        btn_addch_confirm.Visible = true;
+
+                        lbl_adch_slot2lbl.Text = "Виробник";
+                        lbl_adch_slot3lbl.Text = "Тип дверей";
+                        lbl_adch_slot4lbl.Text = "Матеріал";
+                        lbl_adch_slot5lbl.Text = "Колір";
+                        btn_addch_confirm.Text = "Додати";
+
+                        tb_adch_slot3tb.ReadOnly = true;
+                        tb_adch_slot5tb.ReadOnly = true;
+
+                        tb_adch_slot3tb.Click += Tb_adch_slot3tb_DoorsChange_TypePick_Click;
+                        tb_adch_slot5tb.Click += Tb_adch_slot5tb_DoorsChange_ColorPick_Click;
+
+                        btn_addch_confirm.Click += Btn_addch_confirm_AddDoors_Click;
+                    }
+                    break;
+                case "Вікна":
+                    {
+                        chItem_type = "windows";
+
+                        
+                        lbl_adch_slot2lbl.Visible = true;
+                        tb_adch_slot2tb.Visible = true;
+                        lbl_adch_slot3lbl.Visible = true;
+                        tb_adch_slot3tb.Visible = true;
+                        btn_addch_confirm.Visible = true;
+
+                        
+                        lbl_adch_slot2lbl.Text = "Виробник";
+                        lbl_adch_slot3lbl.Text = "Назва";
+                        btn_addch_confirm.Text = "Додати";
+
+                        tb_adch_slot1tb.ReadOnly = true;
+
+                        btn_addch_confirm.Click += Btn_addch_confirm_AddWindows_Click;
+                    }
+                    break;
+                case "Підвіконня":
+                    {
+                        chItem_type = "windowsill";
+
+                        
+                        lbl_adch_slot2lbl.Visible = true;
+                        tb_adch_slot2tb.Visible = true;
+                        lbl_adch_slot3lbl.Visible = true;
+                        tb_adch_slot3tb.Visible = true;
+                        lbl_adch_slot4lbl.Visible = true;
+                        tb_adch_slot4tb.Visible = true;
+                        btn_addch_confirm.Visible = true;
+
+                        lbl_adch_slot2lbl.Text = "Виробник";
+                        lbl_adch_slot3lbl.Text = "Матеріал";
+                        lbl_adch_slot4lbl.Text = "Колір";
+                        btn_addch_confirm.Text = "Додати";
+
+                        tb_adch_slot4tb.ReadOnly = true;
+
+                        tb_adch_slot4tb.Click += Tb_adch_slot4tb_WindowsillChange_ColorPick_Click;
+
+                        btn_addch_confirm.Click += Btn_addch_confirm_AddWindowsill_Click;
+                    }
+                    break;
+                case "Москітна сітка":
+                    {
+                        chItem_type = "mosquito_net";
+
+                        lbl_adch_slot2lbl.Visible = true;
+                        tb_adch_slot2tb.Visible = true;
+                        btn_addch_confirm.Visible = true;
+
+                        lbl_adch_slot2lbl.Text = "Назва";
+
+                        btn_addch_confirm.Text = "Додати";
+
+                        btn_addch_confirm.Click += Btn_addch_confirm_AddMosquito_Click;
+                    }
+                    break;
+            }
+        }
+
+        private void Btn_addch_confirm_AddMosquito_Click(object sender, EventArgs e)
+        {
+            if (tb_adch_slot2tb.Text != "" )
+            {
+                int id = AddItem2Items();
+
+                new MySqlCommand($"insert into doors values ('{id}', '{tb_adch_slot2tb.Text}')", connect).ExecuteNonQuery();
+
+                MessageBox.Show("Дані внесено успішно!");
+
+                tb_adch_slot2tb.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Пусті поля не допускаються!");
+            }
+        }
+
+        private void Btn_addch_confirm_AddWindowsill_Click(object sender, EventArgs e)
+        {
+            if (tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "" && tb_adch_slot4tb.Text != "")
+            {
+                int id = AddItem2Items();
+
+                new MySqlCommand($"insert into windowsill values ('{id}', '{tb_adch_slot2tb.Text}', '{tb_adch_slot3tb.Text}', " +
+                    $"'{tb_adch_slot4tb.Text}')", connect).ExecuteNonQuery();
+
+                MessageBox.Show("Дані внесено успішно!");
+
+                tb_adch_slot2tb.Text = "";
+                tb_adch_slot3tb.Text = "";
+                tb_adch_slot4tb.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Пусті поля не допускаються!");
+            }
+        }
+
+        private void Btn_addch_confirm_AddWindows_Click(object sender, EventArgs e)
+        {
+            if (tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "" )
+            {
+                int id = AddItem2Items();
+
+                new MySqlCommand($"insert into windows values ('{id}', '{tb_adch_slot2tb.Text}', '{tb_adch_slot3tb.Text}')", connect).ExecuteNonQuery();
+
+                MessageBox.Show("Дані внесено успішно!");
+
+                tb_adch_slot2tb.Text = "";
+                tb_adch_slot3tb.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Пусті поля не допускаються!");
+            }
+        }
+
+        private void Btn_addch_confirm_AddDoors_Click(object sender, EventArgs e)
+        {
+            if (tb_adch_slot2tb.Text != "" && tb_adch_slot3tb.Text != "" && tb_adch_slot4tb.Text != "" && tb_adch_slot5tb.Text != "" )
+            {
+                int id = AddItem2Items();
+
+                new MySqlCommand($"insert into doors values ('{id}', '{tb_adch_slot2tb.Text}', '{tb_adch_slot3tb.Text}', " +
+                    $"'{tb_adch_slot4tb.Text}', '{tb_adch_slot5tb.Text}')", connect).ExecuteNonQuery();
+
+                MessageBox.Show("Дані внесено успішно!");
+
+                tb_adch_slot2tb.Text = "";
+                tb_adch_slot3tb.Text = "";
+                tb_adch_slot4tb.Text = "";
+                tb_adch_slot5tb.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Пусті поля не допускаються!");
+            }
+        }
+
+        private void Btn_addch_confirm_AddReflux_Click(object sender, EventArgs e)
+        {
+            if(tb_adch_slot2tb.Text != "")
+            {
+                int id = AddItem2Items();
+
+                new MySqlCommand($"insert into reflux values ('{id}', '{tb_adch_slot2tb.Text}')", connect).ExecuteNonQuery();
+
+                MessageBox.Show("Дані внесено успішно!");
+
+                tb_adch_slot2tb.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Пусті поля не допускаються!");
+            }
+        }
+
+        private int AddItem2Items()
+        {
+            MySqlDataReader reader = new MySqlCommand("select * from assortment", connect).ExecuteReader();
+            int code = 0;
+
+            while(reader.Read())
+            {
+                if(reader[1].ToString() == cb_addch_itemType.Text)
+                {
+                    code = Convert.ToInt32(reader[0]);
+                    break;
+                }
+            }
+
+            reader.Close();
+
+            new MySqlCommand("insert into items(typeOfProduct) values('" + code + "')", connect).ExecuteNonQuery();
+
+            reader = new MySqlCommand("select id from items order by id desc limit 1", connect).ExecuteReader();
+            reader.Read();
+
+            int id = Convert.ToInt32(reader[0]);
+
+            reader.Close();
+
+            return id;
         }
 
         private void ChangeItem(object sender, EventArgs e)
@@ -938,7 +1215,7 @@ namespace diplomaProj
                         btn_addch_confirm.Visible = true;
 
                         lbl_adch_slot1lbl.Text = "Код";
-                        lbl_adch_slot2lbl.Text = "Виробник";
+                        lbl_adch_slot2lbl.Text = "Назва";
 
                         tb_adch_slot1tb.ReadOnly = true;
 
