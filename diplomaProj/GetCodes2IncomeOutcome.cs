@@ -212,12 +212,73 @@ namespace diplomaProj
                         reader.Close();
                     }
                     break;
+                case "ch-colors":
                 case "colors":
                     {
                         dgw_info.Columns.Add("code", "Код");
                         dgw_info.Columns.Add("color", "Колір");
 
                         reader = new MySqlCommand("select * from colors", connect).ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1]);
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case "ch-reflux":
+                    {
+                        dgw_info.Columns.Add("code", "Код");
+                        dgw_info.Columns.Add("name", "Назва");
+
+                        reader = new MySqlCommand("select * from reflux", connect).ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1]);
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case "ch-windows":
+                    {
+                        dgw_info.Columns.Add("code", "Код");
+                        dgw_info.Columns.Add("man", "Виробник");
+                        dgw_info.Columns.Add("name", "Назва");
+
+                        reader = new MySqlCommand("select * from windows", connect).ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1], reader[2]);
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case "ch-windowsill":
+                    {
+                        dgw_info.Columns.Add("code", "Код");
+                        dgw_info.Columns.Add("man", "Виробник");
+                        dgw_info.Columns.Add("mat", "Матеріал");
+                        dgw_info.Columns.Add("colo", "Колір");
+
+                        reader = new MySqlCommand("select windowsill.codeOfItem, windowsill.manufacturer, windowsill.material, colors.color " +
+                            "from windowsill left join colors on windowsill.colour = colors.codeOfColor", connect).ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1], reader[2], reader[3]);
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case "ch-mosquito":
+                    {
+                        dgw_info.Columns.Add("code", "Код");
+                        dgw_info.Columns.Add("name", "Назва");
+
+                        reader = new MySqlCommand("select * from mosquito_net", connect).ExecuteReader();
 
                         while (reader.Read())
                         {
@@ -616,68 +677,117 @@ namespace diplomaProj
         private void dgw_info_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             MySqlDataReader reader;
-
-            switch (table)
+            if (e.RowIndex != -1)
             {
-                case "provider":
-                    {
-                        form1.regNew_tb1.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        this.Close();
-                    }
-                    break;
-                case "clients":
-                    {
-                        form1.regNew_tb1.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        this.Close();
-                    }
-                    break;
-                case "ch-clients":
-                    {
-                        form1.tb_adch_slot1tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        form1.tb_adch_slot2tb.Text = dgw_info.Rows[e.RowIndex].Cells[1].Value.ToString();
-                        form1.tb_adch_slot3tb.Text = dgw_info.Rows[e.RowIndex].Cells[2].Value.ToString();
-                        form1.tb_adch_slot4tb.Text = dgw_info.Rows[e.RowIndex].Cells[3].Value.ToString();
-                        form1.tb_adch_slot5tb.Text = dgw_info.Rows[e.RowIndex].Cells[4].Value.ToString();
-                        this.Close();
-                    }
-                    break;
-                case "items":
-                    {
-                        form1.regNew_tbCodeOfItem.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        this.Close();
-                    }
-                    break;
-                case "ch-doors":
-                    {
-                        reader = new MySqlCommand("select * from doors where codeOfItem = " + dgw_info.Rows[e.RowIndex].Cells[0].Value, connect).ExecuteReader();
-                        reader.Read();
+                switch (table)
+                {
+                    case "provider":
+                        {
+                            form1.regNew_tb1.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            this.Close();
+                        }
+                        break;
+                    case "clients":
+                        {
+                            form1.regNew_tb1.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            this.Close();
+                        }
+                        break;
+                    case "ch-clients":
+                        {
+                            form1.tb_adch_slot1tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            form1.tb_adch_slot2tb.Text = dgw_info.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            form1.tb_adch_slot3tb.Text = dgw_info.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            form1.tb_adch_slot4tb.Text = dgw_info.Rows[e.RowIndex].Cells[3].Value.ToString();
+                            form1.tb_adch_slot5tb.Text = dgw_info.Rows[e.RowIndex].Cells[4].Value.ToString();
+                            this.Close();
+                        }
+                        break;
+                    case "items":
+                        {
+                            form1.regNew_tbCodeOfItem.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            this.Close();
+                        }
+                        break;
+                    case "ch-doors":
+                        {
+                            reader = new MySqlCommand("select * from doors where codeOfItem = " + dgw_info.Rows[e.RowIndex].Cells[0].Value, connect).ExecuteReader();
+                            reader.Read();
 
-                        form1.tb_adch_slot1tb.Text = reader[0].ToString();
-                        form1.tb_adch_slot2tb.Text = reader[1].ToString();
-                        form1.tb_adch_slot3tb.Text = reader[2].ToString();
-                        form1.tb_adch_slot4tb.Text = reader[3].ToString();
-                        form1.tb_adch_slot5tb.Text = reader[4].ToString();
+                            form1.tb_adch_slot1tb.Text = reader[0].ToString();
+                            form1.tb_adch_slot2tb.Text = reader[1].ToString();
+                            form1.tb_adch_slot3tb.Text = reader[2].ToString();
+                            form1.tb_adch_slot4tb.Text = reader[3].ToString();
+                            form1.tb_adch_slot5tb.Text = reader[4].ToString();
 
-                        reader.Close();
+                            reader.Close();
 
-                        this.Close();
-                    }
-                    break;
-                case "types":
-                    {
-                        form1.tb_adch_slot3tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        
-                        this.Close();
-                    }
-                    break;
-                case "colors":
-                    {
-                        form1.tb_adch_slot5tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            this.Close();
+                        }
+                        break;
+                    case "types":
+                        {
+                            form1.tb_adch_slot3tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-                        this.Close();
-                    }
-                    break;
+                            this.Close();
+                        }
+                        break;
+                    case "colors":
+                        {
+                            form1.tb_adch_slot5tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                            this.Close();
+                        }
+                        break;
+                    case "ch-reflux":
+                        {
+                            form1.tb_adch_slot1tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            form1.tb_adch_slot2tb.Text = dgw_info.Rows[e.RowIndex].Cells[1].Value.ToString();
+
+                            this.Close();
+                        }
+                        break;
+                    case "ch-windows":
+                        {
+                            form1.tb_adch_slot1tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            form1.tb_adch_slot2tb.Text = dgw_info.Rows[e.RowIndex].Cells[1].Value.ToString();
+                            form1.tb_adch_slot3tb.Text = dgw_info.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+                            this.Close();
+                        }
+                        break;
+                    case "ch-colors":
+                        {
+                            form1.tb_adch_slot4tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                            this.Close();
+                        }
+                        break;
+                    case "ch-windowsill":
+                        {
+                            reader = new MySqlCommand("select * from windowsill where codeOfItem = " + dgw_info.Rows[e.RowIndex].Cells[0].Value, connect).ExecuteReader();
+                            reader.Read();
+
+                            form1.tb_adch_slot1tb.Text = reader[0].ToString();
+                            form1.tb_adch_slot2tb.Text = reader[1].ToString();
+                            form1.tb_adch_slot3tb.Text = reader[2].ToString();
+                            form1.tb_adch_slot4tb.Text = reader[3].ToString();
+
+                            reader.Close();
+                            this.Close();
+                        }
+                        break;
+                    case "ch-mosquito":
+                        {
+                            form1.tb_adch_slot1tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            form1.tb_adch_slot2tb.Text = dgw_info.Rows[e.RowIndex].Cells[1].Value.ToString();
+
+                            this.Close();
+                        }
+                        break;
+                }
             }
+
         }
     }
 }
