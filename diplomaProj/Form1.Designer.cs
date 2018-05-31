@@ -62,18 +62,18 @@
             this.pnl_add_change = new System.Windows.Forms.Panel();
             this.btn_backAddCh = new System.Windows.Forms.Button();
             this.pnl_root = new System.Windows.Forms.Panel();
-            this.btn_root_changerootpass = new System.Windows.Forms.Button();
-            this.btn_root_changeusrpass = new System.Windows.Forms.Button();
-            this.btn_root_addmngr = new System.Windows.Forms.Button();
-            this.btn_root_accept = new System.Windows.Forms.Button();
-            this.tb_root1 = new System.Windows.Forms.TextBox();
-            this.lbl_root1 = new System.Windows.Forms.Label();
-            this.tb_root2 = new System.Windows.Forms.TextBox();
-            this.lbl_root2 = new System.Windows.Forms.Label();
-            this.tb_root3 = new System.Windows.Forms.TextBox();
-            this.lbl_root3 = new System.Windows.Forms.Label();
-            this.tb_root4 = new System.Windows.Forms.TextBox();
             this.lbl_root4 = new System.Windows.Forms.Label();
+            this.lbl_root3 = new System.Windows.Forms.Label();
+            this.lbl_root2 = new System.Windows.Forms.Label();
+            this.lbl_root1 = new System.Windows.Forms.Label();
+            this.tb_root4 = new System.Windows.Forms.TextBox();
+            this.tb_root3 = new System.Windows.Forms.TextBox();
+            this.tb_root2 = new System.Windows.Forms.TextBox();
+            this.tb_root1 = new System.Windows.Forms.TextBox();
+            this.btn_root_accept = new System.Windows.Forms.Button();
+            this.btn_root_addmngr = new System.Windows.Forms.Button();
+            this.btn_root_changeusrpass = new System.Windows.Forms.Button();
+            this.btn_root_changerootpass = new System.Windows.Forms.Button();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
             this.pnl_registerNew.SuspendLayout();
@@ -450,32 +450,92 @@
             this.pnl_root.Controls.Add(this.btn_root_addmngr);
             this.pnl_root.Controls.Add(this.btn_root_changeusrpass);
             this.pnl_root.Controls.Add(this.btn_root_changerootpass);
-            this.pnl_root.Location = new System.Drawing.Point(12, 12);
+            this.pnl_root.Location = new System.Drawing.Point(586, 12);
             this.pnl_root.Name = "pnl_root";
-            this.pnl_root.Size = new System.Drawing.Size(880, 527);
+            this.pnl_root.Size = new System.Drawing.Size(43, 27);
             this.pnl_root.TabIndex = 6;
             // 
-            // btn_root_changerootpass
+            // lbl_root4
             // 
-            this.btn_root_changerootpass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_root_changerootpass.Location = new System.Drawing.Point(33, 175);
-            this.btn_root_changerootpass.Name = "btn_root_changerootpass";
-            this.btn_root_changerootpass.Size = new System.Drawing.Size(143, 51);
-            this.btn_root_changerootpass.TabIndex = 0;
-            this.btn_root_changerootpass.Text = "Змінити пароль root";
-            this.btn_root_changerootpass.UseVisualStyleBackColor = true;
-            this.btn_root_changerootpass.Click += new System.EventHandler(this.btn_root_changerootpass_Click);
+            this.lbl_root4.AutoSize = true;
+            this.lbl_root4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_root4.Location = new System.Drawing.Point(390, 302);
+            this.lbl_root4.Name = "lbl_root4";
+            this.lbl_root4.Size = new System.Drawing.Size(51, 20);
+            this.lbl_root4.TabIndex = 3;
+            this.lbl_root4.Text = "label4";
             // 
-            // btn_root_changeusrpass
+            // lbl_root3
             // 
-            this.btn_root_changeusrpass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_root_changeusrpass.Location = new System.Drawing.Point(33, 248);
-            this.btn_root_changeusrpass.Name = "btn_root_changeusrpass";
-            this.btn_root_changeusrpass.Size = new System.Drawing.Size(143, 51);
-            this.btn_root_changeusrpass.TabIndex = 0;
-            this.btn_root_changeusrpass.Text = "Змінити пароль входу";
-            this.btn_root_changeusrpass.UseVisualStyleBackColor = true;
-            this.btn_root_changeusrpass.Click += new System.EventHandler(this.btn_root_changeusrpass_Click);
+            this.lbl_root3.AutoSize = true;
+            this.lbl_root3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_root3.Location = new System.Drawing.Point(390, 245);
+            this.lbl_root3.Name = "lbl_root3";
+            this.lbl_root3.Size = new System.Drawing.Size(51, 20);
+            this.lbl_root3.TabIndex = 3;
+            this.lbl_root3.Text = "label4";
+            // 
+            // lbl_root2
+            // 
+            this.lbl_root2.AutoSize = true;
+            this.lbl_root2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_root2.Location = new System.Drawing.Point(390, 194);
+            this.lbl_root2.Name = "lbl_root2";
+            this.lbl_root2.Size = new System.Drawing.Size(51, 20);
+            this.lbl_root2.TabIndex = 3;
+            this.lbl_root2.Text = "label4";
+            // 
+            // lbl_root1
+            // 
+            this.lbl_root1.AutoSize = true;
+            this.lbl_root1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_root1.Location = new System.Drawing.Point(390, 142);
+            this.lbl_root1.Name = "lbl_root1";
+            this.lbl_root1.Size = new System.Drawing.Size(51, 20);
+            this.lbl_root1.TabIndex = 3;
+            this.lbl_root1.Text = "label4";
+            // 
+            // tb_root4
+            // 
+            this.tb_root4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_root4.Location = new System.Drawing.Point(546, 299);
+            this.tb_root4.Name = "tb_root4";
+            this.tb_root4.Size = new System.Drawing.Size(186, 26);
+            this.tb_root4.TabIndex = 2;
+            // 
+            // tb_root3
+            // 
+            this.tb_root3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_root3.Location = new System.Drawing.Point(546, 245);
+            this.tb_root3.Name = "tb_root3";
+            this.tb_root3.Size = new System.Drawing.Size(186, 26);
+            this.tb_root3.TabIndex = 2;
+            // 
+            // tb_root2
+            // 
+            this.tb_root2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_root2.Location = new System.Drawing.Point(546, 192);
+            this.tb_root2.Name = "tb_root2";
+            this.tb_root2.Size = new System.Drawing.Size(186, 26);
+            this.tb_root2.TabIndex = 2;
+            // 
+            // tb_root1
+            // 
+            this.tb_root1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_root1.Location = new System.Drawing.Point(546, 139);
+            this.tb_root1.Name = "tb_root1";
+            this.tb_root1.Size = new System.Drawing.Size(186, 26);
+            this.tb_root1.TabIndex = 2;
+            // 
+            // btn_root_accept
+            // 
+            this.btn_root_accept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_root_accept.Location = new System.Drawing.Point(472, 364);
+            this.btn_root_accept.Name = "btn_root_accept";
+            this.btn_root_accept.Size = new System.Drawing.Size(110, 30);
+            this.btn_root_accept.TabIndex = 1;
+            this.btn_root_accept.Text = "button1";
+            this.btn_root_accept.UseVisualStyleBackColor = true;
             // 
             // btn_root_addmngr
             // 
@@ -488,87 +548,27 @@
             this.btn_root_addmngr.UseVisualStyleBackColor = true;
             this.btn_root_addmngr.Click += new System.EventHandler(this.btn_root_addmngr_Click);
             // 
-            // btn_root_accept
+            // btn_root_changeusrpass
             // 
-            this.btn_root_accept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_root_accept.Location = new System.Drawing.Point(472, 364);
-            this.btn_root_accept.Name = "btn_root_accept";
-            this.btn_root_accept.Size = new System.Drawing.Size(110, 30);
-            this.btn_root_accept.TabIndex = 1;
-            this.btn_root_accept.Text = "button1";
-            this.btn_root_accept.UseVisualStyleBackColor = true;
+            this.btn_root_changeusrpass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_root_changeusrpass.Location = new System.Drawing.Point(33, 248);
+            this.btn_root_changeusrpass.Name = "btn_root_changeusrpass";
+            this.btn_root_changeusrpass.Size = new System.Drawing.Size(143, 51);
+            this.btn_root_changeusrpass.TabIndex = 0;
+            this.btn_root_changeusrpass.Text = "Змінити пароль входу";
+            this.btn_root_changeusrpass.UseVisualStyleBackColor = true;
+            this.btn_root_changeusrpass.Click += new System.EventHandler(this.btn_root_changeusrpass_Click);
             // 
-            // tb_root1
+            // btn_root_changerootpass
             // 
-            this.tb_root1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tb_root1.Location = new System.Drawing.Point(546, 139);
-            this.tb_root1.Name = "tb_root1";
-            this.tb_root1.Size = new System.Drawing.Size(186, 26);
-            this.tb_root1.TabIndex = 2;
-            // 
-            // lbl_root1
-            // 
-            this.lbl_root1.AutoSize = true;
-            this.lbl_root1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbl_root1.Location = new System.Drawing.Point(390, 142);
-            this.lbl_root1.Name = "lbl_root1";
-            this.lbl_root1.Size = new System.Drawing.Size(51, 20);
-            this.lbl_root1.TabIndex = 3;
-            this.lbl_root1.Text = "label4";
-            // 
-            // tb_root2
-            // 
-            this.tb_root2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tb_root2.Location = new System.Drawing.Point(546, 192);
-            this.tb_root2.Name = "tb_root2";
-            this.tb_root2.Size = new System.Drawing.Size(186, 26);
-            this.tb_root2.TabIndex = 2;
-            // 
-            // lbl_root2
-            // 
-            this.lbl_root2.AutoSize = true;
-            this.lbl_root2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbl_root2.Location = new System.Drawing.Point(390, 194);
-            this.lbl_root2.Name = "lbl_root2";
-            this.lbl_root2.Size = new System.Drawing.Size(51, 20);
-            this.lbl_root2.TabIndex = 3;
-            this.lbl_root2.Text = "label4";
-            // 
-            // tb_root3
-            // 
-            this.tb_root3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tb_root3.Location = new System.Drawing.Point(546, 245);
-            this.tb_root3.Name = "tb_root3";
-            this.tb_root3.Size = new System.Drawing.Size(186, 26);
-            this.tb_root3.TabIndex = 2;
-            // 
-            // lbl_root3
-            // 
-            this.lbl_root3.AutoSize = true;
-            this.lbl_root3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbl_root3.Location = new System.Drawing.Point(390, 245);
-            this.lbl_root3.Name = "lbl_root3";
-            this.lbl_root3.Size = new System.Drawing.Size(51, 20);
-            this.lbl_root3.TabIndex = 3;
-            this.lbl_root3.Text = "label4";
-            // 
-            // tb_root4
-            // 
-            this.tb_root4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tb_root4.Location = new System.Drawing.Point(546, 299);
-            this.tb_root4.Name = "tb_root4";
-            this.tb_root4.Size = new System.Drawing.Size(186, 26);
-            this.tb_root4.TabIndex = 2;
-            // 
-            // lbl_root4
-            // 
-            this.lbl_root4.AutoSize = true;
-            this.lbl_root4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbl_root4.Location = new System.Drawing.Point(390, 302);
-            this.lbl_root4.Name = "lbl_root4";
-            this.lbl_root4.Size = new System.Drawing.Size(51, 20);
-            this.lbl_root4.TabIndex = 3;
-            this.lbl_root4.Text = "label4";
+            this.btn_root_changerootpass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_root_changerootpass.Location = new System.Drawing.Point(33, 175);
+            this.btn_root_changerootpass.Name = "btn_root_changerootpass";
+            this.btn_root_changerootpass.Size = new System.Drawing.Size(143, 51);
+            this.btn_root_changerootpass.TabIndex = 0;
+            this.btn_root_changerootpass.Text = "Змінити пароль root";
+            this.btn_root_changerootpass.UseVisualStyleBackColor = true;
+            this.btn_root_changerootpass.Click += new System.EventHandler(this.btn_root_changerootpass_Click);
             // 
             // Form1
             // 

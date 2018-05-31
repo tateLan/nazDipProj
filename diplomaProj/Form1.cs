@@ -271,6 +271,11 @@ namespace diplomaProj
             cb_addch_itemType.Items.Clear();
             cb_addch_itemType.SelectedIndexChanged -= Cb_addch_itemType_SelectedIndexChanged;
 
+            tb_adch_slot1tb.Text = "";
+            tb_adch_slot2tb.Text = "";
+            tb_adch_slot3tb.Text = "";
+            tb_adch_slot4tb.Text = "";
+            tb_adch_slot5tb.Text = "";
         }
 
         private void UnbindHandlersCHADD()
@@ -1232,6 +1237,11 @@ namespace diplomaProj
 
             tb_adch_slot1tb.ReadOnly = true;
 
+            tb_adch_slot1tb.Text = "";
+            tb_adch_slot2tb.Text = "";
+            tb_adch_slot3tb.Text = "";
+            tb_adch_slot4tb.Text = "";
+            tb_adch_slot5tb.Text = "";
 
             switch (cb_addch_itemType.Text)
             {
@@ -1562,6 +1572,12 @@ namespace diplomaProj
             lbl_adch_slot5lbl.Visible = true;
             tb_adch_slot5tb.Visible = true;
             btn_addch_confirm.Visible = true;
+
+            tb_adch_slot1tb.Text = "";
+            tb_adch_slot2tb.Text = "";
+            tb_adch_slot3tb.Text = "";
+            tb_adch_slot4tb.Text = "";
+            tb_adch_slot5tb.Text = "";
         }
 
         private void Btn_addch_confirm_ChangeClient_Click(object sender, EventArgs e)
@@ -1812,7 +1828,7 @@ namespace diplomaProj
             if (e.RowIndex > dgw_show.RowCount || e.RowIndex < 0)
                 return;
             DataGridViewRow dgwr = dgw_show.Rows[e.RowIndex];
-            MySqlDataReader reader = new MySqlCommand("call getType4showIncome(" + dgwr.Cells[1].Value + ")", connect).ExecuteReader();
+            MySqlDataReader reader = new MySqlCommand("call getType4showIncome(" + dgwr.Cells[0].Value + ")", connect).ExecuteReader();
 
             reader.Read();
 
@@ -1933,7 +1949,7 @@ namespace diplomaProj
                         showIncTb2.Visible = true;
                         showIncType.Visible = true;
 
-                        reader = new MySqlCommand("select * from mosquito_net where mosquito_net.codeOfItem = " + dgwr.Cells[1].Value, connect).ExecuteReader();
+                        reader = new MySqlCommand("select * from mosquito_net where mosquito_net.codeOfItem = " + dgwr.Cells[0].Value, connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
@@ -2767,9 +2783,9 @@ namespace diplomaProj
                     DateTime dt = new DateTime(Convert.ToInt32(date[0]), Convert.ToInt32(date[1]), Convert.ToInt32(date[2]));
                     bool fl1 = int.TryParse(tb_root4.Text, out ph);
 
-                    if(fl1)
+                    if (fl1)
                     {
-                        string datemysql = $"{dt.Year}-{dt.Month}-{dt.Day}"; 
+                        string datemysql = $"{dt.Year}-{dt.Month}-{dt.Day}";
                         new MySqlCommand($"insert into managers(nameOfManager, lastNameOfManager, dateOfBirth, phoneNumber) " +
                             $"values ('{tb_root1.Text}', '{tb_root2.Text}', '{datemysql}', '{tb_root4.Text}')", connect).ExecuteNonQuery();
 
@@ -2783,7 +2799,7 @@ namespace diplomaProj
 
                 }
             }
-            catch(FormatException)
+            catch (FormatException)
             {
                 MessageBox.Show("Не праивльний формат дати!");
             }

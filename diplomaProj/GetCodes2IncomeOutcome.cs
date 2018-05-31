@@ -608,6 +608,7 @@ namespace diplomaProj
                             textBox2.Text.ToLower() + "%' and provider.phoneNumber like '" + textBox3.Text.ToLower() + "%'";
                     }
                     break;
+                case "ch-clients":
                 case "clients":
                     {
                         q = "select * from clients where clients.codeOfclient like '" + textBox1.Text.ToLower() + "%' and clients.firstName like '" +
@@ -635,6 +636,7 @@ namespace diplomaProj
                         FillDGW(reader, 4);
                     }
                     break;
+                case "ch-clients":
                 case "clients":
                     {
                         q = "select * from clients where clients.codeOfclient like '" + textBox1.Text.ToLower() + "%' and clients.firstName like '" +
