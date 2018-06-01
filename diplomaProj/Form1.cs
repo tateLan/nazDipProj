@@ -426,6 +426,8 @@ namespace diplomaProj
             regNew_tb1.ReadOnly = true;
             regNew_tbCodeOfItem.ReadOnly = true;
             regNew_btnConfirm.Click += RegNew_btnConfirm_Income_Click;
+
+            regNew_tbCodeOfItem.Click += RegNew_tbCodeOfItem_Click;
         }
 
         private void btn_mainMenu_checkInfo_Click(object sender, EventArgs e)
@@ -495,6 +497,8 @@ namespace diplomaProj
             regNew_tbCodeOfItem.ReadOnly = true;
 
             regNew_btnConfirm.Click += RegNew_Sell_btnConfirm_Click;
+
+            regNew_tbCodeOfItem.Click += RegNew_tbCodeOfItemOUTcome_Click;
         }
         //
         //register income
@@ -640,7 +644,7 @@ namespace diplomaProj
             regNew_tbDelCost.Visible = false;
             regNew_btnConfirm.Visible = false;
 
-            regNew_tbCodeOfItem.Click += RegNew_tbCodeOfItem_Click;
+            
         }
 
         private void RegNew_btnConfirm_Income_Click(object sender, EventArgs e)
@@ -702,7 +706,7 @@ namespace diplomaProj
                     if (!flag)
                     {
                         reader.Close();
-                        new MySqlCommand($"insert into warehouse(codeOfItem, quantity) values ('{id}', '{regNew_tbQuantity.Text}')", connect).ExecuteNonQuery();
+                        new MySqlCommand($"insert into warehouse(codeOfItem, quantity) values ('{regNew_tbCodeOfItem.Text}', '{regNew_tbQuantity.Text}')", connect).ExecuteNonQuery();
                     }
 
                     MessageBox.Show("Дані внесено успішно!");
@@ -722,6 +726,12 @@ namespace diplomaProj
                 MessageBox.Show("Не може бути пустих полів!");
             }
 
+        }
+
+        public void RegNew_tbCodeOfItem_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "items-inc", this);
+            form2.ShowDialog();
         }
         //
         //register outcome
@@ -898,6 +908,12 @@ namespace diplomaProj
             form2.ShowDialog();
         }
 
+        public void RegNew_tbCodeOfItemOUTcome_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "items", this);
+            form2.ShowDialog();
+        }
+
         //
         //else
         //
@@ -907,12 +923,6 @@ namespace diplomaProj
             form2 = new GetCodes2IncomeOutcome(connect, "provider", this);
             form2.ShowDialog();
 
-        }
-
-        public void RegNew_tbCodeOfItem_Click(object sender, EventArgs e)
-        {
-            form2 = new GetCodes2IncomeOutcome(connect, "items", this);
-            form2.ShowDialog();
         }
 
         private void AddItem(object sender, EventArgs e)
@@ -1856,7 +1866,7 @@ namespace diplomaProj
                         showIncLbl2.Text = "Виробник";
                         showIncLbl3.Text = "Назва";
 
-                        reader = new MySqlCommand("select * from windows where windows.codeOfItem = " + dgwr.Cells[1].Value, connect).ExecuteReader();
+                        reader = new MySqlCommand("select * from windows where windows.codeOfItem = " + dgwr.Cells[0].Value, connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
@@ -1891,7 +1901,7 @@ namespace diplomaProj
                         showIncTb5.Visible = true;
                         showIncType.Visible = true;
 
-                        reader = new MySqlCommand("call getDoorsExt(" + dgwr.Cells[1].Value + ")", connect).ExecuteReader();
+                        reader = new MySqlCommand("call getDoorsExt(" + dgwr.Cells[0].Value + ")", connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
@@ -1925,7 +1935,7 @@ namespace diplomaProj
                         showIncTb4.Visible = true;
                         showIncType.Visible = true;
 
-                        reader = new MySqlCommand("call getWindowsillExt(" + dgwr.Cells[1].Value + ")", connect).ExecuteReader();
+                        reader = new MySqlCommand("call getWindowsillExt(" + dgwr.Cells[0].Value + ")", connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
@@ -1975,7 +1985,7 @@ namespace diplomaProj
                         showIncTb2.Visible = true;
                         showIncType.Visible = true;
 
-                        reader = new MySqlCommand("select * from reflux where reflux.codeOfItem = " + dgwr.Cells[1].Value, connect).ExecuteReader();
+                        reader = new MySqlCommand("select * from reflux where reflux.codeOfItem = " + dgwr.Cells[0].Value, connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
@@ -2461,6 +2471,13 @@ namespace diplomaProj
             showIncTb4.Visible = false;
             showIncTb5.Visible = false;
             showIncType.Visible = false;
+
+            showIncTb1.Text = "";
+            showIncTb2.Text = "";
+            showIncTb3.Text = "";
+            showIncTb4.Text = "";
+            showIncTb5.Text = "";
+            showIncType.Text = "";
         }
 
         private void btn_manager_chose_accept_Click(object sender, EventArgs e)

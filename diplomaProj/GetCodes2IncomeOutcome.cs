@@ -121,6 +121,38 @@ namespace diplomaProj
                     }
 
                     break;
+                case "items-inc":
+                    {
+                        label1.Visible = true;
+                        label2.Visible = true;
+                        label3.Visible = true;
+                        textBox1.Visible = true;
+                        textBox2.Visible = true;
+                        textBox3.Visible = true;
+
+                        label1.Text = "Код";
+                        label2.Text = "Тип";
+                        label3.Text = "Виробник";
+
+                        dgw_info.Columns.Add("code", "Код");
+                        dgw_info.Columns.Add("type", "Тип");
+                        dgw_info.Columns.Add("manufacturer", "Виробник");
+
+                        reader = new MySqlCommand("call getitems4inc", connect).ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1], reader[2]);
+                        }
+                        reader.Close();
+
+                        this.Width = 1160;
+                        ItemsAdditionCtrlsAdd();
+                        HideAdditionalCtrls();
+
+                        dgw_info.CellClick += Dgw_info_CellClick;
+                    }
+                    break;
                 case "items":
                     {
                         int availCount = 0;
@@ -660,11 +692,14 @@ namespace diplomaProj
                             "and assortment.nameOfItem like '" + textBox2.Text.ToLower() + "%'";
                     }
                     break;
+                case "items-inc":
+                    {
+                        q = $"call searchitems4inc('{textBox1.Text}%', '{textBox2.Text}%', '{textBox3.Text}%')";
+                    }
+                    break;
             }
 
             reader = new MySqlCommand(q, connect).ExecuteReader();
-
-            List<int> codes = new List<int>();
 
             switch (table)
             {
@@ -750,6 +785,11 @@ namespace diplomaProj
                         }
                     }
                     break;
+                case "items-inc":
+                    {
+                        FillDGW(reader, 3);
+                    }
+                    break;
             }
 
             reader.Close();
@@ -802,6 +842,12 @@ namespace diplomaProj
                             form1.tb_adch_slot3tb.Text = dgw_info.Rows[e.RowIndex].Cells[2].Value.ToString();
                             form1.tb_adch_slot4tb.Text = dgw_info.Rows[e.RowIndex].Cells[3].Value.ToString();
                             form1.tb_adch_slot5tb.Text = dgw_info.Rows[e.RowIndex].Cells[4].Value.ToString();
+                            this.Close();
+                        }
+                        break;
+                    case "items-inc":
+                        {
+                            form1.regNew_tbCodeOfItem.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
                             this.Close();
                         }
                         break;
