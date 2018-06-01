@@ -128,15 +128,19 @@ namespace diplomaProj
 
                         label1.Visible = true;
                         label2.Visible = true;
+                        label3.Visible = true;
                         textBox1.Visible = true;
                         textBox2.Visible = true;
-                        textBox2.Location = new Point(400, 19);
+                        textBox3.Visible = true;
 
                         label1.Text = "Код";
-                        label2.Text = "Тип продукту";
+                        label2.Text = "Тип";
+                        label3.Text = "Виробник";
 
                         dgw_info.Columns.Add("code", "Код");
                         dgw_info.Columns.Add("type", "Тип");
+                        dgw_info.Columns.Add("manufacturer", "Виробник");
+
 
                         reader = new MySqlCommand("select items.id, assortment.nameOfItem from warehouse left join (items left join assortment" +
                             " on items.typeOfProduct = assortment.codeOfItem) on items.id = warehouse.codeOfItem where quantity > 0 ", connect).ExecuteReader();
@@ -146,6 +150,49 @@ namespace diplomaProj
                             dgw_info.Rows.Add(reader[0], reader[1]);
                         }
                         reader.Close();
+
+                        for (int i = 0; i < dgw_info.Rows.Count; i++)
+                        {
+                            string q = null;
+
+                            switch (dgw_info.Rows[i].Cells[1].Value)
+                            {
+                                case "Вікна":
+                                    {
+                                        q = "select manufacturer from windows where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                                case "Двері":
+                                    {
+                                        q = "select manufacturer from doors where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                                case "Відлив":
+                                    {
+                                        q = "select manufacturer from reflux where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                                case "Підвіконня":
+                                    {
+                                        q = "select manufacturer from windowsill where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                                case "Москітна сітка":
+                                    {
+                                        q = "select manufacturer from mosquito_net where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                            }
+
+                            reader = new MySqlCommand(q, connect).ExecuteReader();
+
+                            while (reader.Read())
+                            {
+                                dgw_info.Rows[i].Cells[2].Value = reader[0];
+                            }
+
+                            reader.Close();
+                        }
 
                         reader = new MySqlCommand("select count(warehouse.codeOfItem) from warehouse left join (items left join assortment" +
                             " on items.typeOfProduct = assortment.codeOfItem) on items.id = warehouse.codeOfItem where quantity > 0", connect).ExecuteReader();
@@ -162,7 +209,7 @@ namespace diplomaProj
                         {
                             whLessThanAll_lbl.AutoSize = true;
                             whLessThanAll_lbl.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
-                            whLessThanAll_lbl.Location = new Point(750, 28);
+                            whLessThanAll_lbl.Location = new Point(760, 21);
                             whLessThanAll_lbl.Name = "whLessThanAll_lbl";
                             whLessThanAll_lbl.Size = new Size(51, 20);
                             whLessThanAll_lbl.TabIndex = 3;
@@ -311,23 +358,19 @@ namespace diplomaProj
                         showIncLblType.Visible = true;
                         showIncLbl1.Visible = true;
                         showIncLbl2.Visible = true;
-                        showIncLbl3.Visible = true;
 
                         showIncType.Visible = true;
                         showIncTb1.Visible = true;
                         showIncTb2.Visible = true;
-                        showIncTb3.Visible = true;
 
                         showIncLbl1.Text = "Код";
-                        showIncLbl2.Text = "Виробник";
-                        showIncLbl3.Text = "Назва";
+                        showIncLbl2.Text = "Назва";
 
                         reader = new MySqlCommand("select * from windows where windows.codeOfItem = " + dgwr.Cells[0].Value, connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
-                            showIncTb2.Text = reader[1].ToString();
-                            showIncTb3.Text = reader[2].ToString();
+                            showIncTb2.Text = reader[2].ToString();
                         }
 
                         showIncType.Text = "Вікна";
@@ -342,29 +385,25 @@ namespace diplomaProj
                         showIncLbl2.Visible = true;
                         showIncLbl3.Visible = true;
                         showIncLbl4.Visible = true;
-                        showIncLbl5.Visible = true;
 
                         showIncLbl1.Text = "Код";
-                        showIncLbl2.Text = "Виробник";
-                        showIncLbl3.Text = "Тип";
-                        showIncLbl4.Text = "Матеріал";
-                        showIncLbl5.Text = "Колір";
+                        showIncLbl2.Text = "Тип";
+                        showIncLbl3.Text = "Матеріал";
+                        showIncLbl4.Text = "Колір";
 
                         showIncTb1.Visible = true;
                         showIncTb2.Visible = true;
                         showIncTb3.Visible = true;
                         showIncTb4.Visible = true;
-                        showIncTb5.Visible = true;
                         showIncType.Visible = true;
 
                         reader = new MySqlCommand("call getDoorsExt(" + dgwr.Cells[0].Value + ")", connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
-                            showIncTb2.Text = reader[1].ToString();
-                            showIncTb3.Text = reader[2].ToString();
-                            showIncTb4.Text = reader[3].ToString();
-                            showIncTb5.Text = reader[4].ToString();
+                            showIncTb2.Text = reader[2].ToString();
+                            showIncTb3.Text = reader[3].ToString();
+                            showIncTb4.Text = reader[4].ToString();
                         }
 
                         showIncType.Text = "Двері";
@@ -378,26 +417,22 @@ namespace diplomaProj
                         showIncLbl1.Visible = true;
                         showIncLbl2.Visible = true;
                         showIncLbl3.Visible = true;
-                        showIncLbl4.Visible = true;
 
                         showIncLbl1.Text = "Код";
-                        showIncLbl2.Text = "Виробник";
-                        showIncLbl3.Text = "Матеріал";
-                        showIncLbl4.Text = "Колір";
+                        showIncLbl2.Text = "Матеріал";
+                        showIncLbl3.Text = "Колір";
 
                         showIncTb1.Visible = true;
                         showIncTb2.Visible = true;
                         showIncTb3.Visible = true;
-                        showIncTb4.Visible = true;
                         showIncType.Visible = true;
 
                         reader = new MySqlCommand("call getWindowsillExt(" + dgwr.Cells[0].Value + ")", connect).ExecuteReader();
                         while (reader.Read())
                         {
                             showIncTb1.Text = reader[0].ToString();
-                            showIncTb2.Text = reader[1].ToString();
-                            showIncTb3.Text = reader[2].ToString();
-                            showIncTb4.Text = reader[3].ToString();
+                            showIncTb2.Text = reader[2].ToString();
+                            showIncTb3.Text = reader[3].ToString();
                         }
 
                         showIncType.Text = "Підвіконня";
@@ -600,6 +635,8 @@ namespace diplomaProj
 
         private void Changed(object sender, EventArgs e)
         {
+            MySqlDataReader reader;
+
             switch (table)
             {
                 case "provider":
@@ -617,6 +654,7 @@ namespace diplomaProj
                     break;
                 case "items":
                     {
+
                         q = "select items.id, assortment.nameOfItem from warehouse left join(items left join assortment" +
                             " on items.typeOfProduct = assortment.codeOfItem) on items.id = warehouse.codeOfItem where quantity > 0 and items.id like '" + textBox1.Text.ToLower() + "%' " +
                             "and assortment.nameOfItem like '" + textBox2.Text.ToLower() + "%'";
@@ -624,40 +662,102 @@ namespace diplomaProj
                     break;
             }
 
-            MySqlDataReader reader = new MySqlCommand(q, connect).ExecuteReader();
+            reader = new MySqlCommand(q, connect).ExecuteReader();
+
+            List<int> codes = new List<int>();
 
             switch (table)
             {
                 case "provider":
                     {
-                        q = "select * from provider where provider.codeOfProvider like '" + textBox1.Text.ToLower() + "%' and provider.nameOfProvider like '" +
-                            textBox1.Text.ToLower() + "%' and provider.phoneNumber like '" + textBox1.Text.ToLower() + "%'";
-
                         FillDGW(reader, 4);
                     }
                     break;
                 case "ch-clients":
                 case "clients":
                     {
-                        q = "select * from clients where clients.codeOfclient like '" + textBox1.Text.ToLower() + "%' and clients.firstName like '" +
-                            textBox1.Text.ToLower() + "%' and clients.lastName like '" + textBox1.Text.ToLower() + "%'";
-
                         FillDGW(reader, 6);
                     }
                     break;
                 case "items":
                     {
-                        q = "select items.id, assortment.nameOfItem from items left join assortment" +
-                            " on items.typeOfProduct = assortment.codeOfItem where items.id like '" + textBox1.Text.ToLower() + "%' " +
-                            "and assortment.nameOfItem like '" + textBox2.Text.ToLower() + "%'";
-
                         FillDGW(reader, 2);
+                        reader.Close();
+
+                        for (int i = 0; i < dgw_info.Rows.Count; i++)
+                        {
+                            string q = null;
+
+                            switch (dgw_info.Rows[i].Cells[1].Value)
+                            {
+                                case "Вікна":
+                                    {
+                                        q = "select manufacturer from windows where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                                case "Двері":
+                                    {
+                                        q = "select manufacturer from doors where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                                case "Відлив":
+                                    {
+                                        q = "select manufacturer from reflux where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                                case "Підвіконня":
+                                    {
+                                        q = "select manufacturer from windowsill where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                                case "Москітна сітка":
+                                    {
+                                        q = "select manufacturer from mosquito_net where codeOfItem = " + dgw_info.Rows[i].Cells[0].Value;
+                                    }
+                                    break;
+                            }
+
+                            reader = new MySqlCommand(q, connect).ExecuteReader();
+
+                            while (reader.Read())
+                            {
+                                dgw_info.Rows[i].Cells[2].Value = reader[0];
+                            }
+
+                            reader.Close();
+                        }
+                        for (int i = 0; i < dgw_info.Rows.Count; i++)
+                        {
+                            char[] req = textBox3.Text.ToCharArray();
+                            char[] avail = dgw_info.Rows[i].Cells[2].Value.ToString().ToCharArray();
+                            int count = 0;
+
+                            for (int j = 0; j < req.Length; j++)
+                            {
+                                if (req.Length <= avail.Length)
+                                {
+                                    if (req[j].ToString().ToLower() == avail[j].ToString().ToLower())
+                                        count++;
+                                }
+                            }
+
+                            if (count != req.Length)
+                            {
+                                dgw_info.Rows.Remove(dgw_info.Rows[i]);
+                                i = -1;
+                            }
+                            count = 0;
+                        }
                     }
                     break;
             }
 
-
             reader.Close();
+
+            if (table == "items")
+            {
+
+            }
         }
 
         private void FillDGW(MySqlDataReader reader, int count)

@@ -1697,11 +1697,12 @@ namespace diplomaProj
                     {
                         dgw_show.Columns.Add("code", "код");
                         dgw_show.Columns.Add("name", "найменування");
+                        dgw_show.Columns.Add("manu", "виробник");
 
                         q = "select * from " + subj;
                         reader = new MySqlCommand(q, connect).ExecuteReader();
 
-                        InitDGW(reader, 2);
+                        InitDGW(reader, 3);
 
                         reader.Close();
                     }
@@ -1710,11 +1711,12 @@ namespace diplomaProj
                     {
                         dgw_show.Columns.Add("code", "код");
                         dgw_show.Columns.Add("name", "найменування");
+                        dgw_show.Columns.Add("manu", "виробник");
 
                         q = "select * from " + subj;
                         reader = new MySqlCommand(q, connect).ExecuteReader();
 
-                        InitDGW(reader, 2);
+                        InitDGW(reader, 3);
 
                         reader.Close();
                     }
