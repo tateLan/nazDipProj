@@ -106,6 +106,8 @@ namespace diplomaProj
             pnl_choose_mngr.Dock = DockStyle.Fill;
             pnl_add_change.Dock = DockStyle.Fill;
             pnl_root.Dock = DockStyle.Fill;
+            pnl_send2factory.Dock = DockStyle.Fill;
+            pnl_showfactoryProces.Dock = DockStyle.Fill;
         }
 
         private void HideAllPnls()
@@ -117,6 +119,8 @@ namespace diplomaProj
             pnl_choose_mngr.Hide();
             pnl_add_change.Hide();
             pnl_root.Hide();
+            pnl_send2factory.Hide();
+            pnl_showfactoryProces.Hide();
         }
 
         private void InitManagersCB()
@@ -192,6 +196,11 @@ namespace diplomaProj
             btn_mainMenu_slot4.Click -= ChangeItem;
             btn_mainMenu_slot5.Click -= AddClient;
             btn_mainMenu_slot6.Click -= ChangeClient;
+
+            btn_mainMenu_slot3.Click -= sendToFactory;
+            btn_mainMenu_slot4.Click -= checkFactoryStatus;
+            btn_mainMenu_slot5.Click -= changeFactoryStatus;
+            btn_mainMenu_slot6.Click -= addFactory;
         }
 
         private void btn_back_Click(object sender, EventArgs e)
@@ -276,6 +285,12 @@ namespace diplomaProj
             tb_adch_slot3tb.Text = "";
             tb_adch_slot4tb.Text = "";
             tb_adch_slot5tb.Text = "";
+
+            tb_send2fac_codeoffactory.Text = "";
+            tb_send2fac_codeoforder.Text = "";
+
+            dgw_showfactoryProcess.Rows.Clear();
+            dgw_showfactoryProcess.Columns.Clear();
         }
 
         private void UnbindHandlersCHADD()
@@ -644,7 +659,7 @@ namespace diplomaProj
             regNew_tbDelCost.Visible = false;
             regNew_btnConfirm.Visible = false;
 
-            
+
         }
 
         private void RegNew_btnConfirm_Income_Click(object sender, EventArgs e)
@@ -2824,6 +2839,103 @@ namespace diplomaProj
             }
 
 
+        }
+
+        private void btn_factory_Click(object sender, EventArgs e)
+        {
+            HideAllBtns();
+
+            btn_mainMenu_slot3.Text = "Відправити на завод";
+            btn_mainMenu_slot4.Text = "Переглянути процес на заводі";
+            btn_mainMenu_slot5.Text = "Змінити статус замовлення";
+            btn_mainMenu_slot6.Text = "Додати виробника";
+
+
+            btn_mainMenu_slot5.Show();
+            btn_mainMenu_slot6.Show();
+            btn_mainMenu_slot3.Show();
+            btn_mainMenu_slot4.Show();
+
+            btn_mainMenu_slot3.Click += sendToFactory;
+            btn_mainMenu_slot4.Click += checkFactoryStatus;
+            btn_mainMenu_slot5.Click += changeFactoryStatus;
+            btn_mainMenu_slot6.Click += addFactory;
+
+        }
+
+        private void addFactory(object sender, EventArgs e)
+        {
+        }
+
+        private void changeFactoryStatus(object sender, EventArgs e)
+        {
+        }
+
+        private void checkFactoryStatus(object sender, EventArgs e)
+        {
+            pnl_mainMenu.Hide();
+            pnl_showfactoryProces.Show();
+
+            dgw_showfactoryProcess.Columns.Add("id", "код");
+            dgw_showfactoryProcess.Columns.Add("name", "назва фабрики");
+            dgw_showfactoryProcess.Columns.Add("code", "код замовлення");
+            dgw_showfactoryProcess.Columns.Add("type", "тип замовлення");
+            dgw_showfactoryProcess.Columns.Add("status", "статус");
+
+            MySqlDataReader reader = new MySqlCommand("call getfactoryorders", connect).ExecuteReader();
+
+            while(reader.Read())
+            {
+                dgw_showfactoryProcess.Rows.Add(reader[0], reader[1], reader[2], reader[3], reader[4]);
+            }
+
+            reader.Close();
+        }
+
+        private void sendToFactory(object sender, EventArgs e)
+        {
+            pnl_mainMenu.Hide();
+            pnl_send2factory.Show();
+        }
+
+        private void tb_send2fac_codeoforder_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "outcomes", this);
+            form2.ShowDialog();
+        }
+
+        private void tb_send2fac_codeoffactory_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "factories", this);
+            form2.ShowDialog();
+        }
+
+        private void btn_send2factory_Click(object sender, EventArgs e)
+        {
+            if (tb_send2fac_codeoffactory.Text != "" && tb_send2fac_codeoforder.Text != "")
+            {
+                try
+                {
+                    string q = $"insert into factory_orders (codeoffactory, codeoforder, statusoforder) " +
+                    $"values ('{tb_send2fac_codeoffactory.Text}', '{tb_send2fac_codeoforder.Text}', '1')";
+
+                    new MySqlCommand(q, connect).ExecuteNonQuery();
+
+                    MessageBox.Show("Дані внесено успішно!");
+
+                    tb_send2fac_codeoffactory.Text = "";
+                    tb_send2fac_codeoforder.Text = "";
+                }
+                catch(MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Пусті поля не допускаються!");
+            }
         }
     }
 }

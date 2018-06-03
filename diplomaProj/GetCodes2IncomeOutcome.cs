@@ -366,6 +366,46 @@ namespace diplomaProj
                         reader.Close();
                     }
                     break;
+                case "outcomes":
+                    {
+                        dgw_info.Columns.Add("id", "код замовлення");
+                        dgw_info.Columns.Add("date", "дата");
+                        dgw_info.Columns.Add("name", "ім'я клієнта");
+                        dgw_info.Columns.Add("lname", "прізвище клієнта");
+                        dgw_info.Columns.Add("coofitem", "код товару");
+                        dgw_info.Columns.Add("q", "кількість");
+                        dgw_info.Columns.Add("mname", "ім'я менеджера");
+                        dgw_info.Columns.Add("mlname", "прізвище менеджера");
+
+                        reader = new MySqlCommand("select outcome.id, outcome.dateofoutcome, clients.firstname, clients.lastname, outcome.codeofitem, outcome.quantity, " +
+                            "managers.nameofmanager, managers.lastnameofmanager from (outcome left join clients on outcome.codeofclient = clients.codeofclient) " +
+                            "left join managers on outcome.manager = managers.codeofmanager", connect).ExecuteReader();
+
+                        while(reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7]);
+                        }
+
+                        reader.Close();
+                    }
+                    break;
+                case "factories":
+                    {
+                        dgw_info.Columns.Add("id", "код");
+                        dgw_info.Columns.Add("name", "назва");
+                        dgw_info.Columns.Add("adress", "адреса");
+                        dgw_info.Columns.Add("pn", "телефон");
+
+                        reader = new MySqlCommand("select * from factories", connect).ExecuteReader();
+
+                        while(reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1], reader[2], reader[3]);
+                        }
+
+                        reader.Close();
+                    }
+                    break;
             }
         }
 
@@ -930,6 +970,19 @@ namespace diplomaProj
                             form1.tb_adch_slot1tb.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
                             form1.tb_adch_slot2tb.Text = dgw_info.Rows[e.RowIndex].Cells[1].Value.ToString();
 
+                            this.Close();
+                        }
+                        break;
+                    case "outcomes":
+                        {
+                            form1.tb_send2fac_codeoforder.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                            this.Close();
+                        }
+                        break;
+                    case "factories":
+                        {
+                            form1.tb_send2fac_codeoffactory.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
                             this.Close();
                         }
                         break;

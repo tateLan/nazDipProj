@@ -48,6 +48,7 @@
             this.btn_mainMenu_slot3 = new System.Windows.Forms.Button();
             this.btn_mainMenu_addChangeInfo = new System.Windows.Forms.Button();
             this.btn_mainMenu_registerSell = new System.Windows.Forms.Button();
+            this.btn_factory = new System.Windows.Forms.Button();
             this.btn_mainMenu_registerIncome = new System.Windows.Forms.Button();
             this.pnl_registerNew = new System.Windows.Forms.Panel();
             this.btn_back = new System.Windows.Forms.Button();
@@ -74,6 +75,16 @@
             this.btn_root_addmngr = new System.Windows.Forms.Button();
             this.btn_root_changeusrpass = new System.Windows.Forms.Button();
             this.btn_root_changerootpass = new System.Windows.Forms.Button();
+            this.pnl_send2factory = new System.Windows.Forms.Panel();
+            this.btn_send2factory = new System.Windows.Forms.Button();
+            this.tb_send2fac_codeoffactory = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tb_send2fac_codeoforder = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.pnl_showfactoryProces = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.dgw_showfactoryProcess = new System.Windows.Forms.DataGridView();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
             this.pnl_registerNew.SuspendLayout();
@@ -82,6 +93,9 @@
             this.pnl_choose_mngr.SuspendLayout();
             this.pnl_add_change.SuspendLayout();
             this.pnl_root.SuspendLayout();
+            this.pnl_send2factory.SuspendLayout();
+            this.pnl_showfactoryProces.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgw_showfactoryProcess)).BeginInit();
             this.SuspendLayout();
             // 
             // pnl_auth
@@ -172,10 +186,11 @@
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_slot3);
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_addChangeInfo);
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_registerSell);
+            this.pnl_mainMenu.Controls.Add(this.btn_factory);
             this.pnl_mainMenu.Controls.Add(this.btn_mainMenu_registerIncome);
-            this.pnl_mainMenu.Location = new System.Drawing.Point(61, 15);
+            this.pnl_mainMenu.Location = new System.Drawing.Point(61, 12);
             this.pnl_mainMenu.Name = "pnl_mainMenu";
-            this.pnl_mainMenu.Size = new System.Drawing.Size(57, 24);
+            this.pnl_mainMenu.Size = new System.Drawing.Size(57, 27);
             this.pnl_mainMenu.TabIndex = 1;
             // 
             // label3
@@ -192,7 +207,7 @@
             // btn_mainMenu_checkInfo
             // 
             this.btn_mainMenu_checkInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_mainMenu_checkInfo.Location = new System.Drawing.Point(31, 404);
+            this.btn_mainMenu_checkInfo.Location = new System.Drawing.Point(29, 447);
             this.btn_mainMenu_checkInfo.Name = "btn_mainMenu_checkInfo";
             this.btn_mainMenu_checkInfo.Size = new System.Drawing.Size(164, 61);
             this.btn_mainMenu_checkInfo.TabIndex = 0;
@@ -282,7 +297,7 @@
             // btn_mainMenu_addChangeInfo
             // 
             this.btn_mainMenu_addChangeInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_mainMenu_addChangeInfo.Location = new System.Drawing.Point(31, 294);
+            this.btn_mainMenu_addChangeInfo.Location = new System.Drawing.Point(29, 337);
             this.btn_mainMenu_addChangeInfo.Name = "btn_mainMenu_addChangeInfo";
             this.btn_mainMenu_addChangeInfo.Size = new System.Drawing.Size(164, 61);
             this.btn_mainMenu_addChangeInfo.TabIndex = 0;
@@ -293,7 +308,7 @@
             // btn_mainMenu_registerSell
             // 
             this.btn_mainMenu_registerSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_mainMenu_registerSell.Location = new System.Drawing.Point(31, 189);
+            this.btn_mainMenu_registerSell.Location = new System.Drawing.Point(29, 232);
             this.btn_mainMenu_registerSell.Name = "btn_mainMenu_registerSell";
             this.btn_mainMenu_registerSell.Size = new System.Drawing.Size(164, 61);
             this.btn_mainMenu_registerSell.TabIndex = 0;
@@ -301,10 +316,21 @@
             this.btn_mainMenu_registerSell.UseVisualStyleBackColor = true;
             this.btn_mainMenu_registerSell.Click += new System.EventHandler(this.btn_mainMenu_registerSell_Click);
             // 
+            // btn_factory
+            // 
+            this.btn_factory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_factory.Location = new System.Drawing.Point(29, 40);
+            this.btn_factory.Name = "btn_factory";
+            this.btn_factory.Size = new System.Drawing.Size(164, 61);
+            this.btn_factory.TabIndex = 0;
+            this.btn_factory.Text = "Завод";
+            this.btn_factory.UseVisualStyleBackColor = true;
+            this.btn_factory.Click += new System.EventHandler(this.btn_factory_Click);
+            // 
             // btn_mainMenu_registerIncome
             // 
             this.btn_mainMenu_registerIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_mainMenu_registerIncome.Location = new System.Drawing.Point(31, 86);
+            this.btn_mainMenu_registerIncome.Location = new System.Drawing.Point(29, 129);
             this.btn_mainMenu_registerIncome.Name = "btn_mainMenu_registerIncome";
             this.btn_mainMenu_registerIncome.Size = new System.Drawing.Size(164, 61);
             this.btn_mainMenu_registerIncome.TabIndex = 0;
@@ -452,7 +478,7 @@
             this.pnl_root.Controls.Add(this.btn_root_changerootpass);
             this.pnl_root.Location = new System.Drawing.Point(586, 12);
             this.pnl_root.Name = "pnl_root";
-            this.pnl_root.Size = new System.Drawing.Size(43, 27);
+            this.pnl_root.Size = new System.Drawing.Size(48, 27);
             this.pnl_root.TabIndex = 6;
             // 
             // lbl_root4
@@ -570,18 +596,128 @@
             this.btn_root_changerootpass.UseVisualStyleBackColor = true;
             this.btn_root_changerootpass.Click += new System.EventHandler(this.btn_root_changerootpass_Click);
             // 
+            // pnl_send2factory
+            // 
+            this.pnl_send2factory.Controls.Add(this.btn_send2factory);
+            this.pnl_send2factory.Controls.Add(this.tb_send2fac_codeoffactory);
+            this.pnl_send2factory.Controls.Add(this.label7);
+            this.pnl_send2factory.Controls.Add(this.tb_send2fac_codeoforder);
+            this.pnl_send2factory.Controls.Add(this.label4);
+            this.pnl_send2factory.Controls.Add(this.button1);
+            this.pnl_send2factory.Location = new System.Drawing.Point(654, 12);
+            this.pnl_send2factory.Name = "pnl_send2factory";
+            this.pnl_send2factory.Size = new System.Drawing.Size(44, 27);
+            this.pnl_send2factory.TabIndex = 7;
+            // 
+            // btn_send2factory
+            // 
+            this.btn_send2factory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_send2factory.Location = new System.Drawing.Point(376, 291);
+            this.btn_send2factory.Name = "btn_send2factory";
+            this.btn_send2factory.Size = new System.Drawing.Size(115, 30);
+            this.btn_send2factory.TabIndex = 4;
+            this.btn_send2factory.Text = "Відправити";
+            this.btn_send2factory.UseVisualStyleBackColor = true;
+            this.btn_send2factory.Click += new System.EventHandler(this.btn_send2factory_Click);
+            // 
+            // tb_send2fac_codeoffactory
+            // 
+            this.tb_send2fac_codeoffactory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_send2fac_codeoffactory.Location = new System.Drawing.Point(408, 221);
+            this.tb_send2fac_codeoffactory.Name = "tb_send2fac_codeoffactory";
+            this.tb_send2fac_codeoffactory.ReadOnly = true;
+            this.tb_send2fac_codeoffactory.Size = new System.Drawing.Size(140, 26);
+            this.tb_send2fac_codeoffactory.TabIndex = 3;
+            this.tb_send2fac_codeoffactory.Click += new System.EventHandler(this.tb_send2fac_codeoffactory_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(262, 224);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(111, 20);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Код фабрики";
+            // 
+            // tb_send2fac_codeoforder
+            // 
+            this.tb_send2fac_codeoforder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_send2fac_codeoforder.Location = new System.Drawing.Point(408, 152);
+            this.tb_send2fac_codeoforder.Name = "tb_send2fac_codeoforder";
+            this.tb_send2fac_codeoforder.ReadOnly = true;
+            this.tb_send2fac_codeoforder.Size = new System.Drawing.Size(140, 26);
+            this.tb_send2fac_codeoforder.TabIndex = 3;
+            this.tb_send2fac_codeoforder.Click += new System.EventHandler(this.tb_send2fac_codeoforder_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(262, 155);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(135, 20);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Код замовлення";
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 31);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Назад";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btn_back_Click);
+            // 
+            // pnl_showfactoryProces
+            // 
+            this.pnl_showfactoryProces.Controls.Add(this.dgw_showfactoryProcess);
+            this.pnl_showfactoryProces.Controls.Add(this.button2);
+            this.pnl_showfactoryProces.Location = new System.Drawing.Point(12, 12);
+            this.pnl_showfactoryProces.Name = "pnl_showfactoryProces";
+            this.pnl_showfactoryProces.Size = new System.Drawing.Size(880, 527);
+            this.pnl_showfactoryProces.TabIndex = 8;
+            // 
+            // button2
+            // 
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(14, 13);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(74, 31);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Назад";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.btn_back_Click);
+            // 
+            // dgw_showfactoryProcess
+            // 
+            this.dgw_showfactoryProcess.AllowUserToAddRows = false;
+            this.dgw_showfactoryProcess.AllowUserToDeleteRows = false;
+            this.dgw_showfactoryProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgw_showfactoryProcess.Location = new System.Drawing.Point(14, 50);
+            this.dgw_showfactoryProcess.Name = "dgw_showfactoryProcess";
+            this.dgw_showfactoryProcess.ReadOnly = true;
+            this.dgw_showfactoryProcess.Size = new System.Drawing.Size(852, 474);
+            this.dgw_showfactoryProcess.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_auth_enter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
+            this.Controls.Add(this.pnl_showfactoryProces);
+            this.Controls.Add(this.pnl_send2factory);
+            this.Controls.Add(this.pnl_mainMenu);
             this.Controls.Add(this.pnl_root);
             this.Controls.Add(this.pnl_add_change);
             this.Controls.Add(this.pnl_choose_mngr);
             this.Controls.Add(this.pnl_registerNew);
             this.Controls.Add(this.pnl_show);
-            this.Controls.Add(this.pnl_mainMenu);
             this.Controls.Add(this.pnl_auth);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -600,6 +736,10 @@
             this.pnl_add_change.ResumeLayout(false);
             this.pnl_root.ResumeLayout(false);
             this.pnl_root.PerformLayout();
+            this.pnl_send2factory.ResumeLayout(false);
+            this.pnl_send2factory.PerformLayout();
+            this.pnl_showfactoryProces.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgw_showfactoryProcess)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -650,6 +790,17 @@
         private System.Windows.Forms.Button btn_root_addmngr;
         private System.Windows.Forms.Button btn_root_changeusrpass;
         private System.Windows.Forms.Button btn_root_changerootpass;
+        private System.Windows.Forms.Button btn_factory;
+        private System.Windows.Forms.Panel pnl_send2factory;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_send2factory;
+        public System.Windows.Forms.TextBox tb_send2fac_codeoffactory;
+        private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.TextBox tb_send2fac_codeoforder;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel pnl_showfactoryProces;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dgw_showfactoryProcess;
     }
 }
 
