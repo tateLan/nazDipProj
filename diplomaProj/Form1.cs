@@ -108,6 +108,7 @@ namespace diplomaProj
             pnl_root.Dock = DockStyle.Fill;
             pnl_send2factory.Dock = DockStyle.Fill;
             pnl_showfactoryProces.Dock = DockStyle.Fill;
+            pnl_changeFstatus.Dock = DockStyle.Fill;
         }
 
         private void HideAllPnls()
@@ -121,6 +122,7 @@ namespace diplomaProj
             pnl_root.Hide();
             pnl_send2factory.Hide();
             pnl_showfactoryProces.Hide();
+            pnl_changeFstatus.Hide();
         }
 
         private void InitManagersCB()
@@ -291,6 +293,8 @@ namespace diplomaProj
 
             dgw_showfactoryProcess.Rows.Clear();
             dgw_showfactoryProcess.Columns.Clear();
+
+            cb_fStatus.Items.Clear();
         }
 
         private void UnbindHandlersCHADD()
@@ -2869,6 +2873,18 @@ namespace diplomaProj
 
         private void changeFactoryStatus(object sender, EventArgs e)
         {
+            pnl_mainMenu.Hide();
+            pnl_changeFstatus.Show();
+
+            MySqlDataReader reader = new MySqlCommand("select * from statuses", connect).ExecuteReader();
+
+            while (reader.Read())
+            {
+                cb_fStatus.Items.Add(reader[1]);
+            }
+
+
+            reader.Close();
         }
 
         private void checkFactoryStatus(object sender, EventArgs e)
@@ -2884,7 +2900,7 @@ namespace diplomaProj
 
             MySqlDataReader reader = new MySqlCommand("call getfactoryorders", connect).ExecuteReader();
 
-            while(reader.Read())
+            while (reader.Read())
             {
                 dgw_showfactoryProcess.Rows.Add(reader[0], reader[1], reader[2], reader[3], reader[4]);
             }
@@ -2926,15 +2942,55 @@ namespace diplomaProj
                     tb_send2fac_codeoffactory.Text = "";
                     tb_send2fac_codeoforder.Text = "";
                 }
-                catch(MySqlException ex)
+                catch (MySqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-                
+
             }
             else
             {
                 MessageBox.Show("Пусті поля не допускаються!");
+            }
+        }
+
+        private void tb_changeFstatus_code_Click(object sender, EventArgs e)
+        {
+            form2 = new GetCodes2IncomeOutcome(connect, "factory_status", this);
+            form2.ShowDialog();
+        }
+
+        private void btn_changeFstatus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tb_changeFstatus_code.Text != "" && cb_fStatus.SelectedIndex != -1)
+                {
+                    MySqlDataReader reader = new MySqlCommand("select * from statuses", connect).ExecuteReader();
+                    string code = "";
+                    while (reader.Read())
+                    {
+                        if(cb_fStatus.Text == reader[1].ToString())
+                        {
+                            code = reader[0].ToString();
+                            break;
+                        }
+                    }
+                    reader.Close();
+
+                    new MySqlCommand($"update factory_orders set statusoforder = {code} where id = {tb_changeFstatus_code.Text}", connect).ExecuteNonQuery();
+                    MessageBox.Show("Статус оновлено успішно!");
+                    tb_changeFstatus_code.Text = "";
+                    cb_fStatus.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Пусті поля не допускаються!");
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

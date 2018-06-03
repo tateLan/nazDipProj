@@ -406,6 +406,24 @@ namespace diplomaProj
                         reader.Close();
                     }
                     break;
+                case "factory_status":
+                    {
+                        dgw_info.Columns.Add("id", "код");
+                        dgw_info.Columns.Add("name", "назва заводу");
+                        dgw_info.Columns.Add("idOfit", "код замовлення");
+                        dgw_info.Columns.Add("type", "тип замовлення");
+                        dgw_info.Columns.Add("status", "статус");
+
+                        reader = new MySqlCommand("call getfactoryorders", connect).ExecuteReader();
+
+                        while(reader.Read())
+                        {
+                            dgw_info.Rows.Add(reader[0], reader[1], reader[2], reader[3], reader[4]);
+                        }
+
+                        reader.Close();
+                    }
+                    break;
             }
         }
 
@@ -983,6 +1001,12 @@ namespace diplomaProj
                     case "factories":
                         {
                             form1.tb_send2fac_codeoffactory.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            this.Close();
+                        }
+                        break;
+                    case "factory_status":
+                        {
+                            form1.tb_changeFstatus_code.Text = dgw_info.Rows[e.RowIndex].Cells[0].Value.ToString();
                             this.Close();
                         }
                         break;

@@ -83,8 +83,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.pnl_showfactoryProces = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.dgw_showfactoryProcess = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
+            this.pnl_changeFstatus = new System.Windows.Forms.Panel();
+            this.cb_fStatus = new System.Windows.Forms.ComboBox();
+            this.btn_changeFstatus = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tb_changeFstatus_code = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
             this.pnl_registerNew.SuspendLayout();
@@ -96,6 +103,7 @@
             this.pnl_send2factory.SuspendLayout();
             this.pnl_showfactoryProces.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgw_showfactoryProcess)).BeginInit();
+            this.pnl_changeFstatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_auth
@@ -478,7 +486,7 @@
             this.pnl_root.Controls.Add(this.btn_root_changerootpass);
             this.pnl_root.Location = new System.Drawing.Point(586, 12);
             this.pnl_root.Name = "pnl_root";
-            this.pnl_root.Size = new System.Drawing.Size(48, 27);
+            this.pnl_root.Size = new System.Drawing.Size(44, 27);
             this.pnl_root.TabIndex = 6;
             // 
             // lbl_root4
@@ -664,7 +672,7 @@
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Location = new System.Drawing.Point(3, 13);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(74, 31);
             this.button1.TabIndex = 1;
@@ -676,10 +684,21 @@
             // 
             this.pnl_showfactoryProces.Controls.Add(this.dgw_showfactoryProcess);
             this.pnl_showfactoryProces.Controls.Add(this.button2);
-            this.pnl_showfactoryProces.Location = new System.Drawing.Point(12, 12);
+            this.pnl_showfactoryProces.Location = new System.Drawing.Point(737, 12);
             this.pnl_showfactoryProces.Name = "pnl_showfactoryProces";
-            this.pnl_showfactoryProces.Size = new System.Drawing.Size(880, 527);
+            this.pnl_showfactoryProces.Size = new System.Drawing.Size(114, 27);
             this.pnl_showfactoryProces.TabIndex = 8;
+            // 
+            // dgw_showfactoryProcess
+            // 
+            this.dgw_showfactoryProcess.AllowUserToAddRows = false;
+            this.dgw_showfactoryProcess.AllowUserToDeleteRows = false;
+            this.dgw_showfactoryProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgw_showfactoryProcess.Location = new System.Drawing.Point(14, 50);
+            this.dgw_showfactoryProcess.Name = "dgw_showfactoryProcess";
+            this.dgw_showfactoryProcess.ReadOnly = true;
+            this.dgw_showfactoryProcess.Size = new System.Drawing.Size(852, 474);
+            this.dgw_showfactoryProcess.TabIndex = 3;
             // 
             // button2
             // 
@@ -693,16 +712,81 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.btn_back_Click);
             // 
-            // dgw_showfactoryProcess
+            // pnl_changeFstatus
             // 
-            this.dgw_showfactoryProcess.AllowUserToAddRows = false;
-            this.dgw_showfactoryProcess.AllowUserToDeleteRows = false;
-            this.dgw_showfactoryProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgw_showfactoryProcess.Location = new System.Drawing.Point(14, 50);
-            this.dgw_showfactoryProcess.Name = "dgw_showfactoryProcess";
-            this.dgw_showfactoryProcess.ReadOnly = true;
-            this.dgw_showfactoryProcess.Size = new System.Drawing.Size(852, 474);
-            this.dgw_showfactoryProcess.TabIndex = 3;
+            this.pnl_changeFstatus.Controls.Add(this.cb_fStatus);
+            this.pnl_changeFstatus.Controls.Add(this.btn_changeFstatus);
+            this.pnl_changeFstatus.Controls.Add(this.label9);
+            this.pnl_changeFstatus.Controls.Add(this.tb_changeFstatus_code);
+            this.pnl_changeFstatus.Controls.Add(this.label8);
+            this.pnl_changeFstatus.Controls.Add(this.button3);
+            this.pnl_changeFstatus.Location = new System.Drawing.Point(12, 12);
+            this.pnl_changeFstatus.Name = "pnl_changeFstatus";
+            this.pnl_changeFstatus.Size = new System.Drawing.Size(880, 527);
+            this.pnl_changeFstatus.TabIndex = 9;
+            // 
+            // cb_fStatus
+            // 
+            this.cb_fStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_fStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cb_fStatus.FormattingEnabled = true;
+            this.cb_fStatus.Location = new System.Drawing.Point(392, 201);
+            this.cb_fStatus.Name = "cb_fStatus";
+            this.cb_fStatus.Size = new System.Drawing.Size(210, 28);
+            this.cb_fStatus.TabIndex = 7;
+            // 
+            // btn_changeFstatus
+            // 
+            this.btn_changeFstatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_changeFstatus.Location = new System.Drawing.Point(401, 257);
+            this.btn_changeFstatus.Name = "btn_changeFstatus";
+            this.btn_changeFstatus.Size = new System.Drawing.Size(106, 35);
+            this.btn_changeFstatus.TabIndex = 6;
+            this.btn_changeFstatus.Text = "Змінити";
+            this.btn_changeFstatus.UseVisualStyleBackColor = true;
+            this.btn_changeFstatus.Click += new System.EventHandler(this.btn_changeFstatus_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(323, 205);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 20);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Статус";
+            // 
+            // tb_changeFstatus_code
+            // 
+            this.tb_changeFstatus_code.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_changeFstatus_code.Location = new System.Drawing.Point(391, 164);
+            this.tb_changeFstatus_code.Name = "tb_changeFstatus_code";
+            this.tb_changeFstatus_code.ReadOnly = true;
+            this.tb_changeFstatus_code.Size = new System.Drawing.Size(210, 26);
+            this.tb_changeFstatus_code.TabIndex = 5;
+            this.tb_changeFstatus_code.Click += new System.EventHandler(this.tb_changeFstatus_code_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(322, 167);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(39, 20);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Код";
+            // 
+            // button3
+            // 
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button3.Location = new System.Drawing.Point(13, 13);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(74, 31);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Назад";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.btn_back_Click);
             // 
             // Form1
             // 
@@ -710,6 +794,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
+            this.Controls.Add(this.pnl_changeFstatus);
             this.Controls.Add(this.pnl_showfactoryProces);
             this.Controls.Add(this.pnl_send2factory);
             this.Controls.Add(this.pnl_mainMenu);
@@ -740,6 +825,8 @@
             this.pnl_send2factory.PerformLayout();
             this.pnl_showfactoryProces.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgw_showfactoryProcess)).EndInit();
+            this.pnl_changeFstatus.ResumeLayout(false);
+            this.pnl_changeFstatus.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -801,6 +888,13 @@
         private System.Windows.Forms.Panel pnl_showfactoryProces;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dgw_showfactoryProcess;
+        private System.Windows.Forms.Panel pnl_changeFstatus;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox cb_fStatus;
+        private System.Windows.Forms.Button btn_changeFstatus;
+        private System.Windows.Forms.Label label9;
+        public System.Windows.Forms.TextBox tb_changeFstatus_code;
+        private System.Windows.Forms.Label label8;
     }
 }
 
