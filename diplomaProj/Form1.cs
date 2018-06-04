@@ -16,7 +16,7 @@ namespace diplomaProj
         //etalon-manager 12345Password
 
         private MySqlConnection connect;
-        private string server = "176.98.27.33";
+        private string server = "localhost";
         private Dictionary<string, string> dict = new Dictionary<string, string>();
         private int managerID;
 
@@ -109,6 +109,7 @@ namespace diplomaProj
             pnl_send2factory.Dock = DockStyle.Fill;
             pnl_showfactoryProces.Dock = DockStyle.Fill;
             pnl_changeFstatus.Dock = DockStyle.Fill;
+            pnl_add_factory.Dock = DockStyle.Fill;
         }
 
         private void HideAllPnls()
@@ -123,6 +124,7 @@ namespace diplomaProj
             pnl_send2factory.Hide();
             pnl_showfactoryProces.Hide();
             pnl_changeFstatus.Hide();
+            pnl_add_factory.Hide();
         }
 
         private void InitManagersCB()
@@ -295,6 +297,10 @@ namespace diplomaProj
             dgw_showfactoryProcess.Columns.Clear();
 
             cb_fStatus.Items.Clear();
+
+            tb_addFph.Text = "";
+            tb_addFaddr.Text = "";
+            tb_addFname.Text = "";
         }
 
         private void UnbindHandlersCHADD()
@@ -2869,6 +2875,8 @@ namespace diplomaProj
 
         private void addFactory(object sender, EventArgs e)
         {
+            pnl_mainMenu.Hide();
+            pnl_add_factory.Show();
         }
 
         private void changeFactoryStatus(object sender, EventArgs e)
@@ -2989,6 +2997,32 @@ namespace diplomaProj
                 }
             }
             catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btn_addFactory_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tb_addFaddr.Text != "" && tb_addFname.Text != "" && tb_addFph.Text != "")
+                {
+                    new MySqlCommand("insert into factories (nameOfFactory, adress, phoneNumber) " +
+                        $"values('{tb_addFname.Text}', '{tb_addFaddr.Text}', '{tb_addFph.Text}')", connect).ExecuteNonQuery();
+
+                    MessageBox.Show("Дані внесено успішно!");
+
+                    tb_addFph.Text = "";
+                    tb_addFaddr.Text = "";
+                    tb_addFname.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Пусті поля не допускаються!");
+                }
+            }
+            catch(MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }

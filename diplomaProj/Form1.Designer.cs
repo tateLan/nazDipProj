@@ -92,6 +92,15 @@
             this.tb_changeFstatus_code = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.pnl_add_factory = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tb_addFname = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tb_addFaddr = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tb_addFph = new System.Windows.Forms.TextBox();
+            this.btn_addFactory = new System.Windows.Forms.Button();
             this.pnl_auth.SuspendLayout();
             this.pnl_mainMenu.SuspendLayout();
             this.pnl_registerNew.SuspendLayout();
@@ -104,6 +113,7 @@
             this.pnl_showfactoryProces.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgw_showfactoryProcess)).BeginInit();
             this.pnl_changeFstatus.SuspendLayout();
+            this.pnl_add_factory.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_auth
@@ -720,9 +730,9 @@
             this.pnl_changeFstatus.Controls.Add(this.tb_changeFstatus_code);
             this.pnl_changeFstatus.Controls.Add(this.label8);
             this.pnl_changeFstatus.Controls.Add(this.button3);
-            this.pnl_changeFstatus.Location = new System.Drawing.Point(12, 12);
+            this.pnl_changeFstatus.Location = new System.Drawing.Point(12, 60);
             this.pnl_changeFstatus.Name = "pnl_changeFstatus";
-            this.pnl_changeFstatus.Size = new System.Drawing.Size(880, 527);
+            this.pnl_changeFstatus.Size = new System.Drawing.Size(43, 24);
             this.pnl_changeFstatus.TabIndex = 9;
             // 
             // cb_fStatus
@@ -788,12 +798,105 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.btn_back_Click);
             // 
+            // pnl_add_factory
+            // 
+            this.pnl_add_factory.Controls.Add(this.btn_addFactory);
+            this.pnl_add_factory.Controls.Add(this.tb_addFph);
+            this.pnl_add_factory.Controls.Add(this.label12);
+            this.pnl_add_factory.Controls.Add(this.tb_addFaddr);
+            this.pnl_add_factory.Controls.Add(this.label11);
+            this.pnl_add_factory.Controls.Add(this.tb_addFname);
+            this.pnl_add_factory.Controls.Add(this.label10);
+            this.pnl_add_factory.Controls.Add(this.button4);
+            this.pnl_add_factory.Location = new System.Drawing.Point(12, 12);
+            this.pnl_add_factory.Name = "pnl_add_factory";
+            this.pnl_add_factory.Size = new System.Drawing.Size(880, 527);
+            this.pnl_add_factory.TabIndex = 10;
+            // 
+            // button4
+            // 
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Location = new System.Drawing.Point(13, 11);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(74, 31);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Назад";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.btn_back_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(310, 129);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(56, 20);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "Назва";
+            // 
+            // tb_addFname
+            // 
+            this.tb_addFname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_addFname.Location = new System.Drawing.Point(401, 129);
+            this.tb_addFname.Name = "tb_addFname";
+            this.tb_addFname.Size = new System.Drawing.Size(153, 26);
+            this.tb_addFname.TabIndex = 6;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(310, 170);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 20);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Адреса";
+            // 
+            // tb_addFaddr
+            // 
+            this.tb_addFaddr.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_addFaddr.Location = new System.Drawing.Point(401, 170);
+            this.tb_addFaddr.Name = "tb_addFaddr";
+            this.tb_addFaddr.Size = new System.Drawing.Size(153, 26);
+            this.tb_addFaddr.TabIndex = 6;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(310, 213);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(79, 20);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Телефон";
+            // 
+            // tb_addFph
+            // 
+            this.tb_addFph.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tb_addFph.Location = new System.Drawing.Point(401, 213);
+            this.tb_addFph.Name = "tb_addFph";
+            this.tb_addFph.Size = new System.Drawing.Size(153, 26);
+            this.tb_addFph.TabIndex = 6;
+            // 
+            // btn_addFactory
+            // 
+            this.btn_addFactory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_addFactory.Location = new System.Drawing.Point(358, 268);
+            this.btn_addFactory.Name = "btn_addFactory";
+            this.btn_addFactory.Size = new System.Drawing.Size(128, 31);
+            this.btn_addFactory.TabIndex = 7;
+            this.btn_addFactory.Text = "Додати";
+            this.btn_addFactory.UseVisualStyleBackColor = true;
+            this.btn_addFactory.Click += new System.EventHandler(this.btn_addFactory_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_auth_enter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 551);
+            this.Controls.Add(this.pnl_add_factory);
             this.Controls.Add(this.pnl_changeFstatus);
             this.Controls.Add(this.pnl_showfactoryProces);
             this.Controls.Add(this.pnl_send2factory);
@@ -827,6 +930,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgw_showfactoryProcess)).EndInit();
             this.pnl_changeFstatus.ResumeLayout(false);
             this.pnl_changeFstatus.PerformLayout();
+            this.pnl_add_factory.ResumeLayout(false);
+            this.pnl_add_factory.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -895,6 +1000,15 @@
         private System.Windows.Forms.Label label9;
         public System.Windows.Forms.TextBox tb_changeFstatus_code;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel pnl_add_factory;
+        private System.Windows.Forms.Button btn_addFactory;
+        private System.Windows.Forms.TextBox tb_addFph;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tb_addFaddr;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tb_addFname;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button4;
     }
 }
 
